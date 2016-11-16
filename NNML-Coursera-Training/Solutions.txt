@@ -1,0 +1,8 @@
+
+
+
+https://github.com/BradNeuberg/hinton-coursera/blob/master/assignment2/fprop.m
+https://github.com/torch/tutorials/blob/master/coursera_neural_nets/assignment2/solution/train.lua
+
+
+https://github.com/Borye/machine-learning-coursera-1
