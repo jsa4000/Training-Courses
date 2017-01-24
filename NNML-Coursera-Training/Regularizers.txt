@@ -1,0 +1,83 @@
+
+****************************
+GENERAL INFORMATION
+****************************
+
+L2 regularization penalizes high weight values.
+L1 regularization penalizes weight values that do not equal zero.
+
+L1 regularization would usually force many of the weights to be exactly zero. Strong L2 regularization could 
+force a lot of weights to be close to zero, but it would then be extremely costly to have any very big weights. 
+
+
+When training neural networks, it is common to use "weight decay," where after each update, 
+the weights are multiplied by a factor slightly less than 1. This prevents the weights from 
+growing too large, and can be seen as gradient descent on a quadratic regularization term. 
+
+****************************
+ADDITIONAL INFORMATION
+****************************
+
+	One of the tunable parameters of an RBM (neural network as well) is a weight decay penalty. This regularisation penalises 
+	large weight coefficients to avoid over-fitting (used conjunction with a validation set). Two commonly used penalties are L1 and L2, expressed as follows:
+
+	weight\;decay\;L1 = \displaystyle\sum\limits_{i}\left|\theta_i\right|
+
+	weight\;decay\;L2 = \displaystyle\sum\limits_{i}\theta_i^2
+
+	where theta is the coefficents of the weight matrix.
+
+	L1 penalises the absolute value and L2 the squared value. L1 will generally push a lot of the weights to be exactly 
+	zero while allowing some to grow large. L2 on the other hand tends to drive all the weights to smaller values.
+
+
+******************************************************************************
+DEEP LEARNING NET (http://deeplearning.net/tutorial/gettingstarted.html)
+*******************************************************************************
+
+	L1 and L2 regularization
+
+			L1 and L2 regularization involve adding an extra term to the loss function, which penalizes certain parameter configurations. 
+			Formally, if our loss function is:
+
+			which is the L_p norm of \theta. \lambda is a hyper-parameter which controls the relative importance of the regularization parameter. 
+			Commonly used values for p are 1 and 2, hence the L1/L2 nomenclature. If p=2, then the regularizer is also called “weight decay”.
+
+			In principle, adding a regularization term to the loss will encourage smooth network mappings in a neural network (by penalizing 
+			large values of the parameters, which decreases the amount of nonlinearity that the network models). More intuitively, the two terms 
+			(NLL and R(\theta)) correspond to modelling the data well (NLL) and having “simple” or “smooth” solutions (R(\theta)). Thus, minimizing
+			the sum of both will, in theory, correspond to finding the right trade-off between the fit to the training data and the “generality” of 
+			the solution that is found. To follow Occam’s razor principle, this minimization should find us the simplest solution (as measured by our
+			simplicity criterion) that fits the training data.
+
+			Note that the fact that a solution is “simple” does not mean that it will generalize well. Empirically, it was found that performing 
+			such regularization in the context of neural networks helps with generalization, especially on small datasets. The code block below shows 
+			how to compute the loss in python when it contains both a L1 regularization term weighted by \lambda_1 and L2 regularization term weighted by \lambda_2
+
+			# symbolic Theano variable that represents the L1 regularization term
+			L1  = T.sum(abs(param))
+
+			# symbolic Theano variable that represents the squared L2 term
+			L2 = T.sum(param ** 2)
+
+			# the loss
+			loss = NLL + lambda_1 * L1 + lambda_2 * L2
+
+			
+	Early-Stopping
+
+		Early-stopping combats overfitting by monitoring the model’s performance on a validation set. A validation set is a set of examples that we never 
+		use for gradient descent, but which is also not a part of the test set. The validation examples are considered to be representative of future test 
+		examples. We can use them during training because they are not part of the test set. If the model’s performance ceases to improve sufficiently on 
+		the validation set, or even degrades with further optimization, then the heuristic implemented here gives up on much further optimization.		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
