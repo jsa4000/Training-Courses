@@ -1,0 +1,158 @@
+
+
+2.
+
+>> a4_main(300, 0, 0, 0)
+For the training data, the classification cross-entropy loss is 2.357111, and the classification error rate (i.e. the misclassification rate) is 0.878000
+For the validation data, the classification cross-entropy loss is 2.360736, and the classification error rate (i.e. the misclassification rate) is 0.877000
+For the test data, the classification cross-entropy loss is 2.358583, and the classification error rate (i.e. the misclassification rate) is 0.879889
+>>
+
+3.
+
+>> describe_matrix(visible_state_to_hidden_probabilities(test_rbm_w, data_37_cases))
+Describing a matrix of size 100 by 37. The mean of the elements is 0.466207. The sum of the elements is 1724.967611
+
+4.
+
+>> describe_matrix(hidden_state_to_visible_probabilities(test_rbm_w, test_hidden_state_37_cases))
+Describing a matrix of size 256 by 37. The mean of the elements is 0.463595. The sum of the elements is 4391.169583
+
+5.
+
+>> configuration_goodness(test_rbm_w, data_37_cases, test_hidden_state_37_cases)
+ans = -18.391
+
+6.
+
+describe_matrix(configuration_goodness_gradient(data_37_cases, test_hidden_state_37_cases))
+Describing a matrix of size 100 by 256. The mean of the elements is 0.123680. The sum of the elements is 3166.216216
+
+7.
+
+>> describe_matrix(cd1(test_rbm_w, data_37_cases))
+sample_bernoulli() was called with a matrix of size 256 by 37. sample_bernoulli() was called with a matrix of size 100 by 37. sample_bernoulli() was called with
+ a matrix of size 256 by 37. sample_bernoulli() was called with a matrix of size 100 by 37. Describing a matrix of size 100 by 256. The mean of the elements is
+-0.182409. The sum of the elements is -4669.675676
+
+8.
+
+>> describe_matrix(cd1(test_rbm_w, data_37_cases))
+sample_bernoulli() was called with a matrix of size 256 by 37. sample_bernoulli() was called with a matrix of size 100 by 37. sample_bernoulli() was called with
+ a matrix of size 256 by 37. Describing a matrix of size 100 by 256. The mean of the elements is -0.184222. The sum of the elements is -4716.094972
+>>
+
+9.
+
+0.005
+
+	>>  a4_main(300, .02, .005, 1000)
+	For the training data, the classification cross-entropy loss is 0.258886, and the classification error rate (i.e. the misclassification rate) is 0.049000
+	For the validation data, the classification cross-entropy loss is 0.322890, and the classification error rate (i.e. the misclassification rate) is 0.076000
+	For the test data, the classification cross-entropy loss is 0.339875, and the classification error rate (i.e. the misclassification rate) is 0.086778
+	>
+		
+0.002
+
+	 a4_main(300, .02, .002, 1000)
+	For the training data, the classification cross-entropy loss is 0.425764, and the classification error rate (i.e. the misclassification rate) is 0.085000
+	For the validation data, the classification cross-entropy loss is 0.476079, and the classification error rate (i.e. the misclassification rate) is 0.097000
+	For the test data, the classification cross-entropy loss is 0.481750, and the classification error rate (i.e. the misclassification rate) is 0.109222
+
+0.01
+
+	 a4_main(300, .02, .01, 1000)
+	For the training data, the classification cross-entropy loss is 0.174498, and the classification error rate (i.e. the misclassification rate) is 0.026000
+	For the validation data, the classification cross-entropy loss is 0.259159, and the classification error rate (i.e. the misclassification rate) is 0.071000
+	For the test data, the classification cross-entropy loss is 0.280291, and the classification error rate (i.e. the misclassification rate) is 0.077667
+
+0.05
+ 
+	 a4_main(300, .02, .05, 1000)
+	For the training data, the classification cross-entropy loss is 0.050874, and the classification error rate (i.e. the misclassification rate) is 0.001000
+	For the validation data, the classification cross-entropy loss is 0.202482, and the classification error rate (i.e. the misclassification rate) is 0.060000
+	For the test data, the classification cross-entropy loss is 0.226878, and the classification error rate (i.e. the misclassification rate) is 0.067333
+
+0.07
+
+	>> a4_main(300, .02, .07, 1000)
+	For the training data, the classification cross-entropy loss is 0.036845, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.199447, and the classification error rate (i.e. the misclassification rate) is 0.059000
+	For the test data, the classification cross-entropy loss is 0.225157, and the classification error rate (i.e. the misclassification rate) is 0.066333	
+	
+0.08	
+
+	>> a4_main(300, .02, .08, 1000)
+	For the training data, the classification cross-entropy loss is 0.032329, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.198855, and the classification error rate (i.e. the misclassification rate) is 0.059000
+	For the test data, the classification cross-entropy loss is 0.225151, and the classification error rate (i.e. the misclassification rate) is 0.065556
+	>>
+	
+0.09	
+	
+	 a4_main(300, .02, .09, 1000)
+	For the training data, the classification cross-entropy loss is 0.028780, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.198624, and the classification error rate (i.e. the misclassification rate) is 0.058000
+	For the test data, the classification cross-entropy loss is 0.225450, and the classification error rate (i.e. the misclassification rate) is 0.065889
+	>>
+	
+0.095	
+
+	>> a4_main(300, .02, .095, 1000)
+	For the training data, the classification cross-entropy loss is 0.027277, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.198608, and the classification error rate (i.e. the misclassification rate) is 0.058000
+	For the test data, the classification cross-entropy loss is 0.225679, and the classification error rate (i.e. the misclassification rate) is 0.065778
+		
+0.1
+
+	 a4_main(300, .02, .1, 1000)
+	For the training data, the classification cross-entropy loss is 0.025921, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.198644, and the classification error rate (i.e. the misclassification rate) is 0.059000
+	For the test data, the classification cross-entropy loss is 0.225950, and the classification error rate (i.e. the misclassification rate) is 0.065889	
+
+0.11	
+	
+	>> a4_main(300, .02, .11, 1000)
+	For the training data, the classification cross-entropy loss is 0.023569, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.198844, and the classification error rate (i.e. the misclassification rate) is 0.058000
+	For the test data, the classification cross-entropy loss is 0.226587, and the classification error rate (i.e. the misclassification rate) is 0.065889
+	>>	
+	
+0.15	
+	
+	a4_main(300, .02, .15, 1000)
+	For the training data, the classification cross-entropy loss is 0.017251, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.200639, and the classification error rate (i.e. the misclassification rate) is 0.056000
+	For the test data, the classification cross-entropy loss is 0.229825, and the classification error rate (i.e. the misclassification rate) is 0.065333
+	
+	
+0.2
+
+	 a4_main(300, .02, .2, 1000)
+	For the training data, the classification cross-entropy loss is 0.012878, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.203790, and the classification error rate (i.e. the misclassification rate) is 0.057000
+	For the test data, the classification cross-entropy loss is 0.234371, and the classification error rate (i.e. the misclassification rate) is 0.064778
+
+	
+		
+1.0
+
+	 a4_main(300, .02, 1, 1000)
+	For the training data, the classification cross-entropy loss is 0.001858, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 0.272533, and the classification error rate (i.e. the misclassification rate) is 0.060000
+	For the test data, the classification cross-entropy loss is 0.312369, and the classification error rate (i.e. the misclassification rate) is 0.067889
+
+5.0
+
+	a4_main(300, .02, 5, 1000)
+	For the training data, the classification cross-entropy loss is 0.000003, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 1.693492, and the classification error rate (i.e. the misclassification rate) is 0.069000
+	For the test data, the classification cross-entropy loss is 1.971055, and the classification error rate (i.e. the misclassification rate) is 0.083222
+
+
+20.0
+		
+	a4_main(300, .02, 20, 1000)
+	For the training data, the classification cross-entropy loss is 0.000000, and the classification error rate (i.e. the misclassification rate) is 0.000000
+	For the validation data, the classification cross-entropy loss is 7.106367, and the classification error rate (i.e. the misclassification rate) is 0.069000
+	For the test data, the classification cross-entropy loss is 8.039108, and the classification error rate (i.e. the misclassification rate) is 0.080778
