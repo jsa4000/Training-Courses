@@ -1,0 +1,1732 @@
+02
+
+
+	>> a3(0, 0, 0, 0, 0, false, 0)
+
+	The loss on the training data is 2.302585
+	The classification error rate on the training data is 0.900000
+
+	The loss on the validation data is 2.302585
+	The classification error rate on the validation data is 0.900000
+
+	The loss on the test data is 2.302585
+	The classification error rate on the test data is 0.900000
+	>>
+
+
+
+03
+
+	0.005
+
+		>> a3(0, 10, 70, 0.005, 0, false, 4)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 7 optimization iterations, training data loss is 2.304711, and validation data lo
+		ss is 2.304747
+		After 14 optimization iterations, training data loss is 2.304497, and validation data l
+		oss is 2.304543
+		After 21 optimization iterations, training data loss is 2.304332, and validation data l
+		oss is 2.304389
+		After 28 optimization iterations, training data loss is 2.304205, and validation data l
+		oss is 2.304269
+		After 35 optimization iterations, training data loss is 2.304097, and validation data l
+		oss is 2.304161
+		After 42 optimization iterations, training data loss is 2.303935, and validation data l
+		oss is 2.304006
+		After 49 optimization iterations, training data loss is 2.303771, and validation data l
+		oss is 2.303854
+		After 56 optimization iterations, training data loss is 2.303646, and validation data l
+		oss is 2.303732
+		After 63 optimization iterations, training data loss is 2.303537, and validation data l
+		oss is 2.303634
+		After 70 optimization iterations, training data loss is 2.303441, and validation data l
+		oss is 2.303539
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 2.303441
+		The classification error rate on the training data is 0.898000
+
+		The loss on the validation data is 2.303539
+		The classification error rate on the validation data is 0.899000
+
+		The loss on the test data is 2.303527
+		The classification error rate on the test data is 0.898889
+		>>
+
+
+		>> a3(0, 10, 70, 0.005, 0.9, false, 4)
+
+		a3(0, 10, 70, 0.005, 0.9, false, 4)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 7 optimization iterations, training data loss is 2.304308, and validation data lo
+		ss is 2.304366
+		After 14 optimization iterations, training data loss is 2.303195, and validation data l
+		oss is 2.303316
+		After 21 optimization iterations, training data loss is 2.301818, and validation data l
+		oss is 2.302028
+		After 28 optimization iterations, training data loss is 2.300584, and validation data l
+		oss is 2.300871
+		After 35 optimization iterations, training data loss is 2.299400, and validation data l
+		oss is 2.299738
+		After 42 optimization iterations, training data loss is 2.298221, and validation data l
+		oss is 2.298622
+		After 49 optimization iterations, training data loss is 2.297034, and validation data l
+		oss is 2.297512
+		After 56 optimization iterations, training data loss is 2.296048, and validation data l
+		oss is 2.296585
+		After 63 optimization iterations, training data loss is 2.295098, and validation data l
+		oss is 2.295706
+		After 70 optimization iterations, training data loss is 2.294189, and validation data l
+		oss is 2.294865
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 2.294189
+		The classification error rate on the training data is 0.894000
+
+		The loss on the validation data is 2.294865
+		The classification error rate on the validation data is 0.895000
+
+		The loss on the test data is 2.294479
+		The classification error rate on the test data is 0.889889
+
+
+	 0.002	
+	 
+		a3(0, 10, 70, 0.002, 0, false, 4)
+		
+					a3(0, 10, 70, 0.002, 0, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.304804, and validation data lo
+			ss is 2.304835
+			After 14 optimization iterations, training data loss is 2.304718, and validation data l
+			oss is 2.304752
+			After 21 optimization iterations, training data loss is 2.304651, and validation data l
+			oss is 2.304690
+			After 28 optimization iterations, training data loss is 2.304599, and validation data l
+			oss is 2.304641
+			After 35 optimization iterations, training data loss is 2.304555, and validation data l
+			oss is 2.304597
+			After 42 optimization iterations, training data loss is 2.304488, and validation data l
+			oss is 2.304533
+			After 49 optimization iterations, training data loss is 2.304421, and validation data l
+			oss is 2.304470
+			After 56 optimization iterations, training data loss is 2.304368, and validation data l
+			oss is 2.304419
+			After 63 optimization iterations, training data loss is 2.304323, and validation data l
+			oss is 2.304378
+			After 70 optimization iterations, training data loss is 2.304283, and validation data l
+			oss is 2.304338
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.304283
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 2.304338
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 2.304352
+			The classification error rate on the test data is 0.900000
+		
+		a3(0, 10, 70, 0.002, 0.9, false, 4)
+	 
+				 a3(0, 10, 70, 0.002, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.304639, and validation data lo
+			ss is 2.304678
+			After 14 optimization iterations, training data loss is 2.304176, and validation data l
+			oss is 2.304240
+			After 21 optimization iterations, training data loss is 2.303593, and validation data l
+			oss is 2.303693
+			After 28 optimization iterations, training data loss is 2.303051, and validation data l
+			oss is 2.303182
+			After 35 optimization iterations, training data loss is 2.302521, and validation data l
+			oss is 2.302673
+			After 42 optimization iterations, training data loss is 2.301984, and validation data l
+			oss is 2.302161
+			After 49 optimization iterations, training data loss is 2.301439, and validation data l
+			oss is 2.301647
+			After 56 optimization iterations, training data loss is 2.300982, and validation data l
+			oss is 2.301213
+			After 63 optimization iterations, training data loss is 2.300544, and validation data l
+			oss is 2.300804
+			After 70 optimization iterations, training data loss is 2.300135, and validation data l
+			oss is 2.300422
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.300135
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 2.300422
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 2.300287
+			The classification error rate on the test data is 0.900000
+	 
+		
+
+	0.01
+	
+		a3(0, 10, 70, 0.002, 0, false, 4)
+		
+					a3(0, 10, 70, 0.002, 0, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.304804, and validation data lo
+			ss is 2.304835
+			After 14 optimization iterations, training data loss is 2.304718, and validation data l
+			oss is 2.304752
+			After 21 optimization iterations, training data loss is 2.304651, and validation data l
+			oss is 2.304690
+			After 28 optimization iterations, training data loss is 2.304599, and validation data l
+			oss is 2.304641
+			After 35 optimization iterations, training data loss is 2.304555, and validation data l
+			oss is 2.304597
+			After 42 optimization iterations, training data loss is 2.304488, and validation data l
+			oss is 2.304533
+			After 49 optimization iterations, training data loss is 2.304421, and validation data l
+			oss is 2.304470
+			After 56 optimization iterations, training data loss is 2.304368, and validation data l
+			oss is 2.304419
+			After 63 optimization iterations, training data loss is 2.304323, and validation data l
+			oss is 2.304378
+			After 70 optimization iterations, training data loss is 2.304283, and validation data l
+			oss is 2.304338
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.304283
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 2.304338
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 2.304352
+			The classification error rate on the test data is 0.900000
+		
+		a3(0, 10, 70, 0.002, 0.9, false, 4)
+		
+					a3(0, 10, 70, 0.002, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.304639, and validation data lo
+			ss is 2.304678
+			After 14 optimization iterations, training data loss is 2.304176, and validation data l
+			oss is 2.304240
+			After 21 optimization iterations, training data loss is 2.303593, and validation data l
+			oss is 2.303693
+			After 28 optimization iterations, training data loss is 2.303051, and validation data l
+			oss is 2.303182
+			After 35 optimization iterations, training data loss is 2.302521, and validation data l
+			oss is 2.302673
+			After 42 optimization iterations, training data loss is 2.301984, and validation data l
+			oss is 2.302161
+			After 49 optimization iterations, training data loss is 2.301439, and validation data l
+			oss is 2.301647
+			After 56 optimization iterations, training data loss is 2.300982, and validation data l
+			oss is 2.301213
+			After 63 optimization iterations, training data loss is 2.300544, and validation data l
+			oss is 2.300804
+			After 70 optimization iterations, training data loss is 2.300135, and validation data l
+			oss is 2.300422
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.300135
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 2.300422
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 2.300287
+			The classification error rate on the test data is 0.900000
+		
+	
+	0.05, 
+	
+		a3(0, 10, 70, 0.05, 0, false, 4)
+		
+					Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.303434, and validation data lo
+			ss is 2.303552
+			After 14 optimization iterations, training data loss is 2.301513, and validation data l
+			oss is 2.301734
+			After 21 optimization iterations, training data loss is 2.300134, and validation data l
+			oss is 2.300460
+			After 28 optimization iterations, training data loss is 2.299066, and validation data l
+			oss is 2.299465
+			After 35 optimization iterations, training data loss is 2.298130, and validation data l
+			oss is 2.298527
+			After 42 optimization iterations, training data loss is 2.296891, and validation data l
+			oss is 2.297366
+			After 49 optimization iterations, training data loss is 2.295657, and validation data l
+			oss is 2.296239
+			After 56 optimization iterations, training data loss is 2.294753, and validation data l
+			oss is 2.295373
+			After 63 optimization iterations, training data loss is 2.293834, and validation data l
+			oss is 2.294565
+			After 70 optimization iterations, training data loss is 2.292967, and validation data l
+			oss is 2.293696
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.292967
+			The classification error rate on the training data is 0.868000
+
+			The loss on the validation data is 2.293696
+			The classification error rate on the validation data is 0.871000
+
+			The loss on the test data is 2.293294
+			The classification error rate on the test data is 0.872111
+		
+		a3(0, 10, 70, 0.05, 0.9, false, 4)
+		
+			a3(0, 10, 70, 0.05, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.300799, and validation data lo
+			ss is 2.301142
+			After 14 optimization iterations, training data loss is 2.292746, and validation data l
+			oss is 2.293723
+			After 21 optimization iterations, training data loss is 2.281059, and validation data l
+			oss is 2.282969
+			After 28 optimization iterations, training data loss is 2.267741, and validation data l
+			oss is 2.270569
+			After 35 optimization iterations, training data loss is 2.249138, and validation data l
+			oss is 2.252688
+			After 42 optimization iterations, training data loss is 2.221463, and validation data l
+			oss is 2.226078
+			After 49 optimization iterations, training data loss is 2.180550, and validation data l
+			oss is 2.186615
+			After 56 optimization iterations, training data loss is 2.131853, and validation data l
+			oss is 2.139011
+			After 63 optimization iterations, training data loss is 2.073963, and validation data l
+			oss is 2.082784
+			After 70 optimization iterations, training data loss is 2.008606, and validation data l
+			oss is 2.018598
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.008606
+			The classification error rate on the training data is 0.731000
+
+			The loss on the validation data is 2.018598
+			The classification error rate on the validation data is 0.749000
+
+			The loss on the test data is 2.008179
+			The classification error rate on the test data is 0.724778
+					
+	
+	0.2, 
+	
+		a3(0, 10, 70, 0.2, 0, false, 4)
+		
+					a3(0, 10, 70, 0.2, 0, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.300302, and validation data lo
+			ss is 2.300705
+			After 14 optimization iterations, training data loss is 2.293937, and validation data l
+			oss is 2.294740
+			After 21 optimization iterations, training data loss is 2.289019, and validation data l
+			oss is 2.290277
+			After 28 optimization iterations, training data loss is 2.283881, and validation data l
+			oss is 2.285473
+			After 35 optimization iterations, training data loss is 2.278753, and validation data l
+			oss is 2.280293
+			After 42 optimization iterations, training data loss is 2.271181, and validation data l
+			oss is 2.273147
+			After 49 optimization iterations, training data loss is 2.261879, and validation data l
+			oss is 2.264412
+			After 56 optimization iterations, training data loss is 2.252678, and validation data l
+			oss is 2.255532
+			After 63 optimization iterations, training data loss is 2.240684, and validation data l
+			oss is 2.244305
+			After 70 optimization iterations, training data loss is 2.228969, and validation data l
+			oss is 2.232504
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.228969
+			The classification error rate on the training data is 0.671000
+
+			The loss on the validation data is 2.232504
+			The classification error rate on the validation data is 0.697000
+
+			The loss on the test data is 2.229988
+			The classification error rate on the test data is 0.679333
+					
+		a3(0, 10, 70, 0.2, 0.9, false, 4)
+		
+					a3(0, 10, 70, 0.2, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.295737, and validation data lo
+			ss is 2.297079
+			After 14 optimization iterations, training data loss is 2.251762, and validation data l
+			oss is 2.255723
+			After 21 optimization iterations, training data loss is 2.145115, and validation data l
+			oss is 2.154931
+			After 28 optimization iterations, training data loss is 1.981143, and validation data l
+			oss is 1.996449
+			After 35 optimization iterations, training data loss is 1.789563, and validation data l
+			oss is 1.804704
+			After 42 optimization iterations, training data loss is 1.590697, and validation data l
+			oss is 1.610837
+			After 49 optimization iterations, training data loss is 1.438732, and validation data l
+			oss is 1.467562
+			After 56 optimization iterations, training data loss is 1.328664, and validation data l
+			oss is 1.353371
+			After 63 optimization iterations, training data loss is 1.176366, and validation data l
+			oss is 1.204815
+			After 70 optimization iterations, training data loss is 1.083429, and validation data l
+			oss is 1.122502
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 1.083429
+			The classification error rate on the training data is 0.310000
+
+			The loss on the validation data is 1.122502
+			The classification error rate on the validation data is 0.358000
+
+			The loss on the test data is 1.097623
+			The classification error rate on the test data is 0.348889
+					
+	1.0, 
+	
+		a3(0, 10, 70, 1.0, 0, false, 4)
+		
+					 a3(0, 10, 70, 1.0, 0, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.286900, and validation data lo
+			ss is 2.288569
+			After 14 optimization iterations, training data loss is 2.264119, and validation data l
+			oss is 2.266822
+			After 21 optimization iterations, training data loss is 2.225649, and validation data l
+			oss is 2.230717
+			After 28 optimization iterations, training data loss is 2.148046, and validation data l
+			oss is 2.155359
+			After 35 optimization iterations, training data loss is 2.056451, and validation data l
+			oss is 2.062597
+			After 42 optimization iterations, training data loss is 1.931122, and validation data l
+			oss is 1.939394
+			After 49 optimization iterations, training data loss is 1.812229, and validation data l
+			oss is 1.822121
+			After 56 optimization iterations, training data loss is 1.765389, and validation data l
+			oss is 1.779205
+			After 63 optimization iterations, training data loss is 1.662347, and validation data l
+			oss is 1.671865
+			After 70 optimization iterations, training data loss is 1.598844, and validation data l
+			oss is 1.608040
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 1.598844
+			The classification error rate on the training data is 0.587000
+
+			The loss on the validation data is 1.608040
+			The classification error rate on the validation data is 0.600000
+
+			The loss on the test data is 1.596059
+			The classification error rate on the test data is 0.584444
+					
+		
+		a3(0, 10, 70, 1.0, 0.9, false, 4)
+		
+					a3(0, 10, 70, 1.0, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.284520, and validation data lo
+			ss is 2.286177
+			After 14 optimization iterations, training data loss is 2.199529, and validation data l
+			oss is 2.209180
+			After 21 optimization iterations, training data loss is 2.133342, and validation data l
+			oss is 2.148875
+			After 28 optimization iterations, training data loss is 2.130313, and validation data l
+			oss is 2.143844
+			After 35 optimization iterations, training data loss is 2.067597, and validation data l
+			oss is 2.084823
+			After 42 optimization iterations, training data loss is 1.884142, and validation data l
+			oss is 1.925690
+			After 49 optimization iterations, training data loss is 2.127405, and validation data l
+			oss is 2.127227
+			After 56 optimization iterations, training data loss is 1.924666, and validation data l
+			oss is 1.953953
+			After 63 optimization iterations, training data loss is 2.090098, and validation data l
+			oss is 2.139465
+			After 70 optimization iterations, training data loss is 2.018723, and validation data l
+			oss is 2.041323
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.018723
+			The classification error rate on the training data is 0.761000
+
+			The loss on the validation data is 2.041323
+			The classification error rate on the validation data is 0.752000
+
+			The loss on the test data is 2.038473
+			The classification error rate on the test data is 0.755333
+		
+	
+	5.0, 
+	
+		a3(0, 10, 70, 5.0, 0, false, 4)
+		
+			
+					3(0, 10, 70, 5.0, 0, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.301886, and validation data lo
+			ss is 2.302168
+			After 14 optimization iterations, training data loss is 2.301787, and validation data l
+			oss is 2.302090
+			After 21 optimization iterations, training data loss is 2.301779, and validation data l
+			oss is 2.302084
+			After 28 optimization iterations, training data loss is 2.301735, and validation data l
+			oss is 2.302054
+			After 35 optimization iterations, training data loss is 2.301717, and validation data l
+			oss is 2.302046
+			After 42 optimization iterations, training data loss is 2.301608, and validation data l
+			oss is 2.301971
+			After 49 optimization iterations, training data loss is 2.301600, and validation data l
+			oss is 2.301954
+			After 56 optimization iterations, training data loss is 2.301310, and validation data l
+			oss is 2.301756
+			After 63 optimization iterations, training data loss is 2.301323, and validation data l
+			oss is 2.301742
+			After 70 optimization iterations, training data loss is 2.301322, and validation data l
+			oss is 2.301741
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.301322
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 2.301741
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 2.302015
+			The classification error rate on the test data is 0.900000
+		
+		a3(0, 10, 70, 5.0, 0.9, false, 4)
+	
+	
+				a3(0, 10, 70, 5.0, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.302585, and validation data lo
+			ss is 2.302585
+			After 14 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 21 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 28 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 35 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 42 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 49 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 56 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 63 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 70 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.302585
+			The classification error rate on the training data is 0.886000
+
+			The loss on the validation data is 2.302585
+			The classification error rate on the validation data is 0.891000
+
+			The loss on the test data is 2.302585
+			The classification error rate on the test data is 0.881000
+				
+	
+	20.0
+		a3(0, 10, 70, 20.0, 0, false, 4)
+	
+						
+					a3(0, 10, 70, 20.0, 0, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.302585, and validation data lo
+			ss is 2.302585
+			After 14 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 21 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 28 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 35 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 42 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 49 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 56 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 63 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 70 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.302585
+			The classification error rate on the training data is 0.904000
+
+			The loss on the validation data is 2.302585
+			The classification error rate on the validation data is 0.914000
+
+			The loss on the test data is 2.302585
+			The classification error rate on the test data is 0.915000
+	
+		a3(0, 10, 70, 20.0, 0.9, false, 4)
+		
+					a3(0, 10, 70, 20.0, 0.9, false, 4)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 7 optimization iterations, training data loss is 2.302585, and validation data lo
+			ss is 2.302585
+			After 14 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 21 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 28 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 35 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 42 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 49 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 56 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 63 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			After 70 optimization iterations, training data loss is 2.302585, and validation data l
+			oss is 2.302585
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.302585
+			The classification error rate on the training data is 0.896000
+
+			The loss on the validation data is 2.302585
+			The classification error rate on the validation data is 0.891000
+
+			The loss on the test data is 2.302585
+			The classification error rate on the test data is 0.890778
+
+
+		*************
+		**   RESUME
+		*************
+
+				0.005
+
+					>> a3(0, 10, 70, 0.005, 0, false, 4)
+					
+					The loss on the training data is 2.303441
+					The classification error rate on the training data is 0.898000
+
+					>> a3(0, 10, 70, 0.005, 0.9, false, 4)
+
+					The loss on the training data is 2.294189
+					The classification error rate on the training data is 0.894000
+
+				 0.002	
+				 
+					a3(0, 10, 70, 0.002, 0, false, 4)
+				
+						The loss on the training data is 2.304283
+						The classification error rate on the training data is 0.900000
+					
+					a3(0, 10, 70, 0.002, 0.9, false, 4)
+
+						The loss on the training data is 2.300135
+						The classification error rate on the training data is 0.900000
+
+				0.01
+				
+					a3(0, 10, 70, 0.002, 0, false, 4)
+
+					The loss on the training data is 2.304283
+						The classification error rate on the training data is 0.900000
+				
+					a3(0, 10, 70, 0.002, 0.9, false, 4)
+
+						The loss on the training data is 2.300135
+						The classification error rate on the training data is 0.900000
+				
+				0.05, 
+				
+					a3(0, 10, 70, 0.05, 0, false, 4)
+				
+						The loss on the training data is 2.292967
+						The classification error rate on the training data is 0.868000
+					
+					a3(0, 10, 70, 0.05, 0.9, false, 4)
+
+						The loss on the training data is 2.008606
+						The classification error rate on the training data is 0.731000
+				
+				0.2, 
+				
+					a3(0, 10, 70, 0.2, 0, false, 4)
+
+						The loss on the training data is 2.228969
+						The classification error rate on the training data is 0.671000
+								
+					a3(0, 10, 70, 0.2, 0.9, false, 4)
+
+						The loss on the training data is 1.083429
+						The classification error rate on the training data is 0.310000
+				
+				1.0, 
+				
+					a3(0, 10, 70, 1.0, 0, false, 4)
+
+						The loss on the training data is 1.598844
+						The classification error rate on the training data is 0.587000
+					
+					a3(0, 10, 70, 1.0, 0.9, false, 4)
+
+						The loss on the training data is 2.018723
+						The classification error rate on the training data is 0.761000
+				
+				5.0, 
+				
+					a3(0, 10, 70, 5.0, 0, false, 4)
+				
+						The loss on the training data is 2.301322
+						The classification error rate on the training data is 0.900000
+
+					a3(0, 10, 70, 5.0, 0.9, false, 4)
+				
+						The loss on the training data is 2.302585
+						The classification error rate on the training data is 0.886000
+				
+				20.0
+					a3(0, 10, 70, 20.0, 0, false, 4)
+
+						The loss on the training data is 2.302585
+						The classification error rate on the training data is 0.904000
+
+					a3(0, 10, 70, 20.0, 0.9, false, 4)
+						The loss on the training data is 2.302585
+						The classification error rate on the training data is 0.896000
+
+			
+06
+
+	a3(wd_coefficient, n_hid, n_iters, learning_rate, momentum_multiplier, do_early_stopping, mini_batch_size)
+		i.e. : a3(0, 10, 70, 5.0, 0.9, false, 4)
+
+	We'll start with zero weight decay, 
+	200 hidden units, 
+	1000 optimization iterations,
+	a learning rate of 0.35,
+	momentum of 0.9, 
+	no early stopping, 
+	and mini-batch size 100, 
+	i.e. run a3(0, 200, 1000, 0.35, 0.9, false, 100). This run will take more time.		
+	
+	
+	a3(0, 200, 1000, 0.35, 0.9, false, 100)
+	
+	
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.231650, and validation data
+		loss is 0.416469
+		After 200 optimization iterations, training data loss is 0.044371, and validation data
+		loss is 0.348192
+		After 300 optimization iterations, training data loss is 0.016940, and validation data
+		loss is 0.375967
+		After 400 optimization iterations, training data loss is 0.010131, and validation data
+		loss is 0.390319
+		After 500 optimization iterations, training data loss is 0.007063, and validation data
+		loss is 0.400496
+		After 600 optimization iterations, training data loss is 0.005355, and validation data
+		loss is 0.408513
+		After 700 optimization iterations, training data loss is 0.004279, and validation data
+		loss is 0.415153
+		After 800 optimization iterations, training data loss is 0.003545, and validation data
+		loss is 0.420827
+		After 900 optimization iterations, training data loss is 0.003014, and validation data
+		loss is 0.425784
+		After 1000 optimization iterations, training data loss is 0.002614, and validation data
+		 loss is 0.430185
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 0.002614
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.430185
+		The classification error rate on the validation data is 0.087000
+
+		The loss on the test data is 0.464988
+		The classification error rate on the test data is 0.093778
+			
+			
+	a3(0, 200, 1000, 0.35, 0.9, true, 100)
+	
+			 a3(0, 200, 1000, 0.35, 0.9, true, 100)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.231650, and validation data
+		loss is 0.416469
+		After 200 optimization iterations, training data loss is 0.044371, and validation data
+		loss is 0.348192
+		After 300 optimization iterations, training data loss is 0.016940, and validation data
+		loss is 0.375967
+		After 400 optimization iterations, training data loss is 0.010131, and validation data
+		loss is 0.390319
+		After 500 optimization iterations, training data loss is 0.007063, and validation data
+		loss is 0.400496
+		After 600 optimization iterations, training data loss is 0.005355, and validation data
+		loss is 0.408513
+		After 700 optimization iterations, training data loss is 0.004279, and validation data
+		loss is 0.415153
+		After 800 optimization iterations, training data loss is 0.003545, and validation data
+		loss is 0.420827
+		After 900 optimization iterations, training data loss is 0.003014, and validation data
+		loss is 0.425784
+		After 1000 optimization iterations, training data loss is 0.002614, and validation data
+		 loss is 0.430185
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+		Early stopping: validation loss was lowest after 161 iterations. We chose the model tha
+		t we had then.
+
+		The loss on the training data is 0.071471
+		The classification error rate on the training data is 0.017000
+
+		The loss on the validation data is 0.334505
+		The classification error rate on the validation data is 0.095000
+
+		The loss on the test data is 0.371140
+		The classification error rate on the test data is 0.098556
+	
+
+	
+		*************
+		**   RESUME
+		*************
+	
+		NO EARLY STOPPING
+		
+			a3(0, 200, 1000, 0.35, 0.9, false, 100)
+	
+			The loss on the validation data is 0.430185
+			The classification error rate on the validation data is 0.087000
+	
+		WITH EARLY STOPPING
+	
+			a3(0, 200, 1000, 0.35, 0.9, true, 100)
+	
+			The loss on the validation data is 0.334505
+			The classification error rate on the validation data is 0.095000
+	
+	
+	
+	
+08 
+
+		USIGN WEIGHT DECAY L2
+		NO EARLY STOPPING
+						
+		a3(1, 200, 1000, 0.35, 0.9, false, 100)
+		
+					Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 100 optimization iterations, training data loss is 2.303331, and validation data
+			loss is 2.303331
+			After 200 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 300 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 400 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 500 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 600 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 700 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 800 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 900 optimization iterations, training data loss is 2.302585, and validation data
+			loss is 2.302585
+			After 1000 optimization iterations, training data loss is 2.302585, and validation data
+			 loss is 2.302585
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.302585
+			The classification loss (i.e. without weight decay) on the training data is 2.302585
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 2.302585
+			The classification loss (i.e. without weight decay) on the validation data is 2.302585
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 2.302585
+			The classification loss (i.e. without weight decay) on the test data is 2.302585
+			The classification error rate on the test data is 0.900000
+		
+		
+		a3(10, 200, 1000, 0.35, 0.9, false, 100)
+		
+					Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 100 optimization iterations, training data loss is 182.580817, and validation dat
+			a loss is 182.542693
+			After 200 optimization iterations, training data loss is 182.199512, and validation dat
+			a loss is 182.159800
+			After 300 optimization iterations, training data loss is 182.202180, and validation dat
+			a loss is 182.162464
+			After 400 optimization iterations, training data loss is 182.202176, and validation dat
+			a loss is 182.162460
+			After 500 optimization iterations, training data loss is 182.202177, and validation dat
+			a loss is 182.162460
+			After 600 optimization iterations, training data loss is 182.202177, and validation dat
+			a loss is 182.162460
+			After 700 optimization iterations, training data loss is 182.202177, and validation dat
+			a loss is 182.162460
+			After 800 optimization iterations, training data loss is 182.202177, and validation dat
+			a loss is 182.162460
+			After 900 optimization iterations, training data loss is 182.202177, and validation dat
+			a loss is 182.162460
+			After 1000 optimization iterations, training data loss is 182.202177, and validation da
+			ta loss is 182.162460
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 182.202177
+			The classification loss (i.e. without weight decay) on the training data is 22.652490
+			The classification error rate on the training data is 0.900000
+
+			The loss on the validation data is 182.162460
+			The classification loss (i.e. without weight decay) on the validation data is 22.612774
+
+			The classification error rate on the validation data is 0.900000
+
+			The loss on the test data is 182.213042
+			The classification loss (i.e. without weight decay) on the test data is 22.663356
+			The classification error rate on the test data is 0.900000
+		
+		
+		a3(0.0001, 200, 1000, 0.35, 0.9, false, 100)
+		
+					Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 100 optimization iterations, training data loss is 0.266002, and validation data
+			loss is 0.446771
+			After 200 optimization iterations, training data loss is 0.086178, and validation data
+			loss is 0.376500
+			After 300 optimization iterations, training data loss is 0.061526, and validation data
+			loss is 0.396275
+			After 400 optimization iterations, training data loss is 0.055910, and validation data
+			loss is 0.401509
+			After 500 optimization iterations, training data loss is 0.053257, and validation data
+			loss is 0.402138
+			After 600 optimization iterations, training data loss is 0.051572, and validation data
+			loss is 0.400684
+			After 700 optimization iterations, training data loss is 0.050307, and validation data
+			loss is 0.398156
+			After 800 optimization iterations, training data loss is 0.049267, and validation data
+			loss is 0.395070
+			After 900 optimization iterations, training data loss is 0.048367, and validation data
+			loss is 0.391726
+			After 1000 optimization iterations, training data loss is 0.047568, and validation data
+			 loss is 0.388301
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 0.047568
+			The classification loss (i.e. without weight decay) on the training data is 0.007561
+			The classification error rate on the training data is 0.000000
+
+			The loss on the validation data is 0.388301
+			The classification loss (i.e. without weight decay) on the validation data is 0.348294
+			The classification error rate on the validation data is 0.085000
+
+			The loss on the test data is 0.409104
+			The classification loss (i.e. without weight decay) on the test data is 0.369097
+			The classification error rate on the test data is 0.090778
+		
+		
+		a3(0.001, 200, 1000, 0.35, 0.9, false, 100)
+		
+					a3(0.001, 200, 1000, 0.35, 0.9, false, 100)
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 100 optimization iterations, training data loss is 0.459206, and validation data
+			loss is 0.610803
+			After 200 optimization iterations, training data loss is 0.340759, and validation data
+			loss is 0.570012
+			After 300 optimization iterations, training data loss is 0.264926, and validation data
+			loss is 0.486257
+			After 400 optimization iterations, training data loss is 0.257002, and validation data
+			loss is 0.479288
+			After 500 optimization iterations, training data loss is 0.259523, and validation data
+			loss is 0.477404
+			After 600 optimization iterations, training data loss is 0.315183, and validation data
+			loss is 0.559336
+			After 700 optimization iterations, training data loss is 0.238251, and validation data
+			loss is 0.455876
+			After 800 optimization iterations, training data loss is 0.234543, and validation data
+			loss is 0.446182
+			After 900 optimization iterations, training data loss is 0.233004, and validation data
+			loss is 0.442405
+			After 1000 optimization iterations, training data loss is 0.245358, and validation data
+			 loss is 0.462475
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 0.245358
+			The classification loss (i.e. without weight decay) on the training data is 0.070793
+			The classification error rate on the training data is 0.005000
+
+			The loss on the validation data is 0.462475
+			The classification loss (i.e. without weight decay) on the validation data is 0.287910
+			The classification error rate on the validation data is 0.090000
+
+			The loss on the test data is 0.464538
+			The classification loss (i.e. without weight decay) on the test data is 0.289973
+			The classification error rate on the test data is 0.086556
+		
+		
+		a3(0, 200, 1000, 0.35, 0.9, false, 100)
+		
+			Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 100 optimization iterations, training data loss is 0.231650, and validation data
+			loss is 0.416469
+			After 200 optimization iterations, training data loss is 0.044371, and validation data
+			loss is 0.348192
+			After 300 optimization iterations, training data loss is 0.016940, and validation data
+			loss is 0.375967
+			After 400 optimization iterations, training data loss is 0.010131, and validation data
+			loss is 0.390319
+			After 500 optimization iterations, training data loss is 0.007063, and validation data
+			loss is 0.400496
+			After 600 optimization iterations, training data loss is 0.005355, and validation data
+			loss is 0.408513
+			After 700 optimization iterations, training data loss is 0.004279, and validation data
+			loss is 0.415153
+			After 800 optimization iterations, training data loss is 0.003545, and validation data
+			loss is 0.420827
+			After 900 optimization iterations, training data loss is 0.003014, and validation data
+			loss is 0.425784
+			After 1000 optimization iterations, training data loss is 0.002614, and validation data
+			 loss is 0.430185
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 0.002614
+			The classification error rate on the training data is 0.000000
+
+			The loss on the validation data is 0.430185
+			The classification error rate on the validation data is 0.087000
+
+			The loss on the test data is 0.464988
+			The classification error rate on the test data is 0.093778	
+		
+		
+		a3(0.1, 200, 1000, 0.35, 0.9, false, 100)
+	
+				
+				Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+			lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+			gradient that your code computed is within 0.001% of the gradient that the finite diffe
+			rence approximation computed, so the gradient calculation procedure is probably correct
+			 (not certainly, but probably).
+			After 100 optimization iterations, training data loss is 2.288402, and validation data
+			loss is 2.290664
+			After 200 optimization iterations, training data loss is 2.288058, and validation data
+			loss is 2.290330
+			After 300 optimization iterations, training data loss is 2.288018, and validation data
+			loss is 2.290296
+			After 400 optimization iterations, training data loss is 2.287995, and validation data
+			loss is 2.290276
+			After 500 optimization iterations, training data loss is 2.287980, and validation data
+			loss is 2.290264
+			After 600 optimization iterations, training data loss is 2.287969, and validation data
+			loss is 2.290255
+			After 700 optimization iterations, training data loss is 2.287962, and validation data
+			loss is 2.290249
+			After 800 optimization iterations, training data loss is 2.287958, and validation data
+			loss is 2.290246
+			After 900 optimization iterations, training data loss is 2.287956, and validation data
+			loss is 2.290244
+			After 1000 optimization iterations, training data loss is 2.287954, and validation data
+			 loss is 2.290242
+			Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+			ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+			 passed. That means that the gradient that your code computed is within 0.001% of the g
+			radient that the finite difference approximation computed, so the gradient calculation
+			procedure is probably correct (not certainly, but probably).
+
+			The loss on the training data is 2.287954
+			The classification loss (i.e. without weight decay) on the training data is 2.174065
+			The classification error rate on the training data is 0.793000
+
+			The loss on the validation data is 2.290242
+			The classification loss (i.e. without weight decay) on the validation data is 2.176353
+			The classification error rate on the validation data is 0.794000
+
+			The loss on the test data is 2.287295
+			The classification loss (i.e. without weight decay) on the test data is 2.173405
+			The classification error rate on the test data is 0.785667
+
+		*************
+		**   RESUME
+		*************	
+		
+			a3(1, 200, 1000, 0.35, 0.9, false, 100)
+
+				The loss on the validation data is 2.302585
+				The classification loss (i.e. without weight decay) on the validation data is 2.302585
+				The classification error rate on the validation data is 0.900000
+
+		
+			a3(10, 200, 1000, 0.35, 0.9, false, 100)
+
+				The loss on the validation data is 182.162460
+				The classification loss (i.e. without weight decay) on the validation data is 22.612774
+
+				The classification error rate on the validation data is 0.900000
+			
+			a3(0.0001, 200, 1000, 0.35, 0.9, false, 100)
+
+				The loss on the validation data is 0.388301
+				The classification loss (i.e. without weight decay) on the validation data is 0.348294
+				The classification error rate on the validation data is 0.085000
+		
+			
+			a3(0.001, 200, 1000, 0.35, 0.9, false, 100)
+
+				The loss on the validation data is 0.462475
+				The classification loss (i.e. without weight decay) on the validation data is 0.287910
+				The classification error rate on the validation data is 0.090000
+
+			
+			a3(0, 200, 1000, 0.35, 0.9, false, 100)
+			
+				The loss on the validation data is 0.430185
+				The classification error rate on the validation data is 0.087000
+			
+			a3(0.1, 200, 1000, 0.35, 0.9, false, 100)
+
+				The loss on the validation data is 2.290242
+				The classification loss (i.e. without weight decay) on the validation data is 2.176353
+				The classification error rate on the validation data is 0.794000
+
+
+				
+				
+09
+
+	a3(0, 100, 1000, 0.35, 0.9, false, 100)	
+	
+			a3(0, 100, 1000, 0.35, 0.9, false, 100)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.262945, and validation data
+		loss is 0.428330
+		After 200 optimization iterations, training data loss is 0.043848, and validation data
+		loss is 0.312258
+		After 300 optimization iterations, training data loss is 0.018711, and validation data
+		loss is 0.330057
+		After 400 optimization iterations, training data loss is 0.011124, and validation data
+		loss is 0.339086
+		After 500 optimization iterations, training data loss is 0.007734, and validation data
+		loss is 0.346184
+		After 600 optimization iterations, training data loss is 0.005853, and validation data
+		loss is 0.352042
+		After 700 optimization iterations, training data loss is 0.004672, and validation data
+		loss is 0.357021
+		After 800 optimization iterations, training data loss is 0.003867, and validation data
+		loss is 0.361348
+		After 900 optimization iterations, training data loss is 0.003286, and validation data
+		loss is 0.365171
+		After 1000 optimization iterations, training data loss is 0.002849, and validation data
+		 loss is 0.368593
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 0.002849
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.368593
+		The classification error rate on the validation data is 0.082000
+
+		The loss on the test data is 0.408845
+		The classification error rate on the test data is 0.086444
+	
+	
+	a3(0, 130, 1000, 0.35, 0.9, false, 100)	
+	
+			a3(0, 130, 1000, 0.35, 0.9, false, 100)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.209858, and validation data
+		loss is 0.414905
+		After 200 optimization iterations, training data loss is 0.044153, and validation data
+		loss is 0.325260
+		After 300 optimization iterations, training data loss is 0.018897, and validation data
+		loss is 0.346572
+		After 400 optimization iterations, training data loss is 0.010848, and validation data
+		loss is 0.360174
+		After 500 optimization iterations, training data loss is 0.007447, and validation data
+		loss is 0.369704
+		After 600 optimization iterations, training data loss is 0.005605, and validation data
+		loss is 0.377249
+		After 700 optimization iterations, training data loss is 0.004462, and validation data
+		loss is 0.383498
+		After 800 optimization iterations, training data loss is 0.003688, and validation data
+		loss is 0.388830
+		After 900 optimization iterations, training data loss is 0.003132, and validation data
+		loss is 0.393478
+		After 1000 optimization iterations, training data loss is 0.002715, and validation data
+		 loss is 0.397597
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 0.002715
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.397597
+		The classification error rate on the validation data is 0.087000
+
+		The loss on the test data is 0.418396
+		The classification error rate on the test data is 0.088667
+	
+	
+	a3(0, 30, 1000, 0.35, 0.9, false, 100)	
+	
+			a3(0, 30, 1000, 0.35, 0.9, false, 100)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.183046, and validation data
+		loss is 0.335584
+		After 200 optimization iterations, training data loss is 0.050357, and validation data
+		loss is 0.288822
+		After 300 optimization iterations, training data loss is 0.024007, and validation data
+		loss is 0.292849
+		After 400 optimization iterations, training data loss is 0.014859, and validation data
+		loss is 0.297703
+		After 500 optimization iterations, training data loss is 0.010537, and validation data
+		loss is 0.301975
+		After 600 optimization iterations, training data loss is 0.008078, and validation data
+		loss is 0.305728
+		After 700 optimization iterations, training data loss is 0.006508, and validation data
+		loss is 0.309044
+		After 800 optimization iterations, training data loss is 0.005426, and validation data
+		loss is 0.312001
+		After 900 optimization iterations, training data loss is 0.004638, and validation data
+		loss is 0.314661
+		After 1000 optimization iterations, training data loss is 0.004042, and validation data
+		 loss is 0.317077
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 0.004042
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.317077
+		The classification error rate on the validation data is 0.078000
+
+		The loss on the test data is 0.364651
+		The classification error rate on the test data is 0.087222
+	
+	
+	a3(0, 10, 1000, 0.35, 0.9, false, 100)	
+	
+			a3(0, 10, 1000, 0.35, 0.9, false, 100)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.305448, and validation data
+		loss is 0.476718
+		After 200 optimization iterations, training data loss is 0.104582, and validation data
+		loss is 0.375933
+		After 300 optimization iterations, training data loss is 0.055788, and validation data
+		loss is 0.371405
+		After 400 optimization iterations, training data loss is 0.037404, and validation data
+		loss is 0.377907
+		After 500 optimization iterations, training data loss is 0.027501, and validation data
+		loss is 0.386838
+		After 600 optimization iterations, training data loss is 0.021423, and validation data
+		loss is 0.395403
+		After 700 optimization iterations, training data loss is 0.017426, and validation data
+		loss is 0.403038
+		After 800 optimization iterations, training data loss is 0.014644, and validation data
+		loss is 0.409845
+		After 900 optimization iterations, training data loss is 0.012605, and validation data
+		loss is 0.416023
+		After 1000 optimization iterations, training data loss is 0.011050, and validation data
+		 loss is 0.421705
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 0.011050
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.421705
+		The classification error rate on the validation data is 0.107000
+
+		The loss on the test data is 0.389471
+		The classification error rate on the test data is 0.100333
+	
+	
+	a3(0, 170, 1000, 0.35, 0.9, false, 100)	
+	
+		 a3(0, 170, 1000, 0.35, 0.9, false, 100)
+		Now testing the gradient on the whole training set... Gradient test passed for hid_to_c
+		lass. Gradient test passed for input_to_hid. Gradient test passed. That means that the
+		gradient that your code computed is within 0.001% of the gradient that the finite diffe
+		rence approximation computed, so the gradient calculation procedure is probably correct
+		 (not certainly, but probably).
+		After 100 optimization iterations, training data loss is 0.231672, and validation data
+		loss is 0.424201
+		After 200 optimization iterations, training data loss is 0.043816, and validation data
+		loss is 0.337254
+		After 300 optimization iterations, training data loss is 0.017585, and validation data
+		loss is 0.369506
+		After 400 optimization iterations, training data loss is 0.010375, and validation data
+		loss is 0.384579
+		After 500 optimization iterations, training data loss is 0.007208, and validation data
+		loss is 0.395276
+		After 600 optimization iterations, training data loss is 0.005457, and validation data
+		loss is 0.403666
+		After 700 optimization iterations, training data loss is 0.004358, and validation data
+		loss is 0.410592
+		After 800 optimization iterations, training data loss is 0.003608, and validation data
+		loss is 0.416500
+		After 900 optimization iterations, training data loss is 0.003067, and validation data
+		loss is 0.421652
+		After 1000 optimization iterations, training data loss is 0.002659, and validation data
+		 loss is 0.426223
+		Now testing the gradient on just a mini-batch instead of the whole training set... Grad
+		ient test passed for hid_to_class. Gradient test passed for input_to_hid. Gradient test
+		 passed. That means that the gradient that your code computed is within 0.001% of the g
+		radient that the finite difference approximation computed, so the gradient calculation
+		procedure is probably correct (not certainly, but probably).
+
+		The loss on the training data is 0.002659
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.426223
+		The classification error rate on the validation data is 0.082000
+
+		The loss on the test data is 0.470443
+		
+
+	**********************
+	** RESUME 
+	**********************
+				
+				
+	a3(0, 100, 1000, 0.35, 0.9, false, 100)	
+
+		The loss on the validation data is 0.368593
+		The classification error rate on the validation data is 0.082000
+
+	a3(0, 130, 1000, 0.35, 0.9, false, 100)	
+
+		The loss on the validation data is 0.397597
+		The classification error rate on the validation data is 0.087000
+	
+	a3(0, 30, 1000, 0.35, 0.9, false, 100)	
+
+		The loss on the validation data is 0.317077
+		The classification error rate on the validation data is 0.078000
+	
+	a3(0, 10, 1000, 0.35, 0.9, false, 100)	
+
+		The loss on the validation data is 0.421705
+		The classification error rate on the validation data is 0.107000
+	
+	a3(0, 170, 1000, 0.35, 0.9, false, 100)	
+
+		The loss on the validation data is 0.426223
+		The classification error rate on the validation data is 0.082000
+
+			
+
+10
+
+	WITH EARLY STOP
+
+	a3(0, 37, 1000, 0.35, 0.9, true, 100)	
+	
+		The loss on the training data is 0.038770
+		The classification error rate on the training data is 0.002000
+
+		The loss on the validation data is 0.265165
+		The classification error rate on the validation data is 0.081000
+
+		The loss on the test data is 0.282510
+		The classification error rate on the test data is 0.084333
+	
+	a3(0, 18, 1000, 0.35, 0.9, true, 100)
+	
+			The loss on the training data is 0.037047
+		The classification error rate on the training data is 0.002000
+
+		The loss on the validation data is 0.306083
+		The classification error rate on the validation data is 0.092000
+
+		The loss on the test data is 0.284525
+		The classification error rate on the test data is 0.083000
+	
+	a3(0, 83, 1000, 0.35, 0.9, true, 100)
+	
+			The loss on the training data is 0.059285
+		The classification error rate on the training data is 0.007000
+
+		The loss on the validation data is 0.311244
+		The classification error rate on the validation data is 0.083000
+
+		The loss on the test data is 0.337624
+		The classification error rate on the test data is 0.092778
+	
+	a3(0, 236, 1000, 0.35, 0.9, true, 100)
+	
+			The loss on the training data is 0.076253
+		The classification error rate on the training data is 0.017000
+
+		The loss on the validation data is 0.343841
+		The classification error rate on the validation data is 0.095000
+
+		The loss on the test data is 0.339124
+		The classification error rate on the test data is 0.094111
+	
+	a3(0, 113, 1000, 0.35, 0.9, true, 100)
+
+			The loss on the training data is 0.064678
+		The classification error rate on the training data is 0.014000
+
+		The loss on the validation data is 0.313749
+		The classification error rate on the validation data is 0.093000
+
+		The loss on the test data is 0.347098
+		The classification error rate on the test data is 0.094667
+
+		
+		
+	NO EARLY STOP	
+		
+
+
+	a3(0, 37, 1000, 0.35, 0.9, false, 100)	
+
+			The loss on the training data is 0.003601
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.285084
+		The classification error rate on the validation data is 0.067000
+
+		The loss on the test data is 0.309984
+		The classification error rate on the test data is 0.079444
+	
+
+	a3(0, 18, 1000, 0.35, 0.9, false, 100)
+	
+			The loss on the training data is 0.005376
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.332192
+		The classification error rate on the validation data is 0.092000
+
+		The loss on the test data is 0.305534
+		The classification error rate on the test data is 0.080889
+	
+	a3(0, 83, 1000, 0.35, 0.9, false, 100)
+	
+		The loss on the training data is 0.002885
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.368805
+		The classification error rate on the validation data is 0.082000
+
+		The loss on the test data is 0.409533
+		The classification error rate on the test data is 0.089333
+	
+	a3(0, 236, 1000, 0.35, 0.9, false, 100)
+	
+		The loss on the training data is 0.002609
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.466633
+		The classification error rate on the validation data is 0.089000
+
+		The loss on the test data is 0.460201
+		The classification error rate on the test data is 0.094333
+	
+	a3(0, 113, 1000, 0.35, 0.9, false, 100)
+
+			
+			The loss on the training data is 0.002781
+		The classification error rate on the training data is 0.000000
+
+		The loss on the validation data is 0.381997
+		The classification error rate on the validation data is 0.081000
+
+		The loss on the test data is 0.424006
+		The classification error rate on the test data is 0.088222
+		
+	****************
+	** RESUME
+	**************
+
+	EARLY STOP	
+		
+		a3(0, 37, 1000, 0.35, 0.9, true, 100)	
+			
+			The loss on the validation data is 0.265165
+			The classification error rate on the validation data is 0.081000
+		
+		a3(0, 18, 1000, 0.35, 0.9, true, 100)
+
+			The loss on the validation data is 0.306083
+			The classification error rate on the validation data is 0.092000
+		
+		a3(0, 83, 1000, 0.35, 0.9, true, 100)
+		
+			The loss on the validation data is 0.311244
+			The classification error rate on the validation data is 0.083000
+		
+		a3(0, 236, 1000, 0.35, 0.9, true, 100)
+			
+			The loss on the validation data is 0.343841
+			The classification error rate on the validation data is 0.095000
+		
+		a3(0, 113, 1000, 0.35, 0.9, true, 100)
+
+			The loss on the validation data is 0.313749
+			The classification error rate on the validation data is 0.093000
+
+	WITHOUT EARLY STOP	
+	
+		a3(0, 37, 1000, 0.35, 0.9, false, 100)	
+			The loss on the validation data is 0.285084
+			The classification error rate on the validation data is 0.067000
+
+		a3(0, 18, 1000, 0.35, 0.9, false, 100)
+			The loss on the validation data is 0.332192
+			The classification error rate on the validation data is 0.092000
+		a3(0, 83, 1000, 0.35, 0.9, false, 100)
+		
+			The loss on the validation data is 0.368805
+			The classification error rate on the validation data is 0.082000
+		
+		a3(0, 236, 1000, 0.35, 0.9, false, 100)
+			The loss on the validation data is 0.466633
+			The classification error rate on the validation data is 0.089000
+		
+		a3(0, 113, 1000, 0.35, 0.9, false, 100)
+			The loss on the validation data is 0.381997
+			The classification error rate on the validation data is 0.081000
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
