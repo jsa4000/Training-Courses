@@ -1,9 +1,3 @@
-*****************************
-*****************************
-** NNML Coursera OVERVIEW  **
-*****************************
-*****************************
-
 Welcome to the course!
 
 There are 16 modules ("lectures") and each module will be divided into about five short videos. In each module there will be a quiz that counts towards your final grade.
