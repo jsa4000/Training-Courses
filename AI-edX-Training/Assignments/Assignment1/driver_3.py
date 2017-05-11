@@ -11,7 +11,11 @@
 # Example:
 #   python driver.py bfs 0,8,7,6,5,4,3,2,1
 import sys
+import time
 from collections import OrderedDict
+
+
+# https://codereview.stackexchange.com/questions/135156/bfs-implementation-in-python-3
 
 class game:
     """
@@ -36,13 +40,18 @@ class game:
         # Initialize the variables
         self._initialize() 
         #Start the process
+        start_time = time.time()
+        
         self._parameters["path_to_goal"] = ['Up', 'Left', 'Left']
         self._parameters["cost_of_path"] = 3
         self._parameters["nodes_expanded"] = 10
         self._parameters["search_depth"] = 3
         self._parameters["max_search_depth"] = 4
-        self._parameters["running_time"] = 0.00188088 
-        self._parameters["max_ram_usage"] = 0.07812500
+
+        end_time = time.time()
+        # Fill the values
+        self._parameters["running_time"] = end_time - start_time
+        self._parameters["max_ram_usage"] = 0.0
         # Create the output
         self._create_report()
     def _create_report(self, filename="output.txt"):
