@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "python",
     "isShellCommand": true,
-    "args": ["${file}", "Hola", "Adios"],
+    "args": ["${file}", "bfs", "1,2,5,3,4,0,6,7,8"],
     "showOutput": "always"
 }

@@ -13,7 +13,7 @@
 import sys
 import time
 import math
-from collections import OrderedDict
+from collections import OrderedDict, deque
 
 class Method:
     """
@@ -31,7 +31,7 @@ class Action:
     Right = 'Right'
     Up = 'Up'
     Down='Down'
-    All = [Action.Up, Action.Down, Action.Left, Action.Right]
+    All = [Up, Down, Left, Right]
 
 class Board:
     """
@@ -50,7 +50,7 @@ class Board:
         if self.tokens is None:
             self.tokens = list(range(self.size*2)-1)
         else:
-            self.size = math.sqrt(len(state))
+            self.size = int(math.sqrt(len(self.tokens)))
     def prettyPrint(self):
          for i in range(self.size):
              for j in range(self.size):
@@ -91,6 +91,10 @@ class State:
     def __init__(self, board, action=None):
         self.action = action
         self.board = board
+    def equal(self, state):
+        if self.board.equal(state.board):
+            return True
+        return False
 
 class Node:
     """
@@ -104,46 +108,85 @@ class Node:
         # Return Neighbours using the parent node and not considering, current action 
         # or operation not allowd because the limits of the boards
         neighbours = []
-        for action in Actions.All:
-            if action != self.state.level
-                # Get the new board if possible
-                board = self.parent.state.board.move(action)
-                if board is not None:
-                    #create the node and return the neighbour
-                    neighbours.add(Node(self.parent, State(board, action), self.level))
+        if parent is not None:
+            for action in Actions.All:
+                if action != self.level:
+                    # Get the new board if possible
+                    board = self.parent.state.board.move(action)
+                    if board is not None:
+                        #create the node and return the neighbour
+                        neighbours.append(Node(self.parent, State(board, action), self.level))
+        return neighbours
     def childs(self):
         # Return the childs from this node  
         # child level = level + 1  
         childs = []
-        for action in Actions.All:
+        for action in Action.All:
             # Get the new board if possible
             board = self.state.board.move(action)
             if board is not None:
                 #create the node and return the neighbour
-                childs.add(Node(self, State(board, action), self.leve+1))
+                childs.append(Node(self, State(board, action), self.level+1))
+        return childs    
+    def prettyPrint(self):
+        print("----------------------")
+        print(node.level)
+        print(node.state.action)
+        node.state.board.prettyPrint()   
+
+def toString(x):
+    return "{}".format(x)
 
 def breadth_first_search(initialState, finalState):
-    # https://codereview.stackexchange.com/questions/135156/bfs-implementation-in-python-3
     # Initialize frontier
-    visited, frontier = set(), collections.deque([initialState])
+    visited, nodes = set(), deque([Node(None, initialState)])
+    expanded, max_level = 0, 0
     # Check for items
-    while frontier:
-        # Get the current state (from left)
-        node = frontier.popleft()
+    while nodes:
+        # Get the first element added (from left)
+        node = nodes.popleft()
         # Check the current State match with the final state
-        if (state == finalState):
-            return state
+        if (node.state.equal(finalState)):
+            return [node, expanded, max_level]
+        # Expand the current node
+        expanded += 1
         # Visit all possible neighbours
-        for neighbour in state.neighbours(): 
+        for child in node.childs(): 
             #Check if the node has been already visited previously
-            if neighbour not in visited:
+            if toString(child.state.board.tokens) not in visited:
+                if (child.level>max_level):
+                    max_level = child.level
                 # Append the neighbour to the queue and onto the  visited list
-                frontier.append(neighbour)
-                visited.add(neighbour)
+                nodes.append(child)
+                visited.add(toString(child.state.board.tokens))
+    
     # Returns nothing if no final state founded
     return None
 
 def depth_first_search(initialState, finalState):
+    # Initialize frontier
+    visited, nodes = set(), deque([Node(None, initialState)])
+    expanded, max_level = 0, 0
+    # Check for items
+    while nodes:
+        # Get the first element added (from left)
+        node = nodes.pop()
+        # Check the current State match with the final state
+        if (node.state.equal(finalState)):
+            return [node, expanded, max_level]
+        # Expand the current node
+        expanded += 1
+        # Visit all possible neighbours
+        for child in node.childs()[::-1]: 
+            #Check if the node has been already visited previously
+            if toString(child.state.board.tokens) not in visited:
+                if (child.level>max_level):
+                    max_level = child.level
+                # Append the neighbour to the queue and onto the  visited list
+                nodes.append(child)
+                visited.add(toString(child.state.board.tokens))
+    
+    # Returns nothing if no final state founded
     return None
 
 def a_star_search(initialState, finalState):
@@ -153,11 +196,13 @@ class Solver:
     """
         This class will provide the functionality to solver the game
     """
-    def __init__(self, method = Method.BFS, initialTokens = None, finalTokens = [0,1,2,3,4,5,6,7,8]):
+    def __init__(self, initialTokens, method = Method.BFS, finalTokens = None):
         #Initialize the variables
         self._method = method
         self._initialTokens = initialTokens
         self._finalTokens = finalTokens
+        if self._finalTokens is None:
+            self._finalTokens = list(range(len(initialTokens)))
         self._parameters = OrderedDict()
     def _initialize(self):
         # Initialize all the variables
@@ -168,30 +213,36 @@ class Solver:
         self._parameters["max_search_depth"] = 0
         self._parameters["running_time"] = 0.0
         self._parameters["max_ram_usage"] = 0.0
+    def _getActions(self, node):
+        path = []
+        while node.state.action:
+            path.insert(0,node.state.action)
+            node = node.parent
+        return path    
     def start(self):
         # Initialize the variables
         self._initialize() 
         #Start the process
         start_time = time.time()
-        initialState = State(Board(initialTokens), None)
-        finalState = State(Board(finalTokens), None)
+        initialState = State(Board(self._initialTokens), None)
+        finalState = State(Board(self._finalTokens), None)
         # Check the Method to compute
         if self._method == Method.BFS:
-            founded = breadth_first_search(initialState,finalState)
+            node, expanded, max_level = breadth_first_search(initialState,finalState)
         elif self._method == Method.DFS:
-            founded = depth_first_search(initialState,finalState)
+            node, expanded, max_level = depth_first_search(initialState,finalState)
         elif self._method == Method.AST:
-            founded = a_star_search(initialState,finalState)
+            node, expanded, max_level = a_star_search(initialState,finalState)
         else:
-            found = None
+            node = None
         end_time = time.time()
         # Fill the values
-        if founded is not None:
-            self._parameters["path_to_goal"] = ['Up', 'Left', 'Left']
-            self._parameters["cost_of_path"] = 3
-            self._parameters["nodes_expanded"] = 10
-            self._parameters["search_depth"] = 3
-            self._parameters["max_search_depth"] = 4
+        if node is not None:
+            self._parameters["path_to_goal"] = self._getActions(node)
+            self._parameters["cost_of_path"] = node.level
+            self._parameters["nodes_expanded"] = expanded - 1
+            self._parameters["search_depth"] = node.level
+            self._parameters["max_search_depth"] = max_level
         self._parameters["running_time"] = end_time - start_time
         self._parameters["max_ram_usage"] = 0.0
         # Create the output
@@ -202,14 +253,28 @@ class Solver:
             for key, value in self._parameters.items():
                 file.write("{}:{}\n".format(key, value))
 
+
 # Main Application
 if __name__ == "__main__":
+    
+    # Tests: 
+    #  python driver.py bfs 3,1,2,0,4,5,6,7,8
+    #  python driver.py bfs 1,2,5,3,4,0,6,7,8
+    method = "dfs"
+    raw_board = "1,2,5,3,4,0,6,7,8"
+    board = list(map(int,raw_board.split(sep=",")))
+    # Start the game process using the solver class
+    Solver(board, method).start()
+
+
     # Check The number of args
     if len(sys.argv) == 3:
         # Get the command line arguments
         method = sys.argv[1]
-        board = sys.argv[2]
+        board = list(map(int,sys.argv[2].split(sep=",")))
+        print(method)
+        print(board)
         # Start the game process using the solver class
-        Solver(method, board).start()
+        Solver(board, method).start()
     else:
         print("ERROR: Bad number of arguments")
