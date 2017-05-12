@@ -246,6 +246,11 @@ class Solver:
             path.insert(0,node.state.action)
             node = node.parent
         return path    
+    def _create_report(self, filename="output.txt"):
+        # Write all the parameters computed
+        with open(filename, mode='w') as file:
+            for key, value in self._parameters.items():
+                file.write("{}:{}\n".format(key, value))
     def start(self):
         # Initialize the variables
         self._initialize() 
@@ -273,35 +278,16 @@ class Solver:
             self._parameters["max_search_depth"] = max_level
         self._parameters["running_time"] = end_time - start_time
         self._parameters["max_ram_usage"] = 0.0
-        # Create the output
+        # Create the output report
         self._create_report()
-    def _create_report(self, filename="output.txt"):
-        # Write all the parameters computed
-        with open(filename, mode='w') as file:
-            for key, value in self._parameters.items():
-                file.write("{}:{}\n".format(key, value))
-
-
+  
 # Main Application
 if __name__ == "__main__":
-    
-    # Tests: 
-    #  python driver.py bfs 3,1,2,0,4,5,6,7,8
-    #  python driver.py bfs 1,2,5,3,4,0,6,7,8
-    method = "ast"
-    raw_board = "1,2,5,3,4,0,6,7,8"
-    board = list(map(int,raw_board.split(sep=",")))
-    # Start the game process using the solver class
-    Solver(board, method).start()
-
-
     # Check The number of args
     if len(sys.argv) == 3:
         # Get the command line arguments
         method = sys.argv[1]
         board = list(map(int,sys.argv[2].split(sep=",")))
-        print(method)
-        print(board)
         # Start the game process using the solver class
         Solver(board, method).start()
     else:
