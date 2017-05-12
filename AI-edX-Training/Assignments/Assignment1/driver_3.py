@@ -1,15 +1,16 @@
+#######################################
+#  Week 2 Project: Search Algorithms  #
+#######################################
 # Command line:
 #   python driver.py <method> <board>
+#   Where:
+#       Method. Algorithm that will be used
+#           "bfs" (Breadth-First Search)
+#           "dfs" (Depth-First Search)
+#           "ast" (A-Star Search)
+#       Board. Initial board state. ej "0,8,7,6,5,4,3,2,1"
 #
-# Method:
-#   bfs (Breadth-First Search)
-#   dfs (Depth-First Search)
-#   ast (A-Star Search)
-# Board
-#   0,8,7,6,5,4,3,2,1
-#
-# Example:
-#   python driver.py bfs 0,8,7,6,5,4,3,2,1
+#   Example: python driver.py bfs 0,8,7,6,5,4,3,2,1
 import sys
 import time
 import math
@@ -33,15 +34,20 @@ class Action:
     Down='Down'
     All = [Up, Down, Left, Right]
 
+def toHash(x):
+    return "{}".format(x)
+
 class Board:
     """
         This class represent the current state of a board
 
         Also it includes functionality to return the next movement
         given an action: Up, Down, Left or Right.
-                0 1 2
-         3x3    3 4 5
-                6 7 8
+        ------------------------------------------------------------
+                | 0 1 2 |   move(Right)   | 1 0 2 |  
+         3x3    | 3 4 5 |       =>        | 3 4 5 | 
+                | 6 7 8 |                 | 6 7 8 |
+        ------------------------------------------------------------        
     """
     def __init__(self, tokens=None, size=3):
         self.size = size;
@@ -51,17 +57,18 @@ class Board:
             self.tokens = list(range(self.size*2)-1)
         else:
             self.size = int(math.sqrt(len(self.tokens)))
-    def prettyPrint(self):
+    def pretty_print(self):
          for i in range(self.size):
+             print("| ",end='')
              for j in range(self.size):
-                 print("{}  ".format(self.tokens[(i * self.size)+j]) ,end='')
+                 print("{} | ".format(self.tokens[(i * self.size)+j]) ,end='')
              print()
     def equal(self,board):
         if self.tokens == board.tokens:
              return True
         return False
-    def move(self,action):
-        # Search for the row and col of the empty space (0)
+    def get_positions(self,action):
+         # Search for the row and col of the empty space (0)
         pos = self.tokens.index(0)
         row = pos // self.size
         col = pos - ((pos // self.size) * self.size)
@@ -75,6 +82,11 @@ class Board:
             newpos = pos+self.size
         elif action== Action.Up and row!=0:
             newpos = pos-self.size
+        return [pos, newpos]    
+    def allowed(self,action):
+        return self.get_positions(action)[1]>-1
+    def move(self,action):
+        pos, newpos = self.get_positions(action)
         # Check valid new position
         if newpos!=-1:
             result = list(self.tokens)
@@ -98,28 +110,15 @@ class State:
 
 class Node:
     """
-        This class will be used to represent a node for each state
+        This class will be used to represent a node for each state.
+        It will be contain its parent node and the depth (level).
     """
-    def __init__(self, parent, state = None, level=0):
+    def __init__(self, parent=None, state=None, level=0):
         self.parent = parent
         self.state = state
         self.level = level
-    def neighbours(self):
-        # Return Neighbours using the parent node and not considering, current action 
-        # or operation not allowd because the limits of the boards
-        neighbours = []
-        if parent is not None:
-            for action in Actions.All:
-                if action != self.level:
-                    # Get the new board if possible
-                    board = self.parent.state.board.move(action)
-                    if board is not None:
-                        #create the node and return the neighbour
-                        neighbours.append(Node(self.parent, State(board, action), self.level))
-        return neighbours
     def childs(self):
-        # Return the childs from this node  
-        # child level = level + 1  
+        # Return the childs from this node: child level = level + 1  
         childs = []
         for action in Action.All:
             # Get the new board if possible
@@ -127,15 +126,16 @@ class Node:
             if board is not None:
                 #create the node and return the neighbour
                 childs.append(Node(self, State(board, action), self.level+1))
+        # List comprenhension seems to work even worst.
+        #return [Node(self, State(self.state.board.move(action), action), self.level+1) for action in Action.All if self.state.board.allowed(action)]
         return childs    
-    def prettyPrint(self):
+    def pretty_print(self):
         print("----------------------")
-        print(node.level)
-        print(node.state.action)
-        node.state.board.prettyPrint()   
-
-def toString(x):
-    return "{}".format(x)
+        print("  Level: {}".format(self.level))
+        print("  Action: {}".format(self.state.action))
+        print("  Board:")
+        self.state.board.pretty_print() 
+        print("----------------------")  
 
 def breadth_first_search(initialState, finalState):
     # Initialize frontier
@@ -153,13 +153,12 @@ def breadth_first_search(initialState, finalState):
         # Visit all possible neighbours
         for child in node.childs(): 
             #Check if the node has been already visited previously
-            if toString(child.state.board.tokens) not in visited:
+            if toHash(child.state.board.tokens) not in visited:
                 if (child.level>max_level):
                     max_level = child.level
                 # Append the neighbour to the queue and onto the  visited list
                 nodes.append(child)
-                visited.add(toString(child.state.board.tokens))
-    
+                visited.add(toHash(child.state.board.tokens))
     # Returns nothing if no final state founded
     return None
 
@@ -179,18 +178,46 @@ def depth_first_search(initialState, finalState):
         # Visit all possible neighbours
         for child in node.childs()[::-1]: 
             #Check if the node has been already visited previously
-            if toString(child.state.board.tokens) not in visited:
+            if toHash(child.state.board.tokens) not in visited:
                 if (child.level>max_level):
                     max_level = child.level
                 # Append the neighbour to the queue and onto the  visited list
                 nodes.append(child)
-                visited.add(toString(child.state.board.tokens))
-    
+                visited.add(toHash(child.state.board.tokens))
     # Returns nothing if no final state founded
     return None
 
 def a_star_search(initialState, finalState):
+    # Initialize frontier
+    visited, nodes = set(), list([Node(None, initialState)])
+    expanded, max_level = 0, 0
+    # Check for items
+    while nodes:
+        # Sort the queue by thes heuristic computed
+        nodes.sort(key = heuristic)
+        # Get the first element sorted (from left)
+        node = nodes.pop(0)
+        # Check the current State match with the final state
+        if (node.state.equal(finalState)):
+            return [node, expanded, max_level]
+        # Expand the current node
+        expanded += 1
+        # Visit all possible neighbours
+        for child in node.childs(): 
+            #Check if the node has been already visited previously
+            if toHash(child.state.board.tokens) not in visited:
+                if (child.level>max_level):
+                    max_level = child.level
+                # Append the neighbour to the queue and onto the  visited list
+                nodes.append(child)
+                visited.add(toHash(child.state.board.tokens))
+    # Returns nothing if no final state founded
     return None
+
+def heuristic(x):    
+    goal = list(range(len(x.state.board.tokens)))
+    masks = [0 if j - i==0 else 1 for i,j in zip(x.state.board.tokens,goal)]
+    return x.level + sum(masks) 
 
 class Solver:
     """
@@ -213,7 +240,7 @@ class Solver:
         self._parameters["max_search_depth"] = 0
         self._parameters["running_time"] = 0.0
         self._parameters["max_ram_usage"] = 0.0
-    def _getActions(self, node):
+    def _get_actions(self, node):
         path = []
         while node.state.action:
             path.insert(0,node.state.action)
@@ -238,7 +265,8 @@ class Solver:
         end_time = time.time()
         # Fill the values
         if node is not None:
-            self._parameters["path_to_goal"] = self._getActions(node)
+            node.pretty_print()
+            self._parameters["path_to_goal"] = self._get_actions(node)
             self._parameters["cost_of_path"] = node.level
             self._parameters["nodes_expanded"] = expanded - 1
             self._parameters["search_depth"] = node.level
@@ -260,7 +288,7 @@ if __name__ == "__main__":
     # Tests: 
     #  python driver.py bfs 3,1,2,0,4,5,6,7,8
     #  python driver.py bfs 1,2,5,3,4,0,6,7,8
-    method = "dfs"
+    method = "ast"
     raw_board = "1,2,5,3,4,0,6,7,8"
     board = list(map(int,raw_board.split(sep=",")))
     # Start the game process using the solver class
