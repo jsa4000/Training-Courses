@@ -29,10 +29,31 @@ def get_smoothness(grid):
     # Finally return the total score founded
     return score
 
+def rotate_grid(grid):
+    matrix = []
+    for y in range(grid.size):
+        column=[]
+        for x in range(grid.size):
+            column.append(grid.map[x][y])
+        matrix.append(column)
+    return matrix      
+
 def get_monotonicity(grid):
     """ Get the monotonicity (score) for the current grid state
     """
-    return 0
+    # This will return the sum computed
+    monotonicity_axis = []
+    # Check from (0,0) too (3,3)
+    for x in range(grid.size):
+        array = [True if first>=second else False for first, second in zip(grid.map[x],grid.map[x][1:])]
+        monotonicity_axis.append(all(array))
+    # Rotate the grid and do the same
+    rotate = rotate_grid(grid)
+    for x in range(grid.size):
+        array = [True if first>=second else False for first, second in zip(rotate[x],rotate[x][1:])]
+        monotonicity_axis.append(all(array))
+    # Return the sum for all the monotonocity being true
+    return all(monotonicity_axis)
 
 def get_heuristic(grid):
     """ Get the heuristic (score) for the current grid state
@@ -46,7 +67,7 @@ def get_heuristic(grid):
     # Smoothnes measure same values for adjacent tiles
     smoothness_score = get_smoothness(grid)
     # clustering_score 
-    clustering_score = monotonicity_score + smoothness_score
+    clustering_score = (monotonicity_score * 1000) + smoothness_score
 
     # Create an heuristic with the previous parameters
     return int(actual_score + math.log(actual_score) * available_cells + clustering_score)
