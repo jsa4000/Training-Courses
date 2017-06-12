@@ -134,7 +134,6 @@ def get_heuristic_score(grid):
     score = int(actual_score+math.log(actual_score)*available_cells - clustering_score)
     return max(score, min(actual_score, 1))
 
-
 def insert_random_tile(grid):
     """ Insert a random tile
     """
@@ -250,6 +249,8 @@ class PlayerAI(BaseAI):
     
     # const tha will be used to optimize the algorithm 
     MAX_DEPTH = 5
+
+    # https://sandipanweb.wordpress.com/2017/03/06/using-minimax-with-alpha-beta-pruning-and-heuristic-evaluation-to-solve-2048-game-with-computer/
 
     def getMove(self, grid):
         """ This function get the current move that maximize the
