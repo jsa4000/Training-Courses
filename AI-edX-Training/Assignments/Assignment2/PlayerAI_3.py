@@ -3,15 +3,36 @@ import math
 from random import randint
 from BaseAI_3 import BaseAI
 
+adjacent_tiles = ((-1,0),(0,1),(1,0),(0,-1))
+
 def get_smoothness(grid):
     """ Get the smoothness (score) for the current grid state
+
+    The idea is to lopp over the grid and see the tiles adjacent
+    similar tu the current one and not empty.
+
     """
-    pass
+    score = 0
+    for x in range(grid.size):
+        for y in range(grid.size):
+            # Get the current value x,y
+            current_value = grid.getCellValue((x,y))
+            # Check not is empty
+            if current_value != 0:
+                # Check the adjacent cells and crossBound
+                for tile in adjacent_tiles:
+                    tile_pos = (x+tile[0],y+tile[1])
+                    # Check if the current pos is in the bounds
+                    if not grid.crossBound(tile_pos) and grid.getCellValue(tile_pos) == current_value:
+                        #Comparet with the valie
+                        score += 1
+    # Finally return the total score founded
+    return score
 
 def get_monotonicity(grid):
     """ Get the monotonicity (score) for the current grid state
     """
-    pass
+    return 0
 
 def get_heuristic(grid):
     """ Get the heuristic (score) for the current grid state
