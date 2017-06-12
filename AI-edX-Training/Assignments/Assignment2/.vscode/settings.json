@@ -1,4 +1,12 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+     "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/__pycache__": true
+  },
+    
 }
