@@ -3,15 +3,32 @@ import math
 from random import randint
 from BaseAI_3 import BaseAI
 
+def get_smoothness(grid):
+    """ Get the smoothness (score) for the current grid state
+    """
+    pass
+
+def get_monotonicity(grid):
+    """ Get the monotonicity (score) for the current grid state
+    """
+    pass
+
 def get_heuristic(grid):
     """ Get the heuristic (score) for the current grid state
     """
+    # Actual score is the max value merged in the grid
     actual_score = grid.getMaxTile()
+    # Free Tiles available (more the better)
     available_cells = len(grid.getAvailableCells())
-    clustering_score = 1.0
+    # Values decreasing or decreasing along the edges.
+    monotonicity_score = get_monotonicity(grid)
+    # Smoothnes measure same values for adjacent tiles
+    smoothness_score = get_smoothness(grid)
+    # clustering_score 
+    clustering_score = monotonicity_score + smoothness_score
 
-
-    retur
+    # Create an heuristic with the previous parameters
+    return int(actual_score + math.log(actual_score) * available_cells + clustering_score)
 
 def insert_random_tile(grid):
     """ Insert a value [2, 4] with a probability and added  
