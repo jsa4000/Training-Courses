@@ -5,7 +5,59 @@ from BaseAI_3 import BaseAI
 from copy import deepcopy
 import queue
 
+
 def get_monoticity(grid):
+    max_value = grid.getMaxTile()
+    max_pos = (1,1)
+    max_dec = -sys.maxsize
+    for i in range(0, grid.size):
+        for j in range(0, grid.size):
+            if grid.map[i][j] == max_value:
+                dec = abs(i - 1.5) + abs(j - 1.5)
+                if dec > max_dec:
+                    max_pos = (i, j)
+                    max_dec = dec
+
+    result = 0
+    if max_dec == 3:
+
+        for i in range(1,grid.size):
+            if not grid.crossBound((max_pos[0] + i, max_pos[1])):
+                if grid.getCellValue((max_pos[0] + i, max_pos[1])) == 0:
+                    break
+                if log(grid.getCellValue((max_pos[0] + i, max_pos[1])),2) - log(grid.getCellValue((max_pos[0] + i - 1, max_pos[1])),2) <= 1:
+                    result += 1
+
+
+        for i in range(1,grid.size):
+            if not grid.crossBound((max_pos[0] - i, max_pos[1])):
+                if grid.getCellValue((max_pos[0] - i, max_pos[1])) == 0:
+                    break
+                if log(grid.getCellValue((max_pos[0] - i, max_pos[1])),2) - log(grid.getCellValue((max_pos[0] - i + 1, max_pos[1])),2) <= 1:
+                    result += 1
+
+
+        for i in range(1,grid.size):
+            if not grid.crossBound((max_pos[0], max_pos[1] + i)):
+                if grid.getCellValue((max_pos[0], max_pos[1] + i)) == 0:
+                    break
+                if log(grid.getCellValue((max_pos[0], max_pos[1] + i)),2) - log(grid.getCellValue((max_pos[0], max_pos[1] + i - 1)),2) <= 1:
+                    result += 1
+                    
+                    
+        for i in range(1,grid.size):
+            if not grid.crossBound((max_pos[0], max_pos[1] - i)):
+                if grid.getCellValue((max_pos[0], max_pos[1] - i)) == 0:
+                    break
+                if log(grid.getCellValue((max_pos[0], max_pos[1] - i)),2) - log(grid.getCellValue((max_pos[0], max_pos[1] - i + 1)),2) <= 1:
+                    result += 1
+    
+    if result >=3:
+        return 3
+    return result
+
+def get_monoticity_(grid):
+    
     max_value = grid.getMaxTile()
     max_pos = [0,0]
     max_dec = -sys.maxsize
@@ -16,6 +68,7 @@ def get_monoticity(grid):
                 if dec > max_dec:
                     max_pos = (i, j)
                     max_dec = dec
+
     result = 0
 
     if max_dec == 3:
@@ -79,8 +132,11 @@ def get_monoticity(grid):
                     pass
             else:
                 break
+
         result = result + max(result1, result2)
+
     return result
+
 
 def get_smoothness(grid):
     tiles = []
@@ -116,6 +172,7 @@ def get_smoothness2(grid):
     smoothness = 0
     while not mqueue.empty():
         tiles.append(mqueue.get()[1])
+
     for i in range(1, min(len(tiles), 8)):
         if abs(tiles[i-1][0] - tiles[i][0]) + abs(tiles[i][1] - tiles[i-1][1]) == 1:
             smoothness += log(grid.getCellValue(tiles[i]), 2)
@@ -132,6 +189,7 @@ def evaluate(grid):
     if log(max_tile, 2) >= 8:
         monoticity = get_monoticity(grid) * 2
     smoothness = get_smoothness(grid) * 0.1 + get_smoothness2(grid)
+    #smoothness = get_smoothness(grid) * 0.1
     return log(max_tile, 2) * 10 + num_blank * 3 + monoticity + smoothness * 0.1
 
 def insert_random_tile(grid, cell=None):
@@ -209,7 +267,7 @@ def alpha_beta(grid, depth, alpha, beta, maximize):
 class PlayerAI(BaseAI):
     
     # const tha will be used to optimize the algorithm 
-    MAX_DEPTH = 3
+    MAX_DEPTH = 4
 
     # https://sandipanweb.wordpress.com/2017/03/06/using-minimax-with-alpha-beta-pruning-and-heuristic-evaluation-to-solve-2048-game-with-computer/
 
