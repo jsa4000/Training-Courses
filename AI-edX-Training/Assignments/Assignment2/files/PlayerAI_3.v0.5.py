@@ -4,7 +4,8 @@ from random import randint
 from BaseAI_3 import BaseAI
 
 adjacent_tiles = ((-1,0),(0,1),(1,0),(0,-1))
-percentage_monotonicity = [1, 0.50, 0.10, 0.0]
+percentage_monotonicity = [1, 0.80, 0.20, 0.0]
+
 
 def get_smoothness(grid):
     """ Get the smoothness (score) for the current grid state
@@ -38,29 +39,10 @@ def transpose_matrix(matrix):
     result = []
     for y in range(sizey):
         result.append([matrix[x][y] for x in range(sizex)])
-    return result    
-
-def flip_matrix(matrix, axis=0):
-    """ Flip the matrix.
-        Where:
-            axis = 0 = Horizontal
-            axis = 1 = Vertical
-    """
-    size = len(matrix)
-    result = []
-    if axis:
-        for x in reversed(range(size)):
-            result.append([matrix[x][y] for y in range(size)])
-    else:
-        for x in range(size):
-            result.append([matrix[x][y] for y in reversed(range(size))])
-    # Return the matrix
-    return result     
+    return result      
 
 def get_monotonicity_percentage_matrix():
-    """ This will return the percentage matrix using the monotonicity
-    defined previously. This will compute the left tiles by multiplying
-    the cols and row.
+    """
     """
     result = []
     for x in percentage_monotonicity:
@@ -75,9 +57,8 @@ def create_empty_matrix(size, default_value):
         result.append([default_value for y in range(size)])
     return result
 
-def combine_matrix(matrix1, matrix2):
-    """ Combine marix2 with matrix1 where matrix1>matrix2
-    if None value then the value will be replaced
+def combine_matrix(matrix1, matrix2, replace=True):
+    """
     """
     sizey = len(matrix2[0])
     sizex = len(matrix2)
@@ -97,13 +78,13 @@ def get_monotonicity_matrix(matrix):
     rows = []
     # Compute the rows
     for x in range(size):
-        rows.append([True if first>=second and first!=0 else False for first, second in zip(matrix[x],matrix[x][1:])])
+        rows.append([True if first>=second else False for first, second in zip(matrix[x],matrix[x][1:])])
     columns = []
     # Transpose the Matrix
     transposed = transpose_matrix(matrix)
     #Compte the columns
     for x in range(size):
-        columns.append([True if first>=second and first!=0  else False for first, second in zip(transposed[x],transposed[x][1:])])
+        columns.append([True if first>=second else False for first, second in zip(transposed[x],transposed[x][1:])])
     columns = transpose_matrix(columns)
     # Combine the Matrix row and cols
     result = create_empty_matrix(size, None)
@@ -113,36 +94,21 @@ def get_monotonicity_matrix(matrix):
     result[size-1][size-1] = False
     return result
 
-def get_monotonicity_score(monotonicity_marix,monotonicity_percentage_matrix ):
-    #Final score
-    size = len(monotonicity_marix)
-    score = 0
-    # Get the score combining both matrices
-    for x in range(size):
-        for y in range(size):
-            score += monotonicity_percentage_matrix[x][y]*monotonicity_marix[x][y]
-    return score
-
-def get_max_monotonicity(grid):
+def get_monotonicity(grid):
     """ Get the monotonicity (score) for the current grid state
     """
     # Get the monocity percentages to use in the score
-    monotonicity_percentage_matrix = get_monotonicity_percentage_matrix()
-    scores=[]
-    # This will return the monotonicity matrix from 0_0
+    monotonicity = get_monotonicity_percentage_matrix()
+    # This will return the monotonicity matrix 
     monotonicity_from_0_0 = get_monotonicity_matrix(grid.map)
-    scores.append(get_monotonicity_score(monotonicity_from_0_0,monotonicity_percentage_matrix))
-    # This will return the monotonicity matrix fomr 3_0
-    monotonicity_from_3_0 = get_monotonicity_matrix(flip_matrix(grid.map, axis=0))
-    scores.append(get_monotonicity_score(monotonicity_from_3_0,monotonicity_percentage_matrix))
-    # This will return the monotonicity matrix fomr 0_3
-    monotonicity_from_0_3 = get_monotonicity_matrix(flip_matrix(grid.map, axis=1))
-    scores.append(get_monotonicity_score(monotonicity_from_0_3,monotonicity_percentage_matrix))
-    # This will return the monotonicity matrix fomr 3_3
-    monotonicity_from_3_3 = get_monotonicity_matrix(flip_matrix(flip_matrix(grid.map, axis=1),axis=0))
-    scores.append(get_monotonicity_score(monotonicity_from_3_3,monotonicity_percentage_matrix))
+    #Final score
+    score = 0
+    # Get the score combining both matrices
+    for x in range(grid.size):
+        for y in range(grid.size):
+            score += monotonicity[x][y]*monotonicity_from_0_0[x][y]
     # Return the final score
-    return max(scores)
+    return score
   
 def get_heuristic(grid):
     """ Get the heuristic (score) for the current grid state
@@ -152,7 +118,7 @@ def get_heuristic(grid):
     # Free Tiles available (more the better)
     available_cells = len(grid.getAvailableCells())
     # Values decreasing or decreasing along the edges.
-    monotonicity_score = get_max_monotonicity(grid)
+    monotonicity_score = get_monotonicity(grid)
     # Smoothnes measure same values for adjacent tiles
     smoothness_score = get_smoothness(grid)
     # clustering_score 
