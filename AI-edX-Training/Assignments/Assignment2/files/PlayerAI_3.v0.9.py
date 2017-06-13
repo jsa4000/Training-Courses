@@ -1,12 +1,11 @@
 import sys
-from math import log
+import math
 from random import randint
 from BaseAI_3 import BaseAI
-from copy import deepcopy
 import queue
 
 
-def get_monoticity_two(grid):
+def get_monoticity(grid):
     max_value = grid.getMaxTile()
     max_pos = (1,1)
     max_dec = -sys.maxsize
@@ -18,45 +17,45 @@ def get_monoticity_two(grid):
                     max_pos = (i, j)
                     max_dec = dec
 
-    result = 0
+    sum_mono = 0
     if max_dec == 3:
 
         for i in range(1,grid.size):
             if not grid.crossBound((max_pos[0] + i, max_pos[1])):
                 if grid.getCellValue((max_pos[0] + i, max_pos[1])) == 0:
                     break
-                if log(grid.getCellValue((max_pos[0] + i, max_pos[1])),2) - log(grid.getCellValue((max_pos[0] + i - 1, max_pos[1])),2) <= 1:
-                    result += 1
+                if math.log(grid.getCellValue((max_pos[0] + i, max_pos[1])),2) - math.log(grid.getCellValue((max_pos[0] + i - 1, max_pos[1])),2) <= 1:
+                    sum_mono += 1
 
 
         for i in range(1,grid.size):
             if not grid.crossBound((max_pos[0] - i, max_pos[1])):
                 if grid.getCellValue((max_pos[0] - i, max_pos[1])) == 0:
                     break
-                if log(grid.getCellValue((max_pos[0] - i, max_pos[1])),2) - log(grid.getCellValue((max_pos[0] - i + 1, max_pos[1])),2) <= 1:
-                    result += 1
+                if math.log(grid.getCellValue((max_pos[0] - i, max_pos[1])),2) - math.log(grid.getCellValue((max_pos[0] - i + 1, max_pos[1])),2) <= 1:
+                    sum_mono += 1
 
 
         for i in range(1,grid.size):
             if not grid.crossBound((max_pos[0], max_pos[1] + i)):
                 if grid.getCellValue((max_pos[0], max_pos[1] + i)) == 0:
                     break
-                if log(grid.getCellValue((max_pos[0], max_pos[1] + i)),2) - log(grid.getCellValue((max_pos[0], max_pos[1] + i - 1)),2) <= 1:
-                    result += 1
+                if math.log(grid.getCellValue((max_pos[0], max_pos[1] + i)),2) - math.log(grid.getCellValue((max_pos[0], max_pos[1] + i - 1)),2) <= 1:
+                    sum_mono += 1
                     
                     
         for i in range(1,grid.size):
             if not grid.crossBound((max_pos[0], max_pos[1] - i)):
                 if grid.getCellValue((max_pos[0], max_pos[1] - i)) == 0:
                     break
-                if log(grid.getCellValue((max_pos[0], max_pos[1] - i)),2) - log(grid.getCellValue((max_pos[0], max_pos[1] - i + 1)),2) <= 1:
-                    result += 1
+                if math.log(grid.getCellValue((max_pos[0], max_pos[1] - i)),2) - math.log(grid.getCellValue((max_pos[0], max_pos[1] - i + 1)),2) <= 1:
+                    sum_mono += 1
     
-    if result >=3:
+    if sum_mono >=3:
         return 3
-    return result
+    return sum_mono
 
-def get_monoticity(grid):
+def get_monoticity2(grid):
     
     max_value = grid.getMaxTile()
     max_pos = [0,0]
@@ -69,10 +68,10 @@ def get_monoticity(grid):
                     max_pos = (i, j)
                     max_dec = dec
 
-    result = 0
+    sum_mono = 0
 
     if max_dec == 3:
-        result += log(max_value)
+        sum_mono += math.log(max_value)
         x_dir = 0
         y_dir = 0
         if max_pos[0] == 0 and max_pos[1] == 0:
@@ -90,7 +89,7 @@ def get_monoticity(grid):
 
         xy_dir = (x_dir, y_dir)
 
-        result1 = 0
+        sum_mono1 = 0
 
         cursor = deepcopy(max_pos)
         for i in range(1, grid.size * 2):
@@ -102,14 +101,14 @@ def get_monoticity(grid):
                 x_dir = -1 * x_dir
             else:
                 cursor = (cursor[0] + x_dir, cursor[1])
-            if grid.getCellValue(cursor) - grid.getCellValue(prev) >= 0 and (log(grid.getCellValue(cursor), 2) - log( grid.getCellValue(prev), 2)) <= 2:
-                result1 +=  log( grid.getCellValue(prev), 2)
-                if log(grid.getCellValue(cursor), 2) - log( grid.getCellValue(prev), 2) <= 1:
+            if grid.getCellValue(cursor) - grid.getCellValue(prev) >= 0 and (math.log(grid.getCellValue(cursor), 2) - math.log( grid.getCellValue(prev), 2)) <= 2:
+                sum_mono1 +=  math.log( grid.getCellValue(prev), 2)
+                if math.log(grid.getCellValue(cursor), 2) - math.log( grid.getCellValue(prev), 2) <= 1:
                     pass
             else:
                 break
 
-        result2 = 0
+        sum_mono2 = 0
 
         x_dir = xy_dir[0]
         y_dir = xy_dir[1]
@@ -127,15 +126,15 @@ def get_monoticity(grid):
             else:
                 cursor = (cursor[0], cursor[1] + y_dir)
             if grid.getCellValue(cursor) - grid.getCellValue(prev) >= 0:
-                result2 += log( grid.getCellValue(prev), 2)
-                if log(grid.getCellValue(cursor), 2) - log( grid.getCellValue(prev), 2) <= 1:
+                sum_mono2 += math.log( grid.getCellValue(prev), 2)
+                if math.log(grid.getCellValue(cursor), 2) - math.log( grid.getCellValue(prev), 2) <= 1:
                     pass
             else:
                 break
 
-        result = result + max(result1, result2)
+        sum_mono = sum_mono + max(sum_mono1, sum_mono2)
 
-    return result
+    return sum_mono
 
 
 def get_smoothness(grid):
@@ -148,16 +147,16 @@ def get_smoothness(grid):
 
     for i, t in enumerate(tiles):
         for j in range(i+1, len(tiles)):
-            if log(grid.getCellValue(t), 2) - log(grid.getCellValue(tiles[j]), 2) == 0 and log(grid.getCellValue(t), 2):
+            if math.log(grid.getCellValue(t), 2) - math.log(grid.getCellValue(tiles[j]), 2) == 0 and math.log(grid.getCellValue(t), 2):
                 if abs(t[0] - tiles[j][0]) + abs(t[1] - tiles[j][1]) == 1:
-                    smoothness += 1 * log(grid.getCellValue(t), 2)/5
+                    smoothness += 1 * math.log(grid.getCellValue(t), 2)/5
                     continue
 
     for i, t in enumerate(tiles):
         for j in range(i+1, len(tiles)):
-            if log(grid.getCellValue(t), 2) - log(grid.getCellValue(tiles[j]), 2) == 1 and log(grid.getCellValue(t), 2):
+            if math.log(grid.getCellValue(t), 2) - math.log(grid.getCellValue(tiles[j]), 2) == 1 and math.log(grid.getCellValue(t), 2):
                 if abs(t[0] - tiles[j][0]) + abs(t[1] - tiles[j][1]) == 1:
-                    smoothness += 0.5 * max(log(grid.getCellValue(t), 2), log(grid.getCellValue(tiles[j]), 2))/5
+                    smoothness += 0.5 * max(math.log(grid.getCellValue(t), 2), math.log(grid.getCellValue(tiles[j]), 2))/5
                     continue
 
     return smoothness
@@ -175,7 +174,7 @@ def get_smoothness2(grid):
 
     for i in range(1, min(len(tiles), 8)):
         if abs(tiles[i-1][0] - tiles[i][0]) + abs(tiles[i][1] - tiles[i-1][1]) == 1:
-            smoothness += log(grid.getCellValue(tiles[i]), 2)
+            smoothness += math.log(grid.getCellValue(tiles[i]), 2)
     return smoothness
 
 def evaluate(grid):
@@ -184,13 +183,13 @@ def evaluate(grid):
     num_blank = len(grid.getAvailableCells())
     max_tile = grid.getMaxTile()
     if num_blank == 0:
-        return log(max_tile, 2) - 100
+        return math.log(max_tile, 2) - 100
     monoticity = get_monoticity(grid) * 2
-    if log(max_tile, 2) >= 8:
+    if math.log(max_tile, 2) >= 8:
         monoticity = get_monoticity(grid) * 2
     smoothness = get_smoothness(grid) * 0.1 + get_smoothness2(grid)
     #smoothness = get_smoothness(grid) * 0.1
-    return log(max_tile, 2) * 10 + num_blank * 3 + monoticity + smoothness * 0.1
+    return math.log(max_tile, 2) * 10 + num_blank * 3 + monoticity + smoothness * 0.1
 
 def insert_random_tile(grid, cell=None):
     """ Insert a value [2, 4] with a probability and added  
