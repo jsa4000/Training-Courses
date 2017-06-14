@@ -6,7 +6,11 @@ from copy import deepcopy
 import queue
 
 
+<<<<<<< HEAD
 def get_monoticity_two(grid):
+=======
+def get_monoticity(grid):
+>>>>>>> 3413626620ea52231fb49a429a3e181a891b9f38
     max_value = grid.getMaxTile()
     max_pos = (1,1)
     max_dec = -sys.maxsize
@@ -56,7 +60,11 @@ def get_monoticity_two(grid):
         return 3
     return result
 
+<<<<<<< HEAD
 def get_monoticity(grid):
+=======
+def get_monoticity_(grid):
+>>>>>>> 3413626620ea52231fb49a429a3e181a891b9f38
     
     max_value = grid.getMaxTile()
     max_pos = [0,0]
@@ -267,7 +275,11 @@ def alpha_beta(grid, depth, alpha, beta, maximize):
 class PlayerAI(BaseAI):
     
     # const tha will be used to optimize the algorithm 
+<<<<<<< HEAD
     MAX_DEPTH = 3
+=======
+    MAX_DEPTH = 4
+>>>>>>> 3413626620ea52231fb49a429a3e181a891b9f38
 
     # https://sandipanweb.wordpress.com/2017/03/06/using-minimax-with-alpha-beta-pruning-and-heuristic-evaluation-to-solve-2048-game-with-computer/
 
