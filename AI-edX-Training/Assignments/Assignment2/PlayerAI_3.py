@@ -123,7 +123,7 @@ def get_monotonicity_score(monotonicity_marix,monotonicity_percentage_matrix ):
             score += monotonicity_percentage_matrix[x][y]*monotonicity_marix[x][y]
     return score
 
-def get_monoticity(grid, all=False):
+def get_monoticity(grid, all=True):
     """ Get the monotonicity (score) for the current grid state
     """
     # Get the monocity percentages to use in the score
@@ -233,7 +233,7 @@ def alpha_beta(grid, depth, alpha, beta, maximize):
 class PlayerAI(BaseAI):
     
     # const tha will be used to optimize the algorithm 
-    MAX_DEPTH = 3
+    MAX_DEPTH = 4
 
     # https://sandipanweb.wordpress.com/2017/03/06/using-minimax-with-alpha-beta-pruning-and-heuristic-evaluation-to-solve-2048-game-with-computer/
 
