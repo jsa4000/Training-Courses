@@ -4,7 +4,7 @@ from random import randint
 from BaseAI_3 import BaseAI
 
 adjacent_tiles = ((-1,0),(0,1),(1,0),(0,-1))
-percentage_monotonicity = [1, 0.50, 0.10, 0.0]
+percentage_monotonicity = [1, 0.30, 0.05, 0.0]
 
 def get_smoothness(grid):
     """ Get the smoothness (score) for the current grid state
@@ -123,7 +123,7 @@ def get_monotonicity_score(monotonicity_marix,monotonicity_percentage_matrix ):
             score += monotonicity_percentage_matrix[x][y]*monotonicity_marix[x][y]
     return score
 
-def get_monoticity(grid):
+def get_monoticity(grid, all=False):
     """ Get the monotonicity (score) for the current grid state
     """
     # Get the monocity percentages to use in the score
@@ -132,15 +132,16 @@ def get_monoticity(grid):
     # This will return the monotonicity matrix from 0_0
     monotonicity_from_0_0 = get_monotonicity_matrix(grid.map)
     scores.append(get_monotonicity_score(monotonicity_from_0_0,monotonicity_percentage_matrix))
-    # This will return the monotonicity matrix fomr 3_0
-    monotonicity_from_3_0 = get_monotonicity_matrix(flip_matrix(grid.map, axis=0))
-    scores.append(get_monotonicity_score(monotonicity_from_3_0,monotonicity_percentage_matrix))
-    # This will return the monotonicity matrix fomr 0_3
-    monotonicity_from_0_3 = get_monotonicity_matrix(flip_matrix(grid.map, axis=1))
-    scores.append(get_monotonicity_score(monotonicity_from_0_3,monotonicity_percentage_matrix))
-    # This will return the monotonicity matrix fomr 3_3
-    monotonicity_from_3_3 = get_monotonicity_matrix(flip_matrix(flip_matrix(grid.map, axis=1),axis=0))
-    scores.append(get_monotonicity_score(monotonicity_from_3_3,monotonicity_percentage_matrix))
+    if all:
+        # This will return the monotonicity matrix fomr 3_0
+        monotonicity_from_3_0 = get_monotonicity_matrix(flip_matrix(grid.map, axis=0))
+        scores.append(get_monotonicity_score(monotonicity_from_3_0,monotonicity_percentage_matrix))
+        # This will return the monotonicity matrix fomr 0_3
+        monotonicity_from_0_3 = get_monotonicity_matrix(flip_matrix(grid.map, axis=1))
+        scores.append(get_monotonicity_score(monotonicity_from_0_3,monotonicity_percentage_matrix))
+        # This will return the monotonicity matrix fomr 3_3
+        monotonicity_from_3_3 = get_monotonicity_matrix(flip_matrix(flip_matrix(grid.map, axis=1),axis=0))
+        scores.append(get_monotonicity_score(monotonicity_from_3_3,monotonicity_percentage_matrix))
     # Return the final score
     return max(scores)
   
