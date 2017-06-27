@@ -6,18 +6,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def plot_points(df, plot_margin = 2):
+def plot_points(df):
     """ This Function Plot the x, y points from the dataframe
     Also color changes depending on the label class for each point
     """
     # Set data: point (x, y) and colors for classification
     plt.scatter(df["x"],df["y"],c=df["label"])
+  
+def plot_function(y):
+    x = np.arange(0.0, 20.0, 1.0)
+    y = list(map(y,x))
+    line, = plt.plot(x, y, lw=2)
+
+def plot_margin(plot_margin = 2):
     # Set the margrins with some space
     x0, x1, y0, y1 = plt.axis()
     plt.axis((x0 - plot_margin, x1 + plot_margin,
             y0 - plot_margin, y1 + plot_margin))
-    # Show the plot in a pop window
-    plt.show()
 
 def test_dataset(df):
     print("Number of Samples in the Dataset: {}".format(len(df.index)))
@@ -25,35 +30,62 @@ def test_dataset(df):
     print(df.head(1)) # First Element read
     # Plot dataset Points
     plot_points(df)
+    plot_margin()
+    plt.show()
 
-
-def compute_PLA(df):
+def compute_PLA(df, weights=None, lr=0.05):
     """ Perceptron Learning Algorithm
 
-      ... X2  X1   W1                                      
-                     PERCEPTRON + LOGISTIC FUNCTION => PREDICTION
-      ... Y2  Y1   W2    
+    PLA is based in Linear Regression. The main purpose
+    is to divide the dataset into two. In order to do this
+    the data must be linearly separable.
+
+                1    W0 -> Bias
+      (... X2, X1) * W1                                      
+                      + PERCEPTRON + LINEAR FUNCTION => PREDICTION
+      (... Y2, Y1) * W2   
 
         y = f(z), where z is the input vector (X1,Y2)
 
-        f = sigmoid(X1*W1 + X2*W2 + B)
+        f =  linear (X1*W1 + X2*W2 + W0)
 
         Training Set: [(X1,Y1), (X2,Y2), .. , (XN, YN)]
         Labels:       [Y1, Y2, ..., YN]
+        Bias = Weight * 1 (W0)
 
+    In order to update the weights:
+
+    W(t+1) = Wt + lr(y - y'(t))xi
+    =>
+    AW =  lr (y - y'(t))xi
+    =>
+    W(t+1) = Wt + AWt
+
+    where:
+        lr: learning rate
+        y: true label
+        y'(t): predicted label (t)
+        xi: parameter to the weight being updated.
+        Wt: previous weight (t)
+        W(t+1): update weights
 
     """
     # Initialize weights (zeros, ones, random, uniform...)
-    weights = np.ones((2,1))
+    # x, y and Bias (W0, W1 and W2)
+    if weights is None: weights = np.random.rand(3,)  
+    # Create the parameter for the Bias term 1 * W0 = W0
+    df["b"] = 1
     # Get training and labels from dataset
-    training_set = df.loc[:,["x","y"]]
+    training_set = df.loc[:,["x","y","b"]]
     labels = df.loc[:,"label"]
-    # Matrix Multiplication (N,2)) x (2,1) -> N:1
-    mult = np.matmul(training_set, weights)
-  
-    return True
-
-
+    # Matrix Multiplication (N,3)) x (3,1) -> N:1
+    mult = np.matmul(training_set, weights) # Linear function y'(t)
+    # Error distance (based on square error gradient descent)
+    error = labels - mult
+    # Compute the Update for the weigths (for each row in order)
+    for i, label in enumerate(labels):
+        weights = weights + lr * error[i] * training_set.loc[i,:] 
+    return weights.values
 
 if __name__ == "__main__":
     # Start the Programs    
@@ -69,9 +101,20 @@ if __name__ == "__main__":
     # Read the input file and extract the features
     df = pd.read_csv(input_file, names=["x","y","label"],header=None)
     if test_mode: test_dataset(df) # If test mode enabled
-    # Compute PLA
-    compute_PLA(df)
-    # End of the Program
+    
+    weights = None
 
+    for i in range(100):
+        # Compute PLA
+        weights = compute_PLA(df, weights)
+
+        # Plot the results
+        plt.ion()
+        plot_points(df)
+        plot_function(lambda x: weights[0]*x**2 + weights[1]*x + weights[2] )
+        plot_margin()
+        plt.pause(0.05)
+
+    # End of the Program
 
 
