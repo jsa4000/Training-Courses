@@ -85,6 +85,10 @@ def train(data, labels, n, lr=0.05):
     result = []
     # Initialize weights (zeros, ones, random, uniform...)
     # x, y and Bias (W0, W1 and W2)
+     # Create the parameter for the Bias term 1 * W0 = W0
+    data["b"] = 1
+    # Get training and labels from dataset
+    training_set = df.loc[:,["x","y","b"]]
     #weights = np.random.rand(3,) 
     weights = np.zeros(3,) 
     #Start with the TRaining
@@ -98,7 +102,7 @@ def train(data, labels, n, lr=0.05):
         # Update PLA and update the weights
         weights = update(data, labels, weights, lr)
         # Plot current weights
-        line = plot_function((-10, 20), lambda x:-(weights[0]*x + weights[2])/weights[1], line)
+        line = plot_function((0, 15), lambda x:-(weights[0]*x + weights[2])/weights[1], line)
         # Update the plot (refresh)
         plt.pause(0.05)
         # Add current weight
@@ -109,31 +113,36 @@ def train(data, labels, n, lr=0.05):
     return result;
 
 if __name__ == "__main__":
-    # Start the Programs    
+    # Start the Program 
     test_mode = False
+
     # Get the parameters from the Args
     if len(sys.argv)<3:
         print("Not enought paramters. e.g file.py input.csv output.csv")
         sys.exit()
+
     # Get the Parameters and prepare the input/output files
     input_file = sys.argv[1]
     output_file = sys.argv[2]
     if test_mode: print("in: {} | out: {}".format(input_file,output_file))
+
     # Read the input file and extract the features
     df = pd.read_csv(input_file, names=["x","y","label"],header=None)
     if test_mode: test_dataset(df) # If test mode enabled
-    # Create the parameter for the Bias term 1 * W0 = W0
-    df["b"] = 1
+
     # Get training and labels from dataset
-    training_set = df.loc[:,["x","y","b"]]
+    training_set = df.loc[:,["x","y"]]
     labels = df.loc[:,"label"]
+
     # Train the data set for n iterations
     weights = train(training_set, labels, 30, 0.05)
+
     # Write current weights into the file
     with open(output_file,"w") as file:
         for weight in weights:
             file.write(",".join(format(x, "10.3f") for x in weight))
             file.write('\n')
+
     # End of the Program
 
 
