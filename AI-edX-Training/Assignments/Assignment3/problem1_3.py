@@ -13,10 +13,12 @@ def plot_points(df):
     # Set data: point (x, y) and colors for classification
     plt.scatter(df["x"],df["y"],c=df["label"])
   
-def plot_function(y):
-    x = np.arange(0.0, 20.0, 1.0)
+def plot_function(vector, y, line = None):
+    if line is not None: line.remove()
+    x = np.arange(vector[0], vector[1], 1.0)
     y = list(map(y,x))
     line, = plt.plot(x, y, lw=2)
+    return line;
 
 def plot_margin(plot_margin = 2):
     # Set the margrins with some space
@@ -33,7 +35,7 @@ def test_dataset(df):
     plot_margin()
     plt.show()
 
-def compute_PLA(df, weights=None, lr=0.05):
+def update(data, labels, weights, lr=0.05):
     """ Perceptron Learning Algorithm
 
     PLA is based in Linear Regression. The main purpose
@@ -70,22 +72,41 @@ def compute_PLA(df, weights=None, lr=0.05):
         W(t+1): update weights
 
     """
-    # Initialize weights (zeros, ones, random, uniform...)
-    # x, y and Bias (W0, W1 and W2)
-    if weights is None: weights = np.random.rand(3,)  
-    # Create the parameter for the Bias term 1 * W0 = W0
-    df["b"] = 1
-    # Get training and labels from dataset
-    training_set = df.loc[:,["x","y","b"]]
-    labels = df.loc[:,"label"]
     # Matrix Multiplication (N,3)) x (3,1) -> N:1
-    mult = np.matmul(training_set, weights) # Linear function y'(t)
+    mult = np.matmul(data, weights) # Linear function y'(t)
     # Error distance (based on square error gradient descent)
     error = labels - mult
     # Compute the Update for the weigths (for each row in order)
     for i, label in enumerate(labels):
-        weights = weights + lr * error[i] * training_set.loc[i,:] 
+        weights = weights + lr * error[i] * data.loc[i,:] 
     return weights.values
+
+def train(data, labels, n, lr=0.05):
+    result = []
+    # Initialize weights (zeros, ones, random, uniform...)
+    # x, y and Bias (W0, W1 and W2)
+    #weights = np.random.rand(3,) 
+    weights = np.zeros(3,) 
+    #Start with the TRaining
+    line = None
+    # Plot the results interactively
+    plt.ion()
+    plot_points(df)
+    plot_margin()
+    # Iterate througn n iterations
+    for i in range(n):
+        # Update PLA and update the weights
+        weights = update(data, labels, weights, lr)
+        # Plot current weights
+        line = plot_function((-10, 20), lambda x:-(weights[0]*x + weights[2])/weights[1], line)
+        # Update the plot (refresh)
+        plt.pause(0.05)
+        # Add current weight
+        result.append(weights)
+    # Show the final 10 seconds
+    plt.pause(1)
+    #Return the collection with all the weights updates
+    return result;
 
 if __name__ == "__main__":
     # Start the Programs    
@@ -101,20 +122,18 @@ if __name__ == "__main__":
     # Read the input file and extract the features
     df = pd.read_csv(input_file, names=["x","y","label"],header=None)
     if test_mode: test_dataset(df) # If test mode enabled
-    
-    weights = None
-
-    for i in range(100):
-        # Compute PLA
-        weights = compute_PLA(df, weights)
-
-        # Plot the results
-        plt.ion()
-        plot_points(df)
-        plot_function(lambda x: weights[0]*x**2 + weights[1]*x + weights[2] )
-        plot_margin()
-        plt.pause(0.05)
-
+    # Create the parameter for the Bias term 1 * W0 = W0
+    df["b"] = 1
+    # Get training and labels from dataset
+    training_set = df.loc[:,["x","y","b"]]
+    labels = df.loc[:,"label"]
+    # Train the data set for n iterations
+    weights = train(training_set, labels, 30, 0.05)
+    # Write current weights into the file
+    with open(output_file,"w") as file:
+        for weight in weights:
+            file.write(",".join(format(x, "10.3f") for x in weight))
+            file.write('\n')
     # End of the Program
 
 
