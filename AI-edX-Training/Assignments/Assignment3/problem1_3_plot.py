@@ -1,7 +1,10 @@
 import os
 import sys
+import time
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from plots import *
 
 def predict(data, weights):
     # Sum (xi * wi) + Bias => data * weights (bias included)
@@ -70,12 +73,23 @@ def train(data, labels, n, lr=0.05):
     weights = np.random.rand(3,) 
     #weights = np.zeros(3,) 
     #Start with the TRaining
+    line = None
+    # Plot the results interactively
+    plt.ion()
+    plot_points(df)
+    plot_margin()
     # Iterate througn n iterations
     for i in range(n):
         # Update PLA and update the weights
         weights = update(data, labels, weights, lr)
+        # Plot current weights
+        line = plot_function((0, 15), lambda x:-(weights[0]*x + weights[2])/weights[1], line)
+        # Update the plot (refresh)
+        plt.pause(0.05)
         # Add current weight
         result.append(weights)
+    # Show the final 10 seconds
+    plt.pause(1)
     #Return the collection with all the weights updates
     return result;
 
@@ -91,9 +105,11 @@ if __name__ == "__main__":
     # Get the Parameters and prepare the input/output files
     input_file = sys.argv[1]
     output_file = sys.argv[2]
+    if test_mode: print("in: {} | out: {}".format(input_file,output_file))
 
     # Read the input file and extract the features
     df = pd.read_csv(input_file, names=["x","y","label"],header=None)
+    if test_mode: test_dataset(df) # If test mode enabled
 
     # Get training and labels from dataset
     training_set = df.loc[:,["x","y"]]

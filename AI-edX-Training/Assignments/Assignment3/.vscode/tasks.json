@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "python",
     "isShellCommand": true,
-    "args": ["${file}", "data/input1.csv","outputs/output1.csv"],
+    "args": ["${file}", "data/input2.csv","outputs/output2.csv"],
     "showOutput": "always"
 }

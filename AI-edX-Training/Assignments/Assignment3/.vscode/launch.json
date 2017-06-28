@@ -9,7 +9,7 @@
             "pythonPath": "${config:python.pythonPath}",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
-            "args": [ "data/input1.csv","outputs/output1.csv"],
+            "args": [ "data/input2.csv","outputs/output2.csv"],
             "env": {},
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
