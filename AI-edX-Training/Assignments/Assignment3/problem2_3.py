@@ -26,12 +26,19 @@ if __name__ == "__main__":
     if test_mode: print("in: {} | out: {}".format(input_file,output_file))
 
     # Read the input file and extract the features
-    df = pd.read_csv(input_file, names=["x","y","label"],header=None)
+    df = pd.read_csv(input_file, names=["age","weight","height"],header=None)
     if test_mode: test_dataset(df) # If test mode enabled
 
+    # Normalize the data (each feature): 
+    # norm(x) = (x - mean(x)) / std(x)
+    df.loc[:,"age"] = (df.loc[:,"age"] - df.loc[:,"age"].mean()) / df.loc[:,"age"].std()
+    df.loc[:,"weight"] = (df.loc[:,"weight"] - df.loc[:,"weight"].mean()) / df.loc[:,"weight"].std()
+    df.loc[:,"height"] = (df.loc[:,"height"] - df.loc[:,"height"].mean()) / df.loc[:,"height"].std()
+    if test_mode: test_dataset(df, True) # If test mode enabled
+    
     # Get training and labels from dataset
-    training_set = df.loc[:,["x","y"]]
-    labels = df.loc[:,"label"]
+    training_set = df.loc[:,["age","weight"]]
+    labels = df.loc[:,"height"]
 
     # Train the data set for n iterations
     weights = train(training_set, labels, 50, 0.01)
