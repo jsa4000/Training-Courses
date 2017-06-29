@@ -20,7 +20,7 @@ def plot_points(df, is3d=False):
         ax = fig.gca(projection='3d')
         ax.scatter(df.iloc[:,0],df.iloc[:,1],df.iloc[:,2], 
                     c=df.iloc[:,2])
-
+        return ax
   
 def plot_function(vector, y, line = None):
     if line is not None: line.remove()
@@ -28,6 +28,20 @@ def plot_function(vector, y, line = None):
     y = list(map(y,x))
     line, = plt.plot(x, y, lw=2)
     return line;
+
+def plot_function_3d(vector, y, wire = None, ax=None):
+    if wire is not None: wire.remove()
+    x = np.arange(vector[0], vector[1], 1.0)
+    z = np.arange(vector[0], vector[1], 1.0)
+    X, Z = np.meshgrid(x, z)
+    Y = list(map(y,X,Z))
+    if not ax:
+        fig = plt.figure()
+        ax = fig.gca(projection='3d')
+    #wire = ax.plot_wireframe(x, y, z, rstride=10, cstride=10)4
+    wire = ax.plot_surface(X, Z, Y, cmap=cm.coolwarm,
+                       linewidth=0, antialiased=False)
+    return wire;
 
 def plot_margin(plot_margin = 2):
     # Set the margrins with some space

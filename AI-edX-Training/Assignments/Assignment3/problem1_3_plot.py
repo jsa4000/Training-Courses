@@ -69,7 +69,7 @@ def train(data, labels, n, lr=0.05):
      # Create the parameter for the Bias term 1 * W0 = W0
     data["b"] = 1
     # Get training and labels from dataset
-    training_set = df.loc[:,["x","y","b"]]
+    data = data.loc[:,["x","y","b"]]
     weights = np.random.rand(3,) 
     #weights = np.zeros(3,) 
     #Start with the TRaining
