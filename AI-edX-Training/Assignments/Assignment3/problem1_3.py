@@ -27,6 +27,29 @@ def update(data, labels, weights, lr=0.05):
         ACTIVATION:  if x >= 1   1
                      else        0
 
+        
+        ACTIVATION (2):
+
+        In a Perceptron (PLA) the formule is the following. (W3 = Bias)
+        Where X1, X2 are the features and Y are the labels
+
+            X1W1 + X2W2 + W3 = 0 
+
+            In PLA the idea is to resolve the activateion (sign) function.
+            Previous formule since it's equal to 0, this means the 
+            line that cross (divide) between the cloud of points.
+
+            if X1W1 + X2W2 + W3 >= 1    label = 1
+            if X1W1 + X2W2 + W3 < 1    label = 0
+
+        In a Linear Regreseion the basic formule will be:
+
+             X1W1 + X2W2 + X3W3 + W4 = 0
+
+             This is the eigenvector that will fit over the cloud of
+             points gven the features (X1,X2 abd X3). In this case the
+             label will also have a weight that will be computed.
+
         y = f(z), where z is the input vector (X1,Y2)
 
         f =  linear (X1*W1 + X2*W2 + W0)
@@ -66,7 +89,7 @@ def train(data, labels, n, lr=0.05):
      # Create the parameter for the Bias term 1 * W0 = W0
     data["b"] = 1
     # Get training and labels from dataset
-    training_set = df.loc[:,["x","y","b"]]
+    data = df.loc[:,["x","y","b"]]
     weights = np.random.rand(3,) 
     #weights = np.zeros(3,) 
     #Start with the TRaining

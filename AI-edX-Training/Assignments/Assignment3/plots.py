@@ -38,9 +38,9 @@ def plot_function_3d(vector, y, wire = None, ax=None):
     if not ax:
         fig = plt.figure()
         ax = fig.gca(projection='3d')
-    #wire = ax.plot_wireframe(x, y, z, rstride=10, cstride=10)4
+    #wire = ax.plot_wireframe(X, Z, Y, rstride=10, cstride=10)
     wire = ax.plot_surface(X, Z, Y, cmap=cm.coolwarm,
-                       linewidth=0, antialiased=False)
+                      linewidth=0, antialiased=False)
     return wire;
 
 def plot_margin(plot_margin = 2):
