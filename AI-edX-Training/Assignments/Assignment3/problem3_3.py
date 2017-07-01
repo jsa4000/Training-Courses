@@ -34,8 +34,84 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 
-# Cross validation with stratified sampling by default
-from sklearn.model_selection import cross_val_score
+# Train-test split and Cross validation with stratified sampling functions
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+from sklearn.metrics import accuracy_score
+
+def fit_model_train_test(classifier, data, targets, test_size = 0.4):
+    ''' Train/Test Split
+
+    The datais are split into training data and test data. 
+    
+        - The training set contains a known output and the model learns on this 
+        data in order to be generalized to other data later on.
+        
+        - The test dataset (or subset) in order to test our model’s prediction 
+        on this subset.
+
+    '''
+    # Split data into train and tests (by (test_size * 100) percentage)
+    X_train, X_test, Y_train, Y_test = train_test_split(data, targets, test_size=test_size)
+    # Fit the model using the training data splitted previously by using the classifier
+    model = classifier.fit(X_train, Y_train)
+    # Get the predcition with the trained classifier and ussing the test data
+    predictions = classifier.predict(X_test)
+    #REturn the score (accuracy) of the model trainnied using the test data set
+    return model.score(predictions, Y_test)    
+
+def fit_model_cross_validation(classifier, data, targets, kfold=10):
+    ''' Cross Validation
+    
+    It’s very similar to train/test split, but it’s applied to more subsets. Meaning, 
+    we split our data into k subsets, and train on k-1 one of those subset. What we 
+    do is to hold the last subset for test. We’re able to do it for each of the subsets.
+
+    There are a bunch of cross validation methods: K-Folds Cross Validation, Leave One Out 
+    Cross Validation (LOOCV), etc..
+
+    K-Folds Cross Validation. In this method we split our data into k different subsets 
+    (or folds). We use k-1 subsets to train our data and leave the last subset (or the 
+    last fold) as test data. We then average the model against each of the folds and then
+    finalize our model. After that we test it against the test set.
+
+    Also, we will be using Stratified sampling, that is a probability sampling technique 
+    wherein the researcher divides the entire population into different subgroups or strata,
+    then randomly selects the final subjects proportionally from the different strata. THe data
+    and target and proportionally divided (balanced) using this method.
+    
+    '''
+    # Evaluate a score by cross-validation (Stratified sampling)
+    scores = cross_val_score(classifier, data, targets, parameters, cv=kfold)
+    # Return the best score obtained in the Cross validation
+    return np.max(scores)
+
+def fit_model_grid_search(classifier, data, targets, parameters, kfold=10, test_size=0.4):
+    ''' GridSearchCV
+    Exhaustive search over specified parameter values for an estimator.
+
+    Important members are fit, predict.
+
+    GridSearchCV implements a “fit” and a “score” method. It also implements 
+    “predict”, “predict_proba”, “decision_function”, “transform” and “inverse_transform”
+    if they are implemented in the estimator used.
+
+    The parameters of the estimator used to apply these methods are optimized by 
+    cross-validated grid-search over a parameter grid.
+
+    '''
+    # Split the dataset in two equal parts
+    X_train, X_test, y_train, y_test = train_test_split(data, targets, 
+                                    test_size=test_size, random_state=0)
+    # Use GridSearchCV for Exhaustive search over specified parameter values for an estimator
+    model = GridSearchCV(classifier, parameters, cv=kfold)
+    # Train the model with the train data
+    model.fit(X_train, y_train)
+    # Get the scores, best, mean_test, standard deviation, etc..
+    test_cores = model.cv_results_['mean_test_score']
+    # Predcit using the file model and the training test
+    y_true, y_pred = y_test, model.predict(X_test)
+    #Return the best train and test mean scores from cross validation
+    return accuracy_score(y_true, y_pred), np.max(test_cores)
 
 def svm_linear(data,targets):
     '''  SVM with Linear Kernel. 
@@ -57,11 +133,13 @@ def svm_linear(data,targets):
     record the actual test score. Both scores will be a number between 
     zero and one.
     '''
-
-    best_score = 0.0
-    test_score = 0.0
-
-    return best_score, test_score
+    # Set the parameters by cross-validation
+    parameters = [ {'kernel': ['linear'], 'C': [0.1, 0.5, 1, 5, 10, 50, 100]}]
+    # Create linea regression classifier
+    classifier = SVC()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
 def svm_polynomial(data,targets):
     '''SVM with Polynomial Kernel. (Similar to above).
@@ -73,10 +151,14 @@ def svm_polynomial(data,targets):
         gamma = [0.1, 0.5]
 
     '''
-    best_score = 0.0
-    test_score = 0.0
-
-    return best_score, test_score
+    # Set the parameters by cross-validation
+    parameters = [ {'kernel': ['poly'], 'gamma':[0.1, 0.5], 
+                    'C':[0.1, 1, 3], 'degree': [4, 5, 6] }]
+    # Create linea regression classifier
+    classifier = SVC()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
 def svm_rbf(data,targets):
     ''' SVM with RBF Kernel. (Similar to above).
@@ -87,10 +169,15 @@ def svm_rbf(data,targets):
         gamma = [0.1, 0.5, 1, 3, 6, 10]
 
     '''
-    best_score = 0.0
-    test_score = 0.0
+    # Set the parameters by cross-validation
+    parameters = [ {'kernel': ['rbf'], 'gamma':  [0.1, 0.5, 1, 3, 6, 10], 
+                    'C': [0.1, 0.5, 1, 5, 10, 50, 100]}]
+    # Create linea regression classifier
+    classifier = SVC()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
-    return best_score, test_score
 
 def logistic(data,targets):
     ''' Logistic Regression. (Similar to above).
@@ -100,10 +187,13 @@ def logistic(data,targets):
         C = [0.1, 0.5, 1, 5, 10, 50, 100]
 
     '''
-    best_score = 0.0
-    test_score = 0.0
-
-    return best_score, test_score
+    # Create parameters
+    parameters = [{'C':[0.1, 0.5, 1, 5, 10, 50, 100]}]
+    # Create linea regression classifier
+    classifier = LogisticRegression()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
 def knn(data,targets):
     ''' k-Nearest Neighbors. (Similar to above).
@@ -114,10 +204,13 @@ def knn(data,targets):
         leaf_size = [5, 10, 15, ..., 60]
 
     '''
-    best_score = 0.0
-    test_score = 0.0
-
-    return best_score, test_score
+    # Create parameters
+    parameters = [{'n_neighbors': list(range(1,51)) ,'leaf_size': list(range(5,61,5))}]
+    # Create linea regression classifier
+    classifier = KNeighborsClassifier()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
 def decision_tree(data,targets):
     ''' Decision Trees. (Similar to above).
@@ -128,10 +221,13 @@ def decision_tree(data,targets):
         min_samples_split = [2, 3, 4, ..., 10]
 
     '''
-    best_score = 0.0
-    test_score = 0.0
-
-    return best_score, test_score
+  # Create parameters
+    parameters = [{'max_depth': list(range(1,51)) ,'min_samples_split': list(range(2,11))}]
+    # Create linea regression classifier
+    classifier = DecisionTreeClassifier()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
 def random_forest(data,targets):
     ''' Random Forest. (Similar to above).
@@ -142,16 +238,17 @@ def random_forest(data,targets):
          min_samples_split = [2, 3, 4, ..., 10]
 
     '''
-    best_score = 0.0
-    test_score = 0.0
-
-    return best_score, test_score
-
-
+  # Create parameters
+    parameters = [{'max_depth': list(range(1,51)) ,'min_samples_split': list(range(2,11))}]
+    # Create linea regression classifier
+    classifier = RandomForestClassifier()
+    # Fit the model using grid search and get the best train and test scores
+    return fit_model_grid_search(classifier, data, targets, parameters, 
+                                kfold=5, test_size=0.4)
 
 if __name__ == "__main__":
     # Start the Program 
-    test_mode = True
+    test_mode = False
 
     # Get the parameters from the Args
     if len(sys.argv)<3:
