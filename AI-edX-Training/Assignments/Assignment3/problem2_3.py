@@ -13,10 +13,10 @@ def predict(data, weights):
 def update(data, labels, weights, lr=0.05):
     """ Linear Regression
     """
-    # Compute the Updates for the weigths (for each data row in order)
-    for i, label in enumerate(labels):
-        weights = weights - lr * (predict(data, weights) - labels)[i] * data.loc[i,:] 
-    return weights
+    # Compute the Updates for the weigths (using batches)
+    error = labels - predict(data, weights)
+    gradient = - (1.0/len(labels)) * np.dot(error, data) 
+    return weights - lr * gradient
 
 def square_error(x, y):
     return np.mean((y-x)**2)

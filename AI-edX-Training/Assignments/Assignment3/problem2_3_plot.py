@@ -16,18 +16,14 @@ def update(data, labels, weights, lr=0.05):
     """ Linear Regression
 
     """
-    # # Error distance (based on square error gradient descent)
-    # error = labels - predict(data, weights)
     # # Compute the Updates for the weigths (for each data row in order)
     # for i, label in enumerate(labels):
-    #     weights = weights + lr * error[i] * data.loc[i,:] 
+    #     weights = weights + lr * (labels - predict(data, weights)) * data.loc[i,:])
     # return weights
-      # Error distance (based on square error gradient descent)
+    # Compute the Updates for the weigths (using batches)
     error = labels - predict(data, weights)
-    # Compute the Updates for the weigths (for each data row in order)
-    for i, label in enumerate(labels):
-        weights = weights + lr * np.mean(error[i] * data.loc[i,:])
-    return weights
+    gradient = - (1.0/len(labels)) * np.dot(error, data) 
+    return weights - lr * gradient
 
 def square_error(x, y):
     return np.mean((y-x)**2)
