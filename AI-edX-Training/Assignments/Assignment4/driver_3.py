@@ -4,6 +4,77 @@ import time
 import numpy as np
 import pandas as pd
 
+def ac3 (X, D, R1=None, R2=None):
+    ''' AC-3 algorithm
+
+    The AC-3 algorithm (short for Arc Consistency Algorithm #3) is one of a 
+    series of algorithms used for the solution of constraint satisfaction 
+    problems (or CSP's). It was developed by Alan Mackworth in 1977. The 
+    earlier AC algorithms are often considered too inefficient, and many 
+    of the later ones are difficult to implement, and so AC-3 is the one 
+    most often taught and used in very simple constraint solvers.
+
+    Input:
+        A set of variables X
+        A set of domains D(x) for each variable x in X. D(x) 
+                contains vx0, vx1... vxn, the possible values of x
+        A set of unary constraints R1(x) on variable x that must be satisfied
+        A set of binary constraints R2(x, y) on variables x and y 
+                that must be satisfied
+
+    Output:
+        Arc consistent domains for each variable.
+ 
+    Pseudo-code:
+
+    function ac3 (X, D, R1, R2)
+        // Initial domains are made consistent with unary constraints.
+        for each x in X
+            D(x) := { vx in D(x) | R1(x) }   
+        // 'worklist' contains all arcs we wish to prove consistent or not.
+        worklist := { (x, y) | there exists a relation R2(x, y)
+                        or a relation R2(y, x) }
+    
+        do
+            select any arc (x, y) from worklist
+            worklist := worklist - (x, y)
+            if arc-reduce (x, y) 
+                if D(x) is empty
+                    return failure
+                else
+                    worklist := worklist + { (z, x) | z != y and 
+                        there exists a relation R2(x, z) or a relation R2(z, x) }
+        while worklist not empty
+  
+    '''
+    # Initialize the result
+    result = []
+
+    # Return all domains founded for each variable.
+    return result
+
+def arc-reduce(x, y):
+    '''
+
+    Pseudo-code:
+
+    function arc-reduce (x, y)
+        bool change = false
+        for each vx in D(x)
+            find a value vy in D(y) such that vx 
+                and vy satisfy the constraint R2(x, y)
+            if there is no such vy {
+                D(x) := D(x) - vx
+                change := true
+            }
+        return change
+
+    '''
+    # Initizlize the variable
+    change = False
+
+    # Retrun if change
+    return change
 
 class Sudoku:
     ''' Sodoku board Class
@@ -97,13 +168,24 @@ class Sudoku:
 
     def set_board(self, board):
         ''' Set the current board
+
+        Parameters:
+
+            board: Definition of the board ( 81 chars )
+                Type: String
+
         '''
+        # Check the board length is rgiht
+        if len(board) != (len(Sudoku.row_names) * len(Sudoku.column_names)):
+            return False
+        # Parse current Board and set the values
         self.cell = {}
         index = 0
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
                 self.cell[Sudoku.get_index(row,column)] = board[index]
                 index += 1
+        return True
 
     def get_board(self):
         ''' Get the current state of the game with the Board.
@@ -128,9 +210,21 @@ class Sudoku:
 
         '''
         # Set current board
-        self.set_board(board)
+        if not self.set_board(board):
+            return None
 
-        # REturn current state of the game after playing
+        if method == 'BTS':
+            #Perform the Backtracking Algorithm
+
+
+            pass
+        elif method == 'AC3':
+            #Perform AC-3 Algorithm alone
+            result = ac3()
+            # Check if returns a valid solution
+            if not result: return None
+
+        # Return current state of the game after playing
         return self.get_board()
 
 
@@ -156,8 +250,11 @@ if __name__ == "__main__":
     outputs = []
     for input in inputs:
         for method in methods:
-            # PLay the game of sudoku adn retur the final state
-            outputs.append([Sudoku().play(input,method=method),method])
+            # Play the game of sudoku adn retur the final state
+            result = Sudoku().play(input,method=method)
+            if result:
+                # If sudoku ends succesfully, append to the outputs
+                outputs.append([result,method])
       
     # Write current outputs into the output file
     with open(output_file,"w") as file:
