@@ -14,6 +14,10 @@ def ac3 (X, D, R1=None, R2=None):
     of the later ones are difficult to implement, and so AC-3 is the one 
     most often taught and used in very simple constraint solvers.
 
+    This algorithm will propagate the constraints and reduce the domain 
+    size of the variables by ensuring all possible (future) assignments 
+    consistent
+
     Input:
         A set of variables X
         A set of domains D(x) for each variable x in X. D(x) 
@@ -28,23 +32,28 @@ def ac3 (X, D, R1=None, R2=None):
     Pseudo-code:
 
     function ac3 (X, D, R1, R2)
-        // Initial domains are made consistent with unary constraints.
-        for each x in X
-            D(x) := { vx in D(x) | R1(x) }   
-        // 'worklist' contains all arcs we wish to prove consistent or not.
-        worklist := { (x, y) | there exists a relation R2(x, y)
-                        or a relation R2(y, x) }
-    
-        do
-            select any arc (x, y) from worklist
-            worklist := worklist - (x, y)
-            if arc-reduce (x, y) 
-                if D(x) is empty
-                    return failure
-                else
-                    worklist := worklist + { (z, x) | z != y and 
-                        there exists a relation R2(x, z) or a relation R2(z, x) }
-        while worklist not empty
+
+            // Initial domains are made consistent with unary constraints.
+            for each x in X
+                D(x) := { vx in D(x) | R1(x) }   
+
+            // 'worklist' contains all arcs we wish to prove consistent or not.
+            worklist := { (x, y) | there exists a relation R2(x, y)
+                                   or a relation R2(y, x) }
+        
+            do
+                
+                select any arc (x, y) from worklist
+                worklist := worklist - (x, y)
+                if arc-reduce (x, y) 
+                    if D(x) is empty
+                        return failure
+                    else
+                        worklist := worklist + { (z, x) | z != y and 
+                                                    there exists a relation R2(x, z) 
+                                                    or a relation R2(z, x) }
+
+            while worklist not empty
   
     '''
     # Initialize the result
@@ -54,15 +63,30 @@ def ac3 (X, D, R1=None, R2=None):
     return result
 
 def arc-reduce(x, y):
-    '''
+    ''' Arc reduce method
+
+    AC-3 proceeds by examining the arcs between pairs of 
+    variables (x, y). It removes those values from the domain 
+    of x which aren't consistent with the constraints between x 
+    and y. The algorithm keeps a collection of arcs that are yet 
+    to be checked; when the domain of a variable has any values 
+    removed, all the arcs of constraints pointing to that pruned 
+    variable (except the arc of the current constraint) are 
+    added to the collection.
+
+    For the particular case of Sudoku, The idea is to remove from
+    the domain all the value that cannot be used because the constraints.
+
 
     Pseudo-code:
 
     function arc-reduce (x, y)
         bool change = false
         for each vx in D(x)
-            find a value vy in D(y) such that vx 
-                and vy satisfy the constraint R2(x, y)
+
+            find a value vy in D(y) such that 
+            vx and vy satisfy the constraint R2(x, y)
+
             if there is no such vy {
                 D(x) := D(x) - vx
                 change := true
@@ -70,11 +94,15 @@ def arc-reduce(x, y):
         return change
 
     '''
-    # Initizlize the variable
-    change = False
+    # new domain to return
+    domain = []]
+
+    # Loop for over all the values for the current domain
+    for value in domain:
+
 
     # Retrun if change
-    return change
+    return domain
 
 class Sudoku:
     ''' Sodoku board Class
