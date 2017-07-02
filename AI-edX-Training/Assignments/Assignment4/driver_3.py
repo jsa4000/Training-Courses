@@ -62,7 +62,7 @@ def ac3 (X, D, R1=None, R2=None):
     # Return all domains founded for each variable.
     return result
 
-def arc-reduce(x, y):
+def arc_reduce(x, y):
     ''' Arc reduce method
 
     AC-3 proceeds by examining the arcs between pairs of 
@@ -77,32 +77,29 @@ def arc-reduce(x, y):
     For the particular case of Sudoku, The idea is to remove from
     the domain all the value that cannot be used because the constraints.
 
-
     Pseudo-code:
 
-    function arc-reduce (x, y)
-        bool change = false
-        for each vx in D(x)
-
-            find a value vy in D(y) such that 
-            vx and vy satisfy the constraint R2(x, y)
-
-            if there is no such vy {
-                D(x) := D(x) - vx
-                change := true
-            }
-        return change
+    function arc_reduce (csp, x)
+        bool revised = false
+        domain = csp.domain
+        for each value in domain
+            if not csp.trigger_constraint(value, x)
+                # Remove value from domain
+                domain.remove(value)
+                revised = true
+ 
+        return revised
 
     '''
     # new domain to return
-    domain = []]
+    revised = False
 
     # Loop for over all the values for the current domain
     for value in domain:
 
 
     # Retrun if change
-    return domain
+    return revised
 
 class Sudoku:
     ''' Sodoku board Class
