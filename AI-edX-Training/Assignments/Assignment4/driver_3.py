@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import math
 import numpy as np
 import pandas as pd
 
@@ -201,22 +202,23 @@ class CSP:
         for index, variable in enumerate(variables):
             self.variables[variable] = None
             self.domains[variable] = domains[i]
-            self.unary_constraints[variable] = {}
-            self.binary_constraints[variable] = []
+            self.unary_constraints[variable] = None
+            self.binary_constraints[variable] = {}
 
         # Set the constraints for each variable
-        for constraint in contraints:
+        for constraint in constraints:
             if (len(constraint)>2):
                 # Set the contraints for each variable, arc and constraint
-                if (constraint[1] not in self.binary_constraints[constraint[0]].keys()):
-                    self.binary_constraints[constraint[0]][constraint[1]] = []
-                self.binary_constraints[constraint[0]][constraint[1]].append(constraint[2])
+                self.binary_constraints[constraint[0]][constraint[1]] = constraint[2]
             else:
-                 # Set the contraints for each variable, arc and constraint
-                self.unary_constraints[constraint[0]].append(constraint[2])
+                 # Set the unary contraint for each variable
+                self.unary_constraints[constraint[0]] = constraint[2]
         
 
-
+    def __str__(self):
+        ''' Return the string representation for the CSP
+        '''
+        return ",".join(self.variables.keys())
 
 
 
@@ -228,7 +230,6 @@ class Sudoku:
     named by its row and its column, and must be assigned a value from 
     1 to 9, subject to the constraint that no two cells in the same row,
     column, or box may contain the same value.
-
    
     SUDOKU Definition Problem using CSP
 
@@ -317,7 +318,7 @@ class Sudoku:
         index = 0
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
-                self.cell[Sudoku.get_index(row,column)] = board[index]
+                self.cell[Sudoku.get_index(row,column)] = int(board[index])
                 index += 1
         return True
 
@@ -330,13 +331,68 @@ class Sudoku:
                 board.append(self.cell[Sudoku.get_index(row,column)])
         return ''.join("{}".format(value) for value in board)
 
+    def get_current_cuadrant(self, row, column):
+        ''' Get the current square variables that corresponds to the 
+        current row, column position
+        '''
+        result = []
+        col_cuadrant = math.ceil((Sudoku.column_names.index(column) + 1) / 3)
+        row_cuadrant = math.ceil((Sudoku.row_names.index(row) + 1) / 3)
+        for irow in range(3*(row_cuadrant-1), row_cuadrant * 3):
+            for icol in range(3*(col_cuadrant-1), col_cuadrant * 3):
+                result.append(Sudoku.get_index(Sudoku.row_names[irow],
+                                               Sudoku.column_names[icol]))
+        return result
+
     def create_csp(self):
+        ''' Create the CSP that represent the current board
         '''
-        '''
+        board = self.get_board()
+
+        # Main contraints to use as lamba expression
+        alldiff = lambda x,y: x!=y
+
         variables = []
         domains = []
         constraints = []
-
+        # Create the array with all the variables to be ghessed
+        for row in Sudoku.row_names:
+            for column in Sudoku.column_names:
+                # Check if has been assigend
+                if self.cell[Sudoku.get_index(row,column)] == Sudoku.empty_value:
+                    # Set current variable (nos assigned yet)
+                    variables.append(Sudoku.get_index(row,column))
+                    # Set current domain for the current variable
+                    domains.append(Sudoku.domain_values)
+                    # Set the binary contraints
+                    # 1. Set the columns variables to create the arcs
+                    for const_column in Sudoku.column_names:
+                        #Check not the same column and empty value variable
+                        if const_column != column and \
+                           self.cell[Sudoku.get_index(row,const_column)] == Sudoku.empty_value:
+                            # Append current row, const_column as arc
+                            constraints.append((Sudoku.get_index(row,column),
+                                                Sudoku.get_index(row,const_column),
+                                                alldiff))
+                    # 2. Set the rows variables to create the arcs
+                    for const_row in Sudoku.row_names:
+                        #Check not the same column and empty value variable
+                        if const_row != row and \
+                           self.cell[Sudoku.get_index(const_row,column)] == Sudoku.empty_value:
+                            # Append current row, const_column as arc
+                            constraints.append((Sudoku.get_index(row,column),
+                                                Sudoku.get_index(const_row,column),
+                                                alldiff))
+                    # 3. Set square constraints attached to this node
+                    square_items = self.get_current_cuadrant(row, column)
+                    for item in square_items:
+                        if item != Sudoku.get_index(row,column) and \
+                           self.cell[item] == Sudoku.empty_value:
+                            # Append current row, const_column as arc
+                            constraints.append((Sudoku.get_index(row,column),
+                                                item,
+                                                alldiff))
+  
         # Create the current CSP for the current board setup
         return CSP(variables,domains,constraints)
 
@@ -362,14 +418,16 @@ class Sudoku:
 
         if method == 'BTS':
             #Perform the Backtracking Algorithm
-
-
             pass
         elif method == 'AC3':
             #Perform AC-3 Algorithm alone
             result = ac3(csp)
             # Check if returns a valid solution
-            if not result: return None
+            if result: 
+                # Get the variables and setup the board accordingly
+                pass
+            else:
+                return None
 
         # Return current state of the game after playing
         return self.get_board()
