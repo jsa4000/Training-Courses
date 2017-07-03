@@ -201,7 +201,7 @@ class CSP:
         # Initialize all the variables by default.
         for index, variable in enumerate(variables):
             self.variables[variable] = None
-            self.domains[variable] = domains[i]
+            self.domains[variable] = domains[index]
             self.unary_constraints[variable] = None
             self.binary_constraints[variable] = {}
 
@@ -218,9 +218,17 @@ class CSP:
     def __str__(self):
         ''' Return the string representation for the CSP
         '''
-        return ",".join(self.variables.keys())
-
-
+        result = []
+        for variable in self.variables:
+            # Print Header
+            result.append("Variable: {} | Value: {} | Domain: {}".format(variable,
+                                                                         self.variables[variable],
+                                                                         self.domains[variable]))
+            result.append("|".join(list("{}=>{}".format(constraint[0],constraint[1]) \
+                                    for constraint in self.binary_constraints[variable])))
+            result.append("***************************************************")
+        #Return the current output in separated lines
+        return "\n".join(result)
 
 class Sudoku:
     ''' Sodoku board Class
@@ -415,6 +423,9 @@ class Sudoku:
 
         # Create the Contrained Satisfied Problem to solve the problem
         csp = self.create_csp()
+        print(self.__str__())
+        print(csp)
+
 
         if method == 'BTS':
             #Perform the Backtracking Algorithm
@@ -432,6 +443,16 @@ class Sudoku:
         # Return current state of the game after playing
         return self.get_board()
 
+    def __str__(self):
+        ''' Represent the current State of the board
+        '''
+        result = []
+        for row in Sudoku.row_names:
+            column_values = []
+            for column in Sudoku.column_names:
+                column_values.append(self.cell[Sudoku.get_index(row,column)])
+            result.append(column_values)
+        return '\n'.join("{} ".format(item) for item in result)
 
 if __name__ == "__main__":
     # Define the output file
