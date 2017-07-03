@@ -4,7 +4,7 @@ import time
 import numpy as np
 import pandas as pd
 
-def ac3 (X, D, R1=None, R2=None):
+def ac3 (csp):
     ''' AC-3 algorithm
 
     The AC-3 algorithm (short for Arc Consistency Algorithm #3) is one of a 
@@ -18,7 +18,8 @@ def ac3 (X, D, R1=None, R2=None):
     size of the variables by ensuring all possible (future) assignments 
     consistent
 
-    Input:
+    Input: type CSP Instances.
+
         A set of variables X
         A set of domains D(x) for each variable x in X. D(x) 
                 contains vx0, vx1... vxn, the possible values of x
@@ -95,22 +96,12 @@ def arc_reduce(x, y):
     revised = False
 
     # Loop for over all the values for the current domain
-    for value in domain:
-
 
     # Retrun if change
     return revised
 
-class Sudoku:
-    ''' Sodoku board Class
-
-    Consider the Sudoku puzzle game. There are 81 variables (9 x 9)
-    in total, i.e. the tiles to be filled with digits. Each variable is
-    named by its row and its column, and must be assigned a value from 
-    1 to 9, subject to the constraint that no two cells in the same row,
-    column, or box may contain the same value.
-
-    Constraint Satisfaction Problem (CSP)
+class CSP:
+    ''' Constraint Satisfaction Problem (CSP)
 
     Let's define the CSP problem. In order to solve the problem, 
     is required to define the following componentes for the CSP:
@@ -122,6 +113,123 @@ class Sudoku:
     D =  {D1,D2, ... , Dn} is a set of the respective domains of values, and
     C =  {C1,C2, ... , Cn} is a set of constraints.
 
+    '''
+    def __init__(self, variables, domains, constraints):
+        ''' Constructor
+        
+        The idea is to create a graph based on arcs. Each node are connected
+        to contraints and these constraints connect to another node. This is
+        for binary constraits win which the contraints depend on the value
+        of another variable.
+
+            NODE (V) --------> Contraint R(V,Y)  <--------------------
+                                                                     |
+                                                                     |
+            NODE (X) --------> Contraint R(X,Y) ------->  NODE (Y)----
+                |
+                -------------> Contraint R(X,Z) ------->  NODE (Z)
+
+        The idea is to create a Arc Based graph where each pair of values
+        have a contraint that defined the connection or behaviour to
+        be able to proceed in the search or prune.
+
+        In the constructor all the variables will be initialized:
+        variables, domains and contraints. 
+
+        - Variables
+
+            Variables key-value with the key as the variable and the current
+            value asigned and inside the domain of the current variable. By
+            default the value is None.
+
+        - Domains
+
+            Domain key-value in which the values of the variable could be
+            assigned to. The domain will depend on the contraints and the
+            type of variable.
+
+        - Unary Contraints
+
+            This is a list of tuples. In each tuple is defined the constraint (R). 
+
+                [ (X, R(x1)),  (Y, R(y1)) ,  (Z, R(z1)), ..., ]
+
+                binary_constraints[X] = R(x)
+                binary_constraints[Y] = R(y)
+                ...
+
+        - Binary Contraints
+
+            This is a list of tuples. In each tuple are defined the connection
+            or arc defined by two nodes or variables, and the constraint (R). 
+
+                [ (X, Y, R(x,y)), (X, Y, R(x,z)) , ..., ]
+
+            The way the relationsship are going to be stored is by usign dictio-
+            naries:
+
+                binary_constraints[X][Y] = R(x,y)
+                binary_constraints[X][Z] = R(x,z)
+                ...
+                binary_constraints[X].keys() = [Y, Z, ...] -> Output nodes
+
+        - Binary and Unary constraints must be implement all the contraints
+        inside the same constraints. The constraints will be defined by lambda
+        of function expresions. 
+        e.g.
+
+            - Unary Contraint.
+
+            (X, R(X/2 > 12)) && (X, R (X != 3))
+
+            unary_constraints[X] = labda x: (x/2 > 12) and (x != 3)
+
+
+            - Binary Contraints.
+
+            (X, Y, R(X/2 > Y)) && (X, Y, R(X**2 > Y + 4)) && (X, Y, R(X != Y))
+
+            binary_constraints[X][Y] = labda x,y: (x/2 > 2) and (x**2 > Y + 4) && (x != y)
+
+        '''
+        self.variables = {}
+        self.domains = {}
+        self.unary_constraints = {}
+        self.binary_constraints = {}
+
+        # Initialize all the variables by default.
+        for index, variable in enumerate(variables):
+            self.variables[variable] = None
+            self.domains[variable] = domains[i]
+            self.unary_constraints[variable] = {}
+            self.binary_constraints[variable] = []
+
+        # Set the constraints for each variable
+        for constraint in contraints:
+            if (len(constraint)>2):
+                # Set the contraints for each variable, arc and constraint
+                if (constraint[1] not in self.binary_constraints[constraint[0]].keys()):
+                    self.binary_constraints[constraint[0]][constraint[1]] = []
+                self.binary_constraints[constraint[0]][constraint[1]].append(constraint[2])
+            else:
+                 # Set the contraints for each variable, arc and constraint
+                self.unary_constraints[constraint[0]].append(constraint[2])
+        
+
+
+
+
+
+class Sudoku:
+    ''' Sodoku board Class
+
+    Consider the Sudoku puzzle game. There are 81 variables (9 x 9)
+    in total, i.e. the tiles to be filled with digits. Each variable is
+    named by its row and its column, and must be assigned a value from 
+    1 to 9, subject to the constraint that no two cells in the same row,
+    column, or box may contain the same value.
+
+   
     SUDOKU Definition Problem using CSP
 
     - Variables (cell): 
@@ -187,6 +295,7 @@ class Sudoku:
         empty values. 
         '''
         self.cell = {}
+        # Create the board with empty values.
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
                 self.cell[Sudoku.get_index(row,column)] = Sudoku.empty_value
@@ -200,7 +309,7 @@ class Sudoku:
                 Type: String
 
         '''
-        # Check the board length is rgiht
+        # Check the board length is right
         if len(board) != (len(Sudoku.row_names) * len(Sudoku.column_names)):
             return False
         # Parse current Board and set the values
@@ -221,6 +330,16 @@ class Sudoku:
                 board.append(self.cell[Sudoku.get_index(row,column)])
         return ''.join("{}".format(value) for value in board)
 
+    def create_csp(self):
+        '''
+        '''
+        variables = []
+        domains = []
+        constraints = []
+
+        # Create the current CSP for the current board setup
+        return CSP(variables,domains,constraints)
+
     def play(self, board, method='BTS'):
         ''' Play current Board game
 
@@ -238,6 +357,9 @@ class Sudoku:
         if not self.set_board(board):
             return None
 
+        # Create the Contrained Satisfied Problem to solve the problem
+        csp = self.create_csp()
+
         if method == 'BTS':
             #Perform the Backtracking Algorithm
 
@@ -245,7 +367,7 @@ class Sudoku:
             pass
         elif method == 'AC3':
             #Perform AC-3 Algorithm alone
-            result = ac3()
+            result = ac3(csp)
             # Check if returns a valid solution
             if not result: return None
 
