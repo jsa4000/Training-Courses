@@ -82,6 +82,9 @@ def ac3 (csp):
                 #Append following arcs
                 queue.append()
         
+            
+        
+        
 
 
     # Return all domains founded for each variable.
