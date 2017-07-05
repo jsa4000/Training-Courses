@@ -66,21 +66,21 @@ def ac3 (csp):
     #         queue.append((x,y,constraint))
     
     # Initialize the first arc 
-    csp.binary_constraints.keys()[0]
-    queue.append()
+    # csp.binary_constraints.keys()[0]
+    # queue.append()
 
-    # Iterate through over the queue if items
-    while len(queue):
-        # Dequeue an item x, y
-        x,y,_ = queue.pop()
-        # Chech the values not constrained
-        if arc_reduce(x,y,csp):
-            if not len(csp.domain[x]):
-                # Error no possible values for x
-                return False
-            else:
-                #Append following arcs
-                queue.append()
+    # # Iterate through over the queue if items
+    # while len(queue):
+    #     # Dequeue an item x, y
+    #     x,y,_ = queue.pop()
+    #     # Chech the values not constrained
+    #     if arc_reduce(x,y,csp):
+    #         if not len(csp.domain[x]):
+    #             # Error no possible values for x
+    #             return False
+    #         else:
+    #             #Append following arcs
+    #             queue.append()
         
 
 
@@ -117,14 +117,14 @@ def arc_reduce(x, y, csp):
     '''
     # return change if success
     change = False
-    new_domain = []
-    # Loop for over all the values for the current domain
-    for value in csp.domain[x]
-        if not csp.binary_constraints[x][y]():
-            # Remove value from domain
-            domain.append(value)
-            # Return change to True
-            change = True
+    # new_domain = []
+    # # Loop for over all the values for the current domain
+    # for value in csp.domain[x]
+    #     if not csp.binary_constraints[x][y]():
+    #         # Remove value from domain
+    #         domain.append(value)
+    #         # Return change to True
+    #         change = True
 
     # Retrun if change
     return change
@@ -319,7 +319,7 @@ class Sudoku:
     # Values of range(1,10)
     domain_values = [1,2,3,4,5,6,7,8,9]
 
-    def get_index(row, column):
+    def get_name(row, column):
         ''' Static function returning the string value joinning the
         given name and columns name. The returned value could be 
         used for Hashing the row-col name into a dictionary.
@@ -334,7 +334,7 @@ class Sudoku:
         # Create the board with empty values.
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
-                self.cell[Sudoku.get_index(row,column)] = Sudoku.empty_value
+                self.cell[Sudoku.get_name(row,column)] = Sudoku.empty_value
 
     def set_board(self, board):
         ''' Set the current board
@@ -353,31 +353,38 @@ class Sudoku:
         index = 0
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
-                self.cell[Sudoku.get_index(row,column)] = int(board[index])
+                self.cell[Sudoku.get_name(row,column)] = int(board[index])
                 index += 1
         return True
 
     def get_board(self):
         ''' Get the current state of the game with the Board.
         '''
-        board = []
-        for row in Sudoku.row_names:
-            for column in Sudoku.column_names:
-                board.append(self.cell[Sudoku.get_index(row,column)])
+        board = [self.cell[Sudoku.get_name(row,column)]
+                 for column in Sudoku.column_names
+                 for row in Sudoku.row_names]
         return ''.join("{}".format(value) for value in board)
 
-    def get_current_cuadrant(self, row, column):
+    def get_current_square(self, row, column):
         ''' Get the current square variables that corresponds to the 
         current row, column position
         '''
-        result = []
-        col_cuadrant = math.ceil((Sudoku.column_names.index(column) + 1) / 3)
-        row_cuadrant = math.ceil((Sudoku.row_names.index(row) + 1) / 3)
-        for irow in range(3*(row_cuadrant-1), row_cuadrant * 3):
-            for icol in range(3*(col_cuadrant-1), col_cuadrant * 3):
-                result.append(Sudoku.get_index(Sudoku.row_names[irow],
-                                               Sudoku.column_names[icol]))
+        row_square = math.ceil((Sudoku.row_names.index(row) + 1) / 3)
+        col_square = math.ceil((Sudoku.column_names.index(column) + 1) / 3)
+        result = [Sudoku.get_name(Sudoku.row_names[irow], Sudoku.column_names[icol])
+                  for icol in range(3*(col_square-1), col_square * 3)
+                  for irow in range(3*(row_square-1), row_square * 3)] 
         return result
+
+    def empty_cell(self, row, column):
+        ''' Return wethere the cell is empty or not
+        '''
+        return self.get_value(row,column) == Sudoku.empty_value
+
+    def get_value(self, row, column):
+        '''  Return current value of the cell given row and col
+        '''
+        return self.cell[Sudoku.get_name(row,column)]
 
     def create_csp(self):
         ''' Create the CSP that represent the current board
@@ -393,40 +400,35 @@ class Sudoku:
         # Create the array with all the variables to be ghessed
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
-                # Check if has been assigend
-                if self.cell[Sudoku.get_index(row,column)] == Sudoku.empty_value:
-                    # Set current variable (nos assigned yet)
-                    variables.append(Sudoku.get_index(row,column))
-                    # Set current domain for the current variable
-                    domains.append(Sudoku.domain_values)
-                    # Set the binary contraints
-                    # 1. Set the columns variables to create the arcs
-                    for const_column in Sudoku.column_names:
-                        #Check not the same column and empty value variable
-                        if const_column != column and \
-                           self.cell[Sudoku.get_index(row,const_column)] == Sudoku.empty_value:
-                            # Append current row, const_column as arc
-                            constraints.append((Sudoku.get_index(row,column),
-                                                Sudoku.get_index(row,const_column),
-                                                alldiff))
-                    # 2. Set the rows variables to create the arcs
-                    for const_row in Sudoku.row_names:
-                        #Check not the same column and empty value variable
-                        if const_row != row and \
-                           self.cell[Sudoku.get_index(const_row,column)] == Sudoku.empty_value:
-                            # Append current row, const_column as arc
-                            constraints.append((Sudoku.get_index(row,column),
-                                                Sudoku.get_index(const_row,column),
-                                                alldiff))
-                    # 3. Set square constraints attached to this node
-                    square_items = self.get_current_cuadrant(row, column)
-                    for item in square_items:
-                        if item != Sudoku.get_index(row,column) and \
-                           self.cell[item] == Sudoku.empty_value:
-                            # Append current row, const_column as arc
-                            constraints.append((Sudoku.get_index(row,column),
-                                                item,
-                                                alldiff))
+                # Set current variable (nos assigned yet)
+                variables.append(Sudoku.get_name(row,column))
+                # Set current domain for the current variable
+                domains.append(Sudoku.domain_values 
+                               if self.empty_cell(row,column) 
+                               else self.get_value(row,column))
+                # Set the binary contraints
+                
+                # 1. Set the columns variables to create the arcs
+                columns_constraints = [(Sudoku.get_name(row,column),
+                            Sudoku.get_name(row,const_column),alldiff) 
+                            for const_column in Sudoku.column_names
+                            if const_column != column]
+                # 2. Set the rows variables to create the arcs
+                row_constraints = [(Sudoku.get_name(row,column),
+                            Sudoku.get_name(const_row,column),alldiff)
+                            for const_row in Sudoku.row_names
+                            if const_row != row]
+            
+                # 3. Set square constraints attached to this node
+                square_items = self.get_current_square(row, column)
+                square_constraints = [
+                            (Sudoku.get_name(row,column),item, alldiff)
+                            for item in square_items
+                            if item != Sudoku.get_name(row,column)]
+
+                # Axtend curren Contraints to the definition
+                constraints += columns_constraints + row_constraints \
+                               + square_constraints
   
         # Create the current CSP for the current board setup
         return CSP(variables,domains,constraints)
@@ -477,7 +479,7 @@ class Sudoku:
         for row in Sudoku.row_names:
             column_values = []
             for column in Sudoku.column_names:
-                column_values.append(self.cell[Sudoku.get_index(row,column)])
+                column_values.append(self.cell[Sudoku.get_name(row,column)])
             result.append(column_values)
         return '\n'.join("{} ".format(item) for item in result)
 
