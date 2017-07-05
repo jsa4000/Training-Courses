@@ -58,34 +58,25 @@ def ac3 (csp):
             while worklist not empty
   
     '''
-    # Create the queue for all the arcs.
-    # queue = []
-    # for x, arcs in csp.binary_constraints.items():
-    #     for y, constraint in arcs.items():
-    #         # Append (X,Y,R(X,Y))
-    #         queue.append((x,y,constraint))
-    
-    # Initialize the first arc 
-    # csp.binary_constraints.keys()[0]
-    # queue.append()
+    # Create the queue for all the arcs,  (x, y)
+    queue = [(x,y) for x in csp.binary_constraints 
+                   for y in csp.binary_constraints[x]]
 
-    # # Iterate through over the queue if items
-    # while len(queue):
-    #     # Dequeue an item x, y
-    #     x,y,_ = queue.pop()
-    #     # Chech the values not constrained
-    #     if arc_reduce(x,y,csp):
-    #         if not len(csp.domain[x]):
-    #             # Error no possible values for x
-    #             return False
-    #         else:
-    #             #Append following arcs
-    #             queue.append()
-        
-
-
-    # Return all domains founded for each variable.
-    return result
+    # Iterate through over the queue if items
+    while len(queue):
+        # Dequeue an item x, y
+        x, y = queue.pop()
+        # Chech the values not constrained
+        if arc_reduce(x, y, csp):
+            if not len(csp.domains[x]):
+                # Error no possible values for x
+                return False
+            else:
+                #Append following arcs
+                queue += [(z,x) for z in csp.binary_constraints
+                          if z != x and z != y and x in csp.binary_constraints[z]]
+    # Return True
+    return True
 
 def arc_reduce(x, y, csp):
     ''' Arc reduce method
@@ -117,14 +108,15 @@ def arc_reduce(x, y, csp):
     '''
     # return change if success
     change = False
-    # new_domain = []
-    # # Loop for over all the values for the current domain
-    # for value in csp.domain[x]
-    #     if not csp.binary_constraints[x][y]():
-    #         # Remove value from domain
-    #         domain.append(value)
-    #         # Return change to True
-    #         change = True
+
+    # Loop for over all the values for the current domain
+    for value_x in csp.domains[x]:
+        for value_y in csp.domains[y]:
+            if not csp.binary_constraints[x][y](value_x,value_y):
+                # Remove value from domain
+                csp.domains[x].remove(value_x)
+                # Return change to True
+                change = True
 
     # Retrun if change
     return change
@@ -372,8 +364,8 @@ class Sudoku:
         row_square = math.ceil((Sudoku.row_names.index(row) + 1) / 3)
         col_square = math.ceil((Sudoku.column_names.index(column) + 1) / 3)
         result = [Sudoku.get_name(Sudoku.row_names[irow], Sudoku.column_names[icol])
-                  for icol in range(3*(col_square-1), col_square * 3)
-                  for irow in range(3*(row_square-1), row_square * 3)] 
+                  for irow in range(3*(row_square-1), row_square * 3)
+                  for icol in range(3*(col_square-1), col_square * 3)] 
         return result
 
     def empty_cell(self, row, column):
@@ -393,7 +385,7 @@ class Sudoku:
 
         # Main contraints to use as lamba expression
         alldiff = lambda x,y: x!=y
-
+        # Initialize all the variables, domains and constraints
         variables = []
         domains = []
         constraints = []
@@ -405,31 +397,27 @@ class Sudoku:
                 # Set current domain for the current variable
                 domains.append(Sudoku.domain_values 
                                if self.empty_cell(row,column) 
-                               else self.get_value(row,column))
+                               else [self.get_value(row,column)])
                 # Set the binary contraints
                 
                 # 1. Set the columns variables to create the arcs
-                columns_constraints = [(Sudoku.get_name(row,column),
+                constraints += [(Sudoku.get_name(row,column),
                             Sudoku.get_name(row,const_column),alldiff) 
                             for const_column in Sudoku.column_names
                             if const_column != column]
                 # 2. Set the rows variables to create the arcs
-                row_constraints = [(Sudoku.get_name(row,column),
+                constraints += [(Sudoku.get_name(row,column),
                             Sudoku.get_name(const_row,column),alldiff)
                             for const_row in Sudoku.row_names
                             if const_row != row]
             
                 # 3. Set square constraints attached to this node
                 square_items = self.get_current_square(row, column)
-                square_constraints = [
+                constraints += [
                             (Sudoku.get_name(row,column),item, alldiff)
                             for item in square_items
                             if item != Sudoku.get_name(row,column)]
-
-                # Axtend curren Contraints to the definition
-                constraints += columns_constraints + row_constraints \
-                               + square_constraints
-  
+ 
         # Create the current CSP for the current board setup
         return CSP(variables,domains,constraints)
 
@@ -452,9 +440,8 @@ class Sudoku:
 
         # Create the Contrained Satisfied Problem to solve the problem
         csp = self.create_csp()
-        print(self.__str__())
-        print(csp)
-
+        # print(self.__str__())
+        # print(csp)
 
         if method == 'BTS':
             #Perform the Backtracking Algorithm
@@ -462,12 +449,14 @@ class Sudoku:
         elif method == 'AC3':
             #Perform AC-3 Algorithm alone
             result = ac3(csp)
+            # print(self.__str__())
+            # print(csp)
             # Check if returns a valid solution
             if result: 
-                # Get the variables and setup the board accordingly
-                pass
+                # Get the domains and setup the board accordingly
+                print("OK")
             else:
-                return None
+                print("ERROR")
 
         # Return current state of the game after playing
         return self.get_board()
@@ -493,7 +482,7 @@ if __name__ == "__main__":
         # If not parameter the define a default string
         with open('sudokus_start.txt','r') as file:
             for line in file:
-                inputs.append(line)
+                inputs.append(line.replace("\n",""))
     else:
         # Only use the current algorithm
         inputs.append(sys.argv[1])
