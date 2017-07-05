@@ -454,9 +454,13 @@ class Sudoku:
             # Check if returns a valid solution
             if result: 
                 # Get the domains and setup the board accordingly
-                print("OK")
+                for x in csp.domains:
+                    if len(csp.domains[x]) == 1:
+                        self.cell[x] = csp.domains[x][0]
+                    else:
+                        return None
             else:
-                print("ERROR")
+                return None
 
         # Return current state of the game after playing
         return self.get_board()
@@ -488,7 +492,8 @@ if __name__ == "__main__":
         inputs.append(sys.argv[1])
 
     # Methods availabile to solve the Sudoku game
-    methods = ["BTS","AC3"]
+    # methods = ["BTS","AC3"]
+    methods = ["AC3"]
 
     # Use the inputs and generate the outputs
     outputs = []
