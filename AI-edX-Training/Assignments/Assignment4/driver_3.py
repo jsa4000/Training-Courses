@@ -65,7 +65,7 @@ def ac3 (csp):
     # Iterate through over the queue if items
     while len(queue):
         # Dequeue an item x, y
-        x, y = queue.pop()
+        x, y = queue.pop(0)
         # Chech the values not constrained
         if arc_reduce(x, y, csp):
             if not len(csp.domains[x]):
@@ -73,8 +73,9 @@ def ac3 (csp):
                 return False
             else:
                 #Append following arcs
-                queue += [(z,x) for z in csp.binary_constraints
-                          if z != x and z != y and x in csp.binary_constraints[z]]
+                # queue += [(z,x) for z in csp.binary_constraints
+                #           if z != x and z != y and x in csp.binary_constraints[z]]
+                pass
     # Return True
     return True
 
@@ -108,16 +109,16 @@ def arc_reduce(x, y, csp):
     '''
     # return change if success
     change = False
-
     # Loop for over all the values for the current domain
     for value_x in csp.domains[x]:
-        for value_y in csp.domains[y]:
-            if not csp.binary_constraints[x][y](value_x,value_y):
-                # Remove value from domain
-                csp.domains[x].remove(value_x)
-                # Return change to True
-                change = True
-
+        #for value_y in csp.domains[y]:
+            #if not csp.binary_constraints[x][y](value_x,value_y):
+        if not any([csp.binary_constraints[x][y](value_x,value_y) for value_y in csp.domains[y]]):
+            # Remove value from domain
+            csp.domains[x].remove(value_x)
+            # Return change to True
+            change = True
+    
     # Retrun if change
     return change
 
