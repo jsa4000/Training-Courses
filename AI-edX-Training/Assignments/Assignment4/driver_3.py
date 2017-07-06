@@ -458,21 +458,16 @@ class Sudoku:
             # print(self.__str__())
             # print(csp)
             # Check if returns a valid solution
-            # if result: 
-            #     # Get the domains and setup the board accordingly
-            #     for x in csp.domains:
-            #         if len(csp.domains[x]) == 1:
-            #             self.cell[x] = csp.domains[x][0]
-            #         else:
-            #             self.cell[x] = "*"
-            # else:
-            #     return "ERROR"
+            if result: 
+                # Get the domains and setup the board accordingly
+                for x in csp.domains:
+                    if len(csp.domains[x]) == 1:
+                        self.cell[x] = csp.domains[x][0]
+                    else:
+                        return None
+            else:
+                return None
 
-            for x in csp.domains:
-                if len(csp.domains[x]) == 1:
-                    self.cell[x] = csp.domains[x][0]
-                else:
-                    self.cell[x] = "*"
 
         # Return current state of the game after playing
         return self.get_board()
