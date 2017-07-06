@@ -4,6 +4,7 @@ import time
 import math
 import numpy as np
 import pandas as pd
+from collections import OrderedDict
 
 def ac3 (csp):
     ''' AC-3 algorithm
@@ -211,17 +212,17 @@ class CSP:
             binary_constraints[X][Y] = labda x,y: (x/2 > 2) and (x**2 > Y + 4) && (x != y)
 
         '''
-        self.variables = {}
-        self.domains = {}
-        self.unary_constraints = {}
-        self.binary_constraints = {}
+        self.variables = OrderedDict()
+        self.domains = OrderedDict()
+        self.unary_constraints = OrderedDict()
+        self.binary_constraints = OrderedDict()
 
         # Initialize all the variables by default.
         for index, variable in enumerate(variables):
             self.variables[variable] = None
             self.domains[variable] = domains[index]
             self.unary_constraints[variable] = None
-            self.binary_constraints[variable] = {}
+            self.binary_constraints[variable] = OrderedDict()
 
         # Set the constraints for each variable
         for constraint in constraints:
@@ -319,7 +320,7 @@ class Sudoku:
         ''' Create the Board with the variables (cells) with
         empty values. 
         '''
-        self.cell = {}
+        self.cell = OrderedDict()
         # Create the board with empty values.
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
@@ -338,7 +339,7 @@ class Sudoku:
         if len(board) != (len(Sudoku.row_names) * len(Sudoku.column_names)):
             return False
         # Parse current Board and set the values
-        self.cell = {}
+        self.cell = OrderedDict()
         index = 0
         for row in Sudoku.row_names:
             for column in Sudoku.column_names:
@@ -392,7 +393,8 @@ class Sudoku:
                 # Set current variable (nos assigned yet)
                 variables.append(Sudoku.get_name(row,column))
                 # Set current domain for the current variable
-                domains.append(Sudoku.domain_values 
+                # Domain is cloned so the will be trated for each one separately
+                domains.append(list(Sudoku.domain_values) 
                                if self.empty_cell(row,column) 
                                else [self.get_value(row,column)])
                 # Set the binary contraints
@@ -411,9 +413,15 @@ class Sudoku:
             
                 # 3. Set square constraints attached to this node
                 square_items = self.get_current_square(row, column)
+                # Get the square items != from current row and col
+                left_items = []
+                for item in square_items:
+                    if not row in item and not column in item:
+                        left_items.append(item)
+                # Add left contraints
                 constraints += [
                             (Sudoku.get_name(row,column),item, alldiff)
-                            for item in square_items
+                            for item in left_items
                             if item != Sudoku.get_name(row,column)]
  
         # Create the current CSP for the current board setup
@@ -450,15 +458,21 @@ class Sudoku:
             # print(self.__str__())
             # print(csp)
             # Check if returns a valid solution
-            if result: 
-                # Get the domains and setup the board accordingly
-                for x in csp.domains:
-                    if len(csp.domains[x]) == 1:
-                        self.cell[x] = csp.domains[x][0]
-                    else:
-                        return None
-            else:
-                return None
+            # if result: 
+            #     # Get the domains and setup the board accordingly
+            #     for x in csp.domains:
+            #         if len(csp.domains[x]) == 1:
+            #             self.cell[x] = csp.domains[x][0]
+            #         else:
+            #             self.cell[x] = "*"
+            # else:
+            #     return "ERROR"
+
+            for x in csp.domains:
+                if len(csp.domains[x]) == 1:
+                    self.cell[x] = csp.domains[x][0]
+                else:
+                    self.cell[x] = "*"
 
         # Return current state of the game after playing
         return self.get_board()
