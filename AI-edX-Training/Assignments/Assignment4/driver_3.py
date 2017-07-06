@@ -64,18 +64,17 @@ def ac3 (csp):
 
     # Iterate through over the queue if items
     while len(queue):
-        # Dequeue an item x, y
+        # Dequeue an item from x -> y
         x, y = queue.pop(0)
         # Chech the values not constrained
         if arc_reduce(x, y, csp):
             if not len(csp.domains[x]):
-                # Error no possible values for x
+                # No domains values for x
                 return False
             else:
-                #Append following arcs
-                # queue += [(z,x) for z in csp.binary_constraints
-                #           if z != x and z != y and x in csp.binary_constraints[z]]
-                pass
+                # Append following arcs != x constrained with x
+                queue += [(z,x) for z in csp.binary_constraints
+                          if z != x and x in csp.binary_constraints[z]]
     # Return True
     return True
 
@@ -111,10 +110,8 @@ def arc_reduce(x, y, csp):
     change = False
     # Loop for over all the values for the current domain
     for value_x in csp.domains[x]:
-        #for value_y in csp.domains[y]:
-            #if not csp.binary_constraints[x][y](value_x,value_y):
         if not any([csp.binary_constraints[x][y](value_x,value_y) for value_y in csp.domains[y]]):
-            # Remove value from domain
+            # Remove values from x domain
             csp.domains[x].remove(value_x)
             # Return change to True
             change = True
@@ -234,8 +231,7 @@ class CSP:
             else:
                  # Set the unary contraint for each variable
                 self.unary_constraints[constraint[0]] = constraint[2]
-        
-
+  
     def __str__(self):
         ''' Return the string representation for the CSP
         '''
@@ -406,6 +402,7 @@ class Sudoku:
                             Sudoku.get_name(row,const_column),alldiff) 
                             for const_column in Sudoku.column_names
                             if const_column != column]
+                
                 # 2. Set the rows variables to create the arcs
                 constraints += [(Sudoku.get_name(row,column),
                             Sudoku.get_name(const_row,column),alldiff)
