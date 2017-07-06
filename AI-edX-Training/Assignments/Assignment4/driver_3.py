@@ -462,8 +462,8 @@ class Sudoku:
         ''' Get the current state of the game with the Board.
         '''
         board = [self.cell[Sudoku.get_name(row,column)]
-                 for column in Sudoku.column_names
-                 for row in Sudoku.row_names]
+                 for row in Sudoku.row_names
+                 for column in Sudoku.column_names]
         return ''.join("{}".format(value) for value in board)
 
     
@@ -624,6 +624,8 @@ if __name__ == "__main__":
             if result:
                 # If sudoku ends succesfully, append to the outputs
                 outputs.append([result,method])
+                # Skip next methid
+                break
       
     # Write current outputs into the output file
     with open(output_file,"w") as file:

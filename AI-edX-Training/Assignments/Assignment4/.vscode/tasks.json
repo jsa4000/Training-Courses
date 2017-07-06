@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "python",
     "isShellCommand": true,
-    "args": ["${file}", "000260701680070090190004500820100040004602900050003028009300074040050036703018000"],
+    "args": ["${file}"],
     "showOutput": "always"
 }
