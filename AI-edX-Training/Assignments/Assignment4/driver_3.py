@@ -1,10 +1,100 @@
 import os
 import sys
 import time
+import copy
 import math
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
+
+def mrv(csp):
+    '''  Minimum-Remaining-Value (MRV) heuristic
+    Return: the variable from amongst those that have the fewest legal values
+    '''
+    result = None
+    # Loop over all the domain until found a solution 
+    for domain in csp.domains:
+        if len(csp.domains[domain]) > 1:
+            if result:
+                # Check the current length's domain and the previous
+                if len(csp.domains[domain]) < len(csp.domains[result]):
+                    result = domain
+            else:
+                result = domain
+    # Return the new value
+    return result
+
+def forward_checking(csp):
+    ''' Implement Inference finding in the neighbor variables
+    Return: dict of inferences
+    '''
+    changed = True
+    # Loop ove all the case until find a good inference
+    while changed:
+        # Remove and check for arc inconsinstencies in the current CSP
+        ac3(csp)
+        changed = False
+        #Check for all the regions of the current problem to solve
+        regions = Sudoku.get_regions()
+        for region in regions:
+            # Get the possible domain values for the current region in the board
+            domain = list(Sudoku.domain_values)
+            for index in region:
+                if len(csp.domains[index]) == 1 and csp.domains[index][0] in domain:
+                    domain.remove(csp.domains[index][0]) 
+            # Iterate over the values which haven't been assigned in that value
+            for value in domain: 
+                if sum(csp.domains[index].count(value) for index in region) == 1:
+                    # If only one cell can have that value, assign it
+                    csp.domains[[index for index in region if csp.domains[index].count(value) > 0][0]] = [value] 
+                    changed = True
+
+def solve_dfs(csp):
+    ''' Backtracking Algorithm for Constrained Satisfied Problems
+
+    CSPs can be solved by a specialized version of depth first search
+
+    BT(Level)
+        If all variables assigned
+            PRINT Value of each Variable
+            RETURN or EXIT (RETURN for more solutions)
+                (EXIT for only one solution)
+        V := PickUnassignedVariable()
+        Variable[Level] := V
+        Assigned[V] := TRUE
+        for d := each member of Domain(V)
+            Value[V] := d
+            OK := TRUE
+            for each constraint C such that
+                        V is a variable of C
+                        and all other variables of C are assigned.
+                if C is not satisfied by the current set of assignments
+                    OK := FALSE
+            if(OK)
+                BT(Level+1)
+        return
+    '''
+    # Create a queue using an entire copy of the CSP (DFS)
+    queue = [copy.deepcopy(csp)]
+    # Loop until find a solution
+    while len(queue):
+        # Dequeue the last item inserted (dfs)
+        current = queue.pop()
+        # Use forward checking as a subroutine for each node
+        forward_checking(current) 
+        # Check if current item was solved to exit and return
+        if all([len(current.domains[k]) == 1 for k in current.domains]): 
+            return current
+        # if the current is potentially solvable (no domains are empty)
+        if not any([len(current.domains[k]) == 0 for k in current.domains]): 
+             # Get a value from the domain to inference on
+            inference = mrv(current)
+            # add each guess to the queue
+            for value in current.domains[inference]: 
+                # Create a new CSP with current configuration
+                successor = copy.deepcopy(current)
+                successor.domains[inference] = [value]
+                queue.append(successor)
 
 def ac3 (csp):
     ''' AC-3 algorithm
@@ -309,12 +399,33 @@ class Sudoku:
     # Values of range(1,10)
     domain_values = [1,2,3,4,5,6,7,8,9]
 
+    def get_regions():
+        ''' Return the regions rows, columns and squares of the Sudoku game
+        '''
+        regions = [[Sudoku.get_name(row,column) for row in Sudoku.row_names] for column in Sudoku.column_names] 
+        regions += [[Sudoku.get_name(row,column) for row in Sudoku.row_names] for column in Sudoku.column_names]
+        regions += [Sudoku.get_current_square(Sudoku.row_names[x],Sudoku.column_names[y]) 
+                                                for x in range(0,9,3) for y in range(0,9,3)]
+        return regions
+
+
     def get_name(row, column):
         ''' Static function returning the string value joinning the
         given name and columns name. The returned value could be 
         used for Hashing the row-col name into a dictionary.
         '''
         return "{}{}".format(row,column)
+
+    def get_current_square(row, column):
+        ''' Get the current square variables that corresponds to the 
+        current row, column position
+        '''
+        row_square = math.ceil((Sudoku.row_names.index(row) + 1) / 3)
+        col_square = math.ceil((Sudoku.column_names.index(column) + 1) / 3)
+        result = [Sudoku.get_name(Sudoku.row_names[irow], Sudoku.column_names[icol])
+                  for irow in range(3*(row_square-1), row_square * 3)
+                  for icol in range(3*(col_square-1), col_square * 3)] 
+        return result
 
     def __init__(self):
         ''' Create the Board with the variables (cells) with
@@ -355,17 +466,7 @@ class Sudoku:
                  for row in Sudoku.row_names]
         return ''.join("{}".format(value) for value in board)
 
-    def get_current_square(self, row, column):
-        ''' Get the current square variables that corresponds to the 
-        current row, column position
-        '''
-        row_square = math.ceil((Sudoku.row_names.index(row) + 1) / 3)
-        col_square = math.ceil((Sudoku.column_names.index(column) + 1) / 3)
-        result = [Sudoku.get_name(Sudoku.row_names[irow], Sudoku.column_names[icol])
-                  for irow in range(3*(row_square-1), row_square * 3)
-                  for icol in range(3*(col_square-1), col_square * 3)] 
-        return result
-
+    
     def empty_cell(self, row, column):
         ''' Return wethere the cell is empty or not
         '''
@@ -412,7 +513,7 @@ class Sudoku:
                             if const_row != row]
             
                 # 3. Set square constraints attached to this node
-                square_items = self.get_current_square(row, column)
+                square_items = Sudoku.get_current_square(row, column)
                 # Get the square items != from current row and col
                 left_items = []
                 for item in square_items:
@@ -427,6 +528,16 @@ class Sudoku:
         # Create the current CSP for the current board setup
         return CSP(variables,domains,constraints)
 
+    def test(self, csp=None):
+        ''' Print the current instance board and CSP if given
+        '''
+        print(self.__str__())
+        # Pythonist way to overpass the check :)
+        try:
+            print(csp)
+        except:
+            pass
+    
     def play(self, board, method='BTS'):
         ''' Play current Board game
 
@@ -446,28 +557,31 @@ class Sudoku:
 
         # Create the Contrained Satisfied Problem to solve the problem
         csp = self.create_csp()
-        # print(self.__str__())
-        # print(csp)
 
+        # Variable to check a valid solution for the Sudoku problem
+        result = False
+        # Check the method to solve the problem
         if method == 'BTS':
             #Perform the Backtracking Algorithm
-            pass
+            result = solve_dfs(csp)
+            #Take the result as the final csp
+            if result:
+                csp = result
+                result = True
         elif method == 'AC3':
             #Perform AC-3 Algorithm alone
             result = ac3(csp)
-            # print(self.__str__())
-            # print(csp)
-            # Check if returns a valid solution
-            if result: 
-                # Get the domains and setup the board accordingly
-                for x in csp.domains:
-                    if len(csp.domains[x]) == 1:
-                        self.cell[x] = csp.domains[x][0]
-                    else:
-                        return None
-            else:
-                return None
-
+          
+        # Check if the mothod used returns a valid solution
+        if result: 
+            # Get the domains and setup the board accordingly
+            for x in csp.domains:
+                if len(csp.domains[x]) == 1:
+                    self.cell[x] = csp.domains[x][0]
+                else:
+                    return None
+        else:
+            return None
 
         # Return current state of the game after playing
         return self.get_board()
@@ -500,7 +614,7 @@ if __name__ == "__main__":
 
     # Methods availabile to solve the Sudoku game
     # methods = ["BTS","AC3"]
-    methods = ["AC3"]
+    methods = ["BTS"]
 
     # Use the inputs and generate the outputs
     outputs = []
