@@ -630,7 +630,7 @@ if __name__ == "__main__":
     # Write current outputs into the output file
     with open(output_file,"w") as file:
         for output in outputs:
-            file.write("{}\n".format(' '.join(output)))
+            file.write("{}".format(' '.join(output)))
 
     # End of the Program
 
