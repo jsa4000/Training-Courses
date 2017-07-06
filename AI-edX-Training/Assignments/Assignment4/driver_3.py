@@ -613,8 +613,7 @@ if __name__ == "__main__":
         inputs.append(sys.argv[1])
 
     # Methods availabile to solve the Sudoku game
-    # methods = ["BTS","AC3"]
-    methods = ["BTS"]
+    methods = ["AC3", "BTS"]
 
     # Use the inputs and generate the outputs
     outputs = []
