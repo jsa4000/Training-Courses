@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # Global variables wheter files will be generated or not
-GENERATE_FILES = False
+GENERATE_FILES = True
 
 # Course paths for training and testv sets 
 #train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
@@ -26,7 +26,7 @@ def get_stopwords(path):
     # Remove the character \n from the words
     return list(map(lambda item: item.replace("\n",""),stop_words))
 
-def clean_text(text, stopwords,remove_special=True):
+def clean_text(text, stopwords,remove_special=False):
     ''' Clean the specified text removing the stop words and
     using additional replace for special symbols.
     '''
@@ -132,11 +132,11 @@ if __name__ == "__main__":
     if GENERATE_FILES: imdb_data_preprocess(train_path, name="imdb_tr.csv")
 
     # # Get the dataframe with the Bag of words using the ngrams
-    train, labels = get_bag_of_words("imdb_tr.csv", 1)
+    # train, labels = get_bag_of_words("imdb_tr.csv", 1)
   
     # # Train the NLP model with the training data
-    print(train.head())
-    print(labels.head())
+    # print(train.head())
+    # print(labels.head())
 
     '''train a SGD classifier using bigram representation,
     predict sentiments on imdb_te.csv, and write output to

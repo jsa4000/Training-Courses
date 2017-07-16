@@ -9,7 +9,7 @@
             "pythonPath": "${config:python.pythonPath}",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
-            "args": ["000260701680070090190004500820100040004602900050003028009300074040050036703018000"],
+            "args": [],
             "env": {},
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [
