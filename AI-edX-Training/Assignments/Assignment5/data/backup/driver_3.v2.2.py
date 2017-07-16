@@ -4,22 +4,22 @@ import math
 import re
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import SGDClassifier
-from sklearn.model_selection import StratifiedKFold
+from sklearn import linear_model
+from sklearn.model_selection import cross_val_score
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 proc_train_path = "imdb_tr.csv"
 
 # Course paths for training and testv sets 
-train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
-test_path = "../resource/lib/publicdata/imdb_te.csv" # test data for grade evaluation
-stopwords_path = "stopwords.en.txt" # stopwords
+#train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
+#test_path = "../resource/lib/publicdata/imdb_te.csv" # test data for grade evaluation
+#stopwords_path = "stopwords.en.txt" # stopwords
 
 #Local Paths
-# train_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/train" # use terminal to ls files under this directory
-# test_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/predict/imdb_te.csv" # test data for grade evaluation
-# stopwords_path = "data/stopwords.en.txt" # stopwords
+train_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/train" # use terminal to ls files under this directory
+test_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/predict/imdb_te.csv" # test data for grade evaluation
+stopwords_path = "data/stopwords.en.txt" # stopwords
 
 
 def get_stopwords(path):
@@ -113,7 +113,7 @@ def get_bow_train(inpath, ngrams=1, use_tfidf=False):
     # Extract the words and get the vectors
     bag = count.fit_transform(df["text"])
     # return the current dataframe with the extrated ngrams
-    return bag, df["polarity"].astype(int).values, count.vocabulary_
+    return bag.toarray(), df["polarity"].astype(int).values, count.vocabulary_
 
 def get_bow_test(inpath, ngrams=1, vocabulary=None, use_tfidf=False):
     ''' This funcion uses the input file from imdb_data_preprocess
@@ -134,7 +134,7 @@ def get_bow_test(inpath, ngrams=1, vocabulary=None, use_tfidf=False):
     # Extract the words and get the vectors
     bag = count.fit_transform(df["text"])
     # return the current dataframe with the extrated ngrams
-    return bag
+    return bag.toarray()
     
 def predict_sentiment_analyis(inpath, testpath, ngrams=1, use_tfidf=False):
     ''' get the Sentiment analysis classification
@@ -144,30 +144,26 @@ def predict_sentiment_analyis(inpath, testpath, ngrams=1, use_tfidf=False):
     # Get the dataframe with the Bag of words using the ngrams
     test = get_bow_test(testpath, ngrams, vocabulary, use_tfidf)
     # Train the NLP model with the training data
-    model = SGDClassifier(loss='hinge', penalty='l1')
-    # Create Cross validation StratifiedKFold ( balanced in targets )
-    kf = StratifiedKFold(n_splits=5)
-    # Let's traint the model for the cv created
-    for train_index, _ in kf.split(train, labels):
-        #Use cross validation to train the model
-        model = model.fit(train[train_index], labels[train_index])
+    model = linear_model.SGDClassifier(loss='hinge', penalty='l1')
+    #Use cross validation to train the model
+    cross_val_score(model, train, labels, cv=5)
     # Return the prediction result for the classification
     return model.predict(test)
 
 if __name__ == "__main__":
     
     # Preprocess de data from imdb to generate "imdb_tr.csv"
-    imdb_data_preprocess(train_path, proc_train_path)
+    #imdb_data_preprocess(train_path, proc_train_path)
 
     '''train a SGD classifier using unigram representation,
     predict sentiments on imdb_te.csv, and write output to
     unigram.output.txt'''
 
-    # Get the result from the set
-    result = predict_sentiment_analyis(proc_train_path, test_path, 1)
-    # Creat the output file 
-    with open("unigram.output.txt",'w') as output_file:
-        output_file.write("\n".join([str(value) for value in result]))
+    # # Get the result from the set
+    # result = predict_sentiment_analyis(proc_train_path, test_path, 1)
+    # # Creat the output file 
+    # with open("unigram.output.txt",'w') as output_file:
+    #     output_file.write("\n".join([str(value) for value in result]))
 
     '''train a SGD classifier using bigram representation,
     predict sentiments on imdb_te.csv, and write output to

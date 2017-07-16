@@ -12,14 +12,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 proc_train_path = "imdb_tr.csv"
 
 # Course paths for training and testv sets 
-train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
-test_path = "../resource/lib/publicdata/imdb_te.csv" # test data for grade evaluation
-stopwords_path = "stopwords.en.txt" # stopwords
+#train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
+#test_path = "../resource/lib/publicdata/imdb_te.csv" # test data for grade evaluation
+#stopwords_path = "stopwords.en.txt" # stopwords
 
 #Local Paths
-# train_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/train" # use terminal to ls files under this directory
-# test_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/predict/imdb_te.csv" # test data for grade evaluation
-# stopwords_path = "data/stopwords.en.txt" # stopwords
+train_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/train" # use terminal to ls files under this directory
+test_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/predict/imdb_te.csv" # test data for grade evaluation
+stopwords_path = "data/stopwords.en.txt" # stopwords
 
 
 def get_stopwords(path):
@@ -157,7 +157,7 @@ def predict_sentiment_analyis(inpath, testpath, ngrams=1, use_tfidf=False):
 if __name__ == "__main__":
     
     # Preprocess de data from imdb to generate "imdb_tr.csv"
-    imdb_data_preprocess(train_path, proc_train_path)
+    #imdb_data_preprocess(train_path, proc_train_path)
 
     '''train a SGD classifier using unigram representation,
     predict sentiments on imdb_te.csv, and write output to
