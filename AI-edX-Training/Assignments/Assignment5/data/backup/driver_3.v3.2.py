@@ -5,8 +5,9 @@ import re
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import SGDClassifier
-from sklearn.model_selection import StratifiedKFold, GridSearchCV
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.model_selection import StratifiedKFold
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 proc_train_path = "imdb_tr.csv"
 
@@ -143,21 +144,15 @@ def predict_sentiment_analyis(inpath, testpath, ngrams=1, use_tfidf=False):
     # Get the dataframe with the Bag of words using the ngrams
     test = get_bow_test(testpath, ngrams, vocabulary, use_tfidf)
     # Train the NLP model with the training data
-    model = SGDClassifier()
+    model = SGDClassifier(loss='hinge', penalty='l1')
     # Create Cross validation StratifiedKFold ( balanced in targets )
-    kf = StratifiedKFold(n_splits=10)
-    #Create Parameters
-    parameters = {
-        'loss': ('log', 'hinge'),
-        'penalty': ['l1', 'l2', 'elasticnet'],
-        'alpha': [0.001, 0.0001, 0.00001, 0.000001]
-    }
+    kf = StratifiedKFold(n_splits=5)
     # Let's traint the model for the cv created
-    #gd = GridSearchCV(model, parameters, cv=[kf.split(train, labels)])
-    gd = GridSearchCV(model, parameters, cv=kf.split(train, labels))
-    gd.fit(train, labels)
+    for train_index, _ in kf.split(train, labels):
+        #Use cross validation to train the model
+        model = model.fit(train[train_index], labels[train_index])
     # Return the prediction result for the classification
-    return gd.predict(test)
+    return model.predict(test)
 
 if __name__ == "__main__":
     
