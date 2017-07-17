@@ -11,14 +11,14 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer, Tf
 proc_train_path = "imdb_tr.csv"
 
 # # Course paths for training and testv sets 
-train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
-test_path = "../resource/lib/publicdata/imdb_te.csv" # test data for grade evaluation
-stopwords_path = "stopwords.en.txt" # stopwords
+# train_path = "../resource/lib/publicdata/aclImdb/train/" # use terminal to ls files under this directory
+# test_path = "../resource/lib/publicdata/imdb_te.csv" # test data for grade evaluation
+# stopwords_path = "stopwords.en.txt" # stopwords
 
 #Local Paths
-# train_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/train" # use terminal to ls files under this directory
-# test_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/predict/imdb_te.csv" # test data for grade evaluation
-# stopwords_path = "data/stopwords.en.txt" # stopwords
+train_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/train" # use terminal to ls files under this directory
+test_path = "D:/JSANTOS/DEVELOPMENT/Data/nlp/aclImdb/predict/imdb_te.csv" # test data for grade evaluation
+stopwords_path = "data/stopwords.en.txt" # stopwords
 
 
 def get_stopwords(path):
@@ -121,7 +121,7 @@ def get_bow_train(inpath, ngrams=1, use_tfidf=False):
             vectorizer = CountVectorizer(vocabulary=vectorizer.vocabulary_,
                                     ngram_range=(ngrams,ngrams))
         # Finally do the transformation
-        bag = vectorizer.fit_transform(df["text"])
+        bag = vectorizer.transform(df["text"])
     else:
         bag = vectorizer.fit_transform(df["text"])  
     # return the current dataframe with the extrated ngrams
@@ -155,7 +155,7 @@ def get_bow_test(inpath, ngrams=1, vocabulary=None, use_tfidf=False):
             vectorizer = CountVectorizer(vocabulary=vectorizer.vocabulary_,
                                     ngram_range=(ngrams,ngrams))
         # Finally do the transformation
-        bag = vectorizer.fit_transform(df["text"])
+        bag = vectorizer.transform(df["text"])
     else:
         bag = vectorizer.fit_transform(df["text"])  
     # return the current dataframe with the extrated ngrams
@@ -194,31 +194,31 @@ if __name__ == "__main__":
     predict sentiments on imdb_te.csv, and write output to
     unigram.output.txt'''
 
-    # Get the result from the set
-    result = predict_sentiment_analyis(proc_train_path, test_path, 1)
-    # Creat the output file 
-    with open("unigram.output.txt",'w') as output_file:
-        output_file.write("\n".join([str(value) for value in result]))
+    # # Get the result from the set
+    # result = predict_sentiment_analyis(proc_train_path, test_path, 1)
+    # # Creat the output file 
+    # with open("unigram.output.txt",'w') as output_file:
+    #     output_file.write("\n".join([str(value) for value in result]))
 
-    '''train a SGD classifier using bigram representation,
-    predict sentiments on imdb_te.csv, and write output to
-    bigram.output.txt'''
+    # '''train a SGD classifier using bigram representation,
+    # predict sentiments on imdb_te.csv, and write output to
+    # bigram.output.txt'''
 
-     # Get the result from the set
-    result = predict_sentiment_analyis(proc_train_path, test_path, 2)
-    # Creat the output file 
-    with open("bigram.output.txt",'w') as output_file:
-        output_file.write("\n".join([str(value) for value in result]))
+    #  # Get the result from the set
+    # result = predict_sentiment_analyis(proc_train_path, test_path, 2)
+    # # Creat the output file 
+    # with open("bigram.output.txt",'w') as output_file:
+    #     output_file.write("\n".join([str(value) for value in result]))
 
-    '''train a SGD classifier using unigram representation
-    with tf-idf, predict sentiments on imdb_te.csv, and write 
-    output to unigramtfidf.output.txt'''
+    # '''train a SGD classifier using unigram representation
+    # with tf-idf, predict sentiments on imdb_te.csv, and write 
+    # output to unigramtfidf.output.txt'''
 
-    # Get the result from the set
-    result = predict_sentiment_analyis(proc_train_path, test_path, 1, True)
-    # Creat the output file 
-    with open("unigramtfidf.output.txt",'w') as output_file:
-        output_file.write("\n".join([str(value) for value in result]))
+    # # Get the result from the set
+    # result = predict_sentiment_analyis(proc_train_path, test_path, 1, True)
+    # # Creat the output file 
+    # with open("unigramtfidf.output.txt",'w') as output_file:
+    #     output_file.write("\n".join([str(value) for value in result]))
 
     '''train a SGD classifier using bigram representation
     with tf-idf, predict sentiments on imdb_te.csv, and write 
